@@ -21,7 +21,7 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route path="/simplyfi_throwaway" element={<Home />} />
+            <Route path="/simplyfi-throwaway" element={<Home />} />
           </Routes>
         </div>
       </BrowserRouter>
