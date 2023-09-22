@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/simplyfi_mvp/static/css/main.b86f7a3d.css",
+    "main.js": "/simplyfi_mvp/static/js/main.47bb5291.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/simplyfi_mvp/static/js/787.c4e7f8f9.chunk.js",
+    "index.html": "/simplyfi_mvp/index.html",
+    "main.b86f7a3d.css.map": "/simplyfi_mvp/static/css/main.b86f7a3d.css.map",
+    "main.47bb5291.js.map": "/simplyfi_mvp/static/js/main.47bb5291.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/simplyfi_mvp/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b86f7a3d.css",
+    "static/js/main.47bb5291.js"
+  ]
+}
