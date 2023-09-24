@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useFinancialsContext } from "../hooks/useFinancialsContext";
 
 // components
 import FinancialDetails from "../components/FinancialDetails";
+import FinancialForm from "../components/FinancialForm";
 
 const Home = () => {
-  const [financials, setFinancials] = useState(null);
+  const { financials, dispatch } = useFinancialsContext();
 
   useEffect(() => {
-    const fetchFinancial = async () => {
+    const fetchFinancials = async () => {
       const response = await fetch("/api/financials");
       const json = await response.json();
 
       if (response.ok) {
-        setFinancials(json);
+        dispatch({ type: "SET_FINANCIALS", payload: json });
       }
     };
 
-    fetchFinancial();
-  }, []);
+    fetchFinancials();
+  }, [dispatch]);
 
   return (
     <div className="home">
@@ -26,6 +28,10 @@ const Home = () => {
           financials.map((financial) => (
             <FinancialDetails key={financial._id} financial={financial} />
           ))}
+      </div>
+
+      <div className="financial-form">
+        <FinancialForm />
       </div>
 
       <div className="chatbot-container">

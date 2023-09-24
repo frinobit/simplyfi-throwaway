@@ -6,15 +6,6 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 
 function App() {
-  // const [backendData, setBackendData] = useState([{}]);
-
-  // useEffect(() => {
-  //   fetch("/api")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setBackendData(data);
-  //     });
-  // }, []);
   return (
     <div className="App">
       <BrowserRouter>
@@ -26,13 +17,6 @@ function App() {
         </div>
       </BrowserRouter>
     </div>
-    //   <div>
-    //     {typeof backendData.users === "undefined" ? (
-    //       <p>Loading...</p>
-    //     ) : (
-    //       backendData.users.map((user, i) => <p key={i}>{user}</p>)
-    //     )}
-    //   </div>
   );
 }
 
