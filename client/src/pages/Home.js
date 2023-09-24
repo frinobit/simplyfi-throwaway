@@ -3,7 +3,6 @@ import { useFinancialsContext } from "../hooks/useFinancialsContext";
 
 // components
 import FinancialDetails from "../components/FinancialDetails";
-import FinancialForm from "../components/FinancialForm";
 
 const Home = () => {
   const { financials, dispatch } = useFinancialsContext();
@@ -28,10 +27,6 @@ const Home = () => {
           financials.map((financial) => (
             <FinancialDetails key={financial._id} financial={financial} />
           ))}
-      </div>
-
-      <div className="financial-form">
-        <FinancialForm />
       </div>
 
       <div className="chatbot-container">
