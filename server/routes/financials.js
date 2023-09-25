@@ -9,7 +9,12 @@ const {
   updateFinancial,
 } = require("../controllers/financialController");
 
+// require auth for all financial routes
+const requireAuth = require("../middleware/requireAuth");
+
 const router = express.Router();
+
+router.use(requireAuth);
 
 // GET all workouts
 router.get("/", getFinancials);

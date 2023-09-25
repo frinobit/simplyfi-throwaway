@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 
 // get all financials
 const getFinancials = async (req, res) => {
-  const financials = await Financial.find({}).sort({ createdAt: -1 });
+  const user_id = req.user._id;
+
+  const financials = await Financial.find({ user_id }).sort({ createdAt: -1 });
 
   res.status(200).json(financials);
 };
@@ -54,12 +56,14 @@ const createFinancial = async (req, res) => {
 
   // add doc to db
   try {
+    const user_id = req.user._id;
     const financial = await Financial.create({
       name,
       income,
       expenses,
       assets,
       liabilities,
+      user_id,
     });
     res.status(200).json(financial);
   } catch (error) {

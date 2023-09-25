@@ -1,15 +1,21 @@
 import { useEffect } from "react";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 // components
 import FinancialDetails from "../components/FinancialDetails";
 
 const Home = () => {
   const { financials, dispatch } = useFinancialsContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     const fetchFinancials = async () => {
-      const response = await fetch("/api/financials");
+      const response = await fetch("/api/financials", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {
@@ -17,8 +23,10 @@ const Home = () => {
       }
     };
 
-    fetchFinancials();
-  }, [dispatch]);
+    if (user) {
+      fetchFinancials();
+    }
+  }, [dispatch, user]);
 
   return (
     <div className="home">

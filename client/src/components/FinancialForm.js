@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const FinancialForm = () => {
   const { dispatch } = useFinancialsContext();
+  const { user } = useAuthContext();
 
   const [name, setName] = useState("");
   const [income, setIncome] = useState("");
@@ -15,6 +17,11 @@ const FinancialForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      setError("You must be logged in");
+      return;
+    }
+
     const financial = { name, income, expenses, assets, liabilities };
 
     const response = await fetch("/api/financials", {
@@ -22,6 +29,7 @@ const FinancialForm = () => {
       body: JSON.stringify(financial),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();

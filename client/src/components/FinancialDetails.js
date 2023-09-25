@@ -1,11 +1,19 @@
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const FinancialDetails = ({ financial }) => {
   const { dispatch } = useFinancialsContext();
+  const { user } = useAuthContext();
 
   const handleClick = async () => {
+    if (!user) {
+      return;
+    }
     const response = await fetch("/api/financials/" + financial._id, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     const json = await response.json();
 
