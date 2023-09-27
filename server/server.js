@@ -22,6 +22,15 @@ app.use("/api/user", userRoutes);
 app.use("/api/financials", financialRoutes);
 app.use("/api/goals", goalRoutes);
 
+// dialogflow
+app.post("/dialogflow", (req, res) => {
+  const response = {
+    fulfillmentMessages: [{ text: { text: ["from webhook"] } }],
+  };
+
+  res.status(200).json(response);
+});
+
 // connect to db
 mongoose
   .connect(process.env.MONGO_URI)
