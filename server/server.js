@@ -24,11 +24,17 @@ app.use("/api/goals", goalRoutes);
 
 // dialogflow
 app.post("/dialogflow", (req, res) => {
-  const response = {
-    fulfillmentMessages: [{ text: { text: ["from webhook"] } }],
-  };
+  const payload = req.body;
 
-  res.status(200).json(response);
+  const intent = payload.queryResult.intent.displayName;
+  const parameters = payload.queryResult.parameters;
+
+  if (intent === "update-name - context: ongoing-update-profile") {
+    const name = parameters["given-name"];
+    const fulfillmentText = `The name of ${name} is okay`;
+    const response = { fulfillmentText };
+    res.status(200).json(response);
+  }
 });
 
 // connect to db
