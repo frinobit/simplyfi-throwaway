@@ -2,9 +2,11 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+
 const userRoutes = require("./routes/user");
 const financialRoutes = require("./routes/financials");
 const goalRoutes = require("./routes/goals");
+const personalRoutes = require("./routes/personals");
 
 // express app
 const app = express();
@@ -21,6 +23,7 @@ app.use((req, res, next) => {
 app.use("/api/user", userRoutes);
 app.use("/api/financials", financialRoutes);
 app.use("/api/goals", goalRoutes);
+app.use("/api/personals", personalRoutes);
 
 // dialogflow
 app.post("/dialogflow", (req, res) => {
@@ -31,7 +34,7 @@ app.post("/dialogflow", (req, res) => {
 
   if (intent === "update-name - context: ongoing-update-profile") {
     const name = parameters["given-name"];
-    const fulfillmentText = `The name of ${name} is okay`;
+    const fulfillmentText = `webhook - The name of ${name} is okay`;
     const response = { fulfillmentText };
     res.status(200).json(response);
   }

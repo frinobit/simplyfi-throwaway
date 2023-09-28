@@ -1,13 +1,16 @@
 import { useEffect } from "react";
-import { useFinancialsContext } from "../hooks/useFinancialsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useFinancialsContext } from "../hooks/useFinancialsContext";
+import { usePersonalsContext } from "../hooks/usePersonalsContext";
 
 // components
 import FinancialDetails from "../components/FinancialDetails";
+import PersonalDetails from "../components/PersonalDetails";
 
 const Home = () => {
-  const { financials, dispatch } = useFinancialsContext();
   const { user } = useAuthContext();
+  const { financials, dispatch: financialsDispatch } = useFinancialsContext();
+  const { personals, dispatch: personalsDispatch } = usePersonalsContext();
 
   useEffect(() => {
     const fetchFinancials = async () => {
@@ -19,14 +22,28 @@ const Home = () => {
       const json = await response.json();
 
       if (response.ok) {
-        dispatch({ type: "SET_FINANCIALS", payload: json });
+        financialsDispatch({ type: "SET_FINANCIALS", payload: json });
+      }
+    };
+
+    const fetchPersonals = async () => {
+      const response = await fetch("/api/personals", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
+
+      if (response.ok) {
+        personalsDispatch({ type: "SET_PERSONALS", payload: json });
       }
     };
 
     if (user) {
       fetchFinancials();
+      fetchPersonals();
     }
-  }, [dispatch, user]);
+  }, [financialsDispatch, personalsDispatch, user]);
 
   return (
     <div className="home">
@@ -34,6 +51,13 @@ const Home = () => {
         {financials &&
           financials.map((financial) => (
             <FinancialDetails key={financial._id} financial={financial} />
+          ))}
+      </div>
+
+      <div className="personal-details">
+        {personals &&
+          personals.map((personal) => (
+            <PersonalDetails key={personal._id} personal={personal} />
           ))}
       </div>
 
