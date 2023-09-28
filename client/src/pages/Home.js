@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
 import { usePersonalsContext } from "../hooks/usePersonalsContext";
@@ -7,7 +7,18 @@ import { usePersonalsContext } from "../hooks/usePersonalsContext";
 import FinancialDetails from "../components/FinancialDetails";
 import PersonalDetails from "../components/PersonalDetails";
 
+// socket
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:3001");
+
 const Home = () => {
+  // socket
+  const [message, setMessage] = useState("");
+  const [messageReceived, setMessageReceived] = useState("");
+  const sendMessage = () => {
+    socket.emit("send_message", { message });
+  };
+
   const { user } = useAuthContext();
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
   const { personals, dispatch: personalsDispatch } = usePersonalsContext();
@@ -38,6 +49,15 @@ const Home = () => {
         personalsDispatch({ type: "SET_PERSONALS", payload: json });
       }
     };
+
+    socket.on("receive_message", (data) => {
+      setMessageReceived(data.message);
+    });
+
+    socket.on("post_request_done", (data) => {
+      setMessageReceived(data.message);
+      fetchPersonals();
+    });
 
     if (user) {
       fetchFinancials();
@@ -76,6 +96,17 @@ const Home = () => {
           height="430"
           src="https://console.dialogflow.com/api-client/demo/embedded/4111016e-e8c8-4065-a6e5-45828871440c"
         ></iframe>
+      </div>
+      <div className="test">
+        <input
+          placeholder="message..."
+          onChange={(event) => {
+            setMessage(event.target.value);
+          }}
+        />
+        <button onClick={sendMessage}>send message</button>
+        <h1>Message: </h1>
+        {messageReceived}
       </div>
     </div>
   );
