@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 const Personal = require("./models/personalModel");
+const User = require("./models/userModel");
 
 // socket
 const http = require("http");
@@ -16,6 +17,7 @@ const io = new Server(server, {
 });
 
 let socketIo;
+let user_id;
 
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
@@ -24,6 +26,12 @@ io.on("connection", (socket) => {
     socket.emit("receive_message", data);
     socket.broadcast.emit("receive_message", data);
     // socket.to(data.room).emit("receive_message", data);
+  });
+
+  socket.once("user_info", async (data) => {
+    const email = data.user.email;
+    const user = await User.findOne({ email });
+    user_id = user._id;
   });
 
   socketIo = io;
@@ -48,14 +56,12 @@ app.post("/dialogflow", async (req, res) => {
     res.status(200).json(response);
 
     // create user
-    // const user_id = req.user._id; // TO REVISIT THIS
-    const user_id = "65152ee700502425f450e17e";
     await Personal.create({
       name,
       user_id,
     });
 
-    // testing 1
+    // testing
     const message = { message: "A POST request was done!" };
     socketIo.emit("post_request_done", message);
   }

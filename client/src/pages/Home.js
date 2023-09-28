@@ -12,16 +12,17 @@ import io from "socket.io-client";
 const socket = io.connect("http://localhost:3001");
 
 const Home = () => {
-  // socket
-  const [message, setMessage] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
-  const sendMessage = () => {
-    socket.emit("send_message", { message });
-  };
-
   const { user } = useAuthContext();
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
   const { personals, dispatch: personalsDispatch } = usePersonalsContext();
+
+  // socket
+  const [message, setMessage] = useState("");
+  const [messageReceived, setMessageReceived] = useState("");
+  socket.emit("user_info", { user });
+  const sendMessage = () => {
+    socket.emit("send_message", { message });
+  };
 
   useEffect(() => {
     const fetchFinancials = async () => {
