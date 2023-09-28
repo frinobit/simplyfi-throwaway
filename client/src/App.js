@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
@@ -9,7 +9,29 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
+// socket
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:3001");
+
 function App() {
+  // socket
+  const [message, setMessage] = useState("");
+  const [messageReceived, setMessageReceived] = useState("");
+  const sendMessage = () => {
+    socket.emit("send_message", { message });
+  };
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessageReceived(data.message);
+    });
+
+    socket.on("post_request_done", (data) => {
+      setMessageReceived(data.message);
+    });
+  }, [socket]);
+
+  // normal
   const { user } = useAuthContext();
 
   return (
@@ -45,6 +67,17 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
+      <div className="test">
+        <input
+          placeholder="message..."
+          onChange={(event) => {
+            setMessage(event.target.value);
+          }}
+        />
+        <button onClick={sendMessage}>send message</button>
+        <h1>Message: </h1>
+        {messageReceived}
+      </div>
     </div>
   );
 }
