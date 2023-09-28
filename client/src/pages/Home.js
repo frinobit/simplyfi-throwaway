@@ -19,10 +19,10 @@ const Home = () => {
   // socket
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
-  socket.emit("user_info", { user });
   const sendMessage = () => {
     socket.emit("send_message", { message });
   };
+  socket.emit("user_info", { user });
 
   useEffect(() => {
     const fetchFinancials = async () => {
@@ -83,13 +83,6 @@ const Home = () => {
       </div>
 
       <div className="chatbot-container">
-        {/* <iframe
-          title="chatbot;"
-          allow="microphone;"
-          width="350"
-          height="430"
-          src="https://console.dialogflow.com/api-client/demo/embedded/ac0f7a90-c0a2-4ee8-91a8-40f8c571bceb"
-        ></iframe> */}
         <iframe
           title="chatbot;"
           allow="microphone;"
