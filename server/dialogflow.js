@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const axios = require("axios");
 
-const Personal = require("./models/personalModel");
 const User = require("./models/userModel");
+const Personal = require("./models/personalModel");
 
 // socket
 const http = require("http");
@@ -12,7 +12,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST"],
   },
 });
@@ -61,7 +61,7 @@ app.post("/dialogflow", async (req, res) => {
 
     res.status(200).json(response);
 
-    // create user using api
+    // create user using api // revisit to edit instead of create
     const requestData = {
       name: name,
       user_id: user_id,
@@ -69,11 +69,13 @@ app.post("/dialogflow", async (req, res) => {
     const headers = {
       Authorization: `Bearer ${user_token}`,
     };
-    const apiUrl = "http://localhost:4000/api/personals";
+    const personal_data = await Personal.findOne({ user_id });
+    const personal_id = personal_data._id;
+    const apiUrl = `${process.env.BACKEND_URL}/api/personals/${personal_id}`;
     axios
-      .post(apiUrl, requestData, { headers })
+      .patch(apiUrl, requestData, { headers })
       .then((response) => {
-        console.log("Personal record created:", response.data);
+        console.log("Personal record updated:", response.data);
       })
       .catch((error) => {
         console.error("API Error:", error.message);
