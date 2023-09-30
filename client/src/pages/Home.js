@@ -17,11 +17,13 @@ const Home = () => {
   const { personals, dispatch: personalsDispatch } = usePersonalsContext();
 
   // socket
+  // testing
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
   const sendMessage = () => {
     socket.emit("send_message", { message });
   };
+  // send back user info
   socket.emit("user_info", { user });
 
   useEffect(() => {
