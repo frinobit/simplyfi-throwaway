@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
   });
 
   // get token from frontend then decode to get user_id
-  socket.once("user_info", async (data) => {
+  socket.on("user_info", async (data) => {
     user_token = data.user.token;
 
     const decodedToken = await admin.auth().verifyIdToken(user_token);
