@@ -23,9 +23,17 @@ const Navbar = () => {
           <h3>Profile</h3>
         </Link>
         <nav>
-          {user && (
+          {user && user.email && (
             <div>
               <span>{user.email}</span>
+              <button onClick={handleClick}>Logout</button>
+            </div>
+          )}
+          {user && !user.email && (
+            <div>
+              <span>Logged in as guest</span>
+              <Link to="/simplyfi-throwaway/login">Login</Link>
+              <Link to="/simplyfi-throwaway/signup">Signup</Link>
               <button onClick={handleClick}>Logout</button>
             </div>
           )}

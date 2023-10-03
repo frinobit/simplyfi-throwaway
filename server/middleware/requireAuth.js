@@ -1,6 +1,7 @@
 const admin = require("firebase-admin");
 const serviceAccount = require("../config/serviceAccountKey.json");
 const User = require("../models/userModel");
+const UserGuest = require("../models/userGuestModel");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -18,7 +19,12 @@ const requireAuth = async (req, res, next) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
     const { user_id } = decodedToken;
+
+    // find in user
     req.user = await User.findOne({ user_id }).select("user_id");
+    // find in user guest
+    if (!req.user)
+      req.user = await UserGuest.findOne({ user_id }).select("user_id");
     next();
   } catch (error) {
     console.log(error);

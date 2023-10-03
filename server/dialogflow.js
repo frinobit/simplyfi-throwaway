@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 const axios = require("axios");
+const admin = require("firebase-admin");
 
-const User = require("./models/userModel");
 const Personal = require("./models/personalModel");
 
 // socket
@@ -31,13 +31,12 @@ io.on("connection", (socket) => {
     // socket.to(data.room).emit("receive_message", data);
   });
 
-  // get user id from frontend
+  // get token from frontend then decode to get user_id
   socket.once("user_info", async (data) => {
-    const email = data.user.email;
-    const user_data = await User.findOne({ email });
-    user_id = user_data.user_id;
-
     user_token = data.user.token;
+
+    const decodedToken = await admin.auth().verifyIdToken(user_token);
+    user_id = decodedToken.user_id;
   });
 
   socketIo = io;

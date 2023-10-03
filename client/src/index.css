@@ -183,3 +183,9 @@ form.login {
   background: #fff;
   border-radius: 4px;
 }
+
+/* login */
+.button-container {
+  display: block;
+  margin-bottom: 10px;
+}
