@@ -1,23 +1,23 @@
 <!-- link dialogflow v1 -->
 
-cd server
-ngrok http 4000
-copy https link to dialogflow -> fulfillment -> webhook
+cd server\n
+ngrok http 4000\n
+copy https link to dialogflow -> fulfillment -> webhook\n
 
 <!-- link dialogflow v2 -->
 
-cd server
-gcloud auth login
-gcloud auth application-default set-quota-project PROJECT-ID // set
+cd server\n
+gcloud auth login\n
+gcloud auth application-default set-quota-project PROJECT-ID // set\n
 
 <!-- run backend -->
 
-cd server
-npm install
-npm run dev
+cd server\n
+npm install\n
+npm run dev\n
 
 <!-- run frontend -->
 
-cd client
-npm install
-npm start
+cd client\n
+npm install\n
+npm start\n
