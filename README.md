@@ -22,4 +22,4 @@ npm start<br>
 (not tested yet)<br>
 cd server<br>
 gcloud auth login<br>
-gcloud auth application-default set-quota-project PROJECT-ID // set<br>
+gcloud auth application-default set-quota-project PROJECT-ID<br>
