@@ -1,4 +1,4 @@
-const app = require("../firebase");
+const app = require("../config/firebase-config");
 const {
   getAuth,
   createUserWithEmailAndPassword,
@@ -39,6 +39,21 @@ const signupUser = async (req, res) => {
       // password: password,
       user_id: user.uid,
     });
+
+    // create db with default
+    const requestData = {
+      name: "",
+      contact: "",
+      date_of_birth: "",
+      ic_number: "",
+      marital_status: "",
+      user_id: user.uid,
+    };
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const apiUrl = `${process.env.BACKEND_URL}/api/personals`;
+    axios.post(apiUrl, requestData, { headers });
 
     // old
     //   const user = await User.signup(email, password);
