@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
   socket.once("user_info", async (data) => {
     const email = data.user.email;
     const user_data = await User.findOne({ email });
-    user_id = user_data._id;
+    user_id = user_data.user_id;
 
     user_token = data.user.token;
   });
@@ -61,7 +61,7 @@ app.post("/dialogflow", async (req, res) => {
 
     res.status(200).json(response);
 
-    // create user using api // revisit to edit instead of create
+    // edit user using api
     const requestData = {
       name: name,
       user_id: user_id,

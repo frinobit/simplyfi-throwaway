@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 
 // get all goals
 const getGoals = async (req, res) => {
-  const user_id = req.user._id;
+  // const user_id = req.user._id;
+  const user_id = req.user.user_id;
 
   const goals = await Goal.find({ user_id }).sort({ createdAt: -1 });
 
@@ -53,7 +54,8 @@ const createGoal = async (req, res) => {
 
   // add doc to db
   try {
-    const user_id = req.user._id;
+    // const user_id = req.user._id;
+    const user_id = req.user.user_id;
     const goal = await Goal.create({
       description,
       amount,
