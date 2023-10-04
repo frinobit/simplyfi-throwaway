@@ -32,8 +32,7 @@ const Navbar = () => {
           {user && !user.email && (
             <div>
               <span>Logged in as guest</span>
-              <Link to="/simplyfi-throwaway/login">Login</Link>
-              <Link to="/simplyfi-throwaway/signup">Signup</Link>
+              <Link to="/simplyfi-throwaway/signupGuest">SignupGuest</Link>
               <button onClick={handleClick}>Logout</button>
             </div>
           )}

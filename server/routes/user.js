@@ -5,6 +5,7 @@ const {
   loginUser,
   signupUser,
   loginUserGuest,
+  signupUserGuest,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -17,5 +18,8 @@ router.post("/signup", signupUser);
 
 // login as guest route
 router.post("/loginGuest", loginUserGuest);
+
+// signup as guest route
+router.post("/signupGuest", signupUserGuest);
 
 module.exports = router;

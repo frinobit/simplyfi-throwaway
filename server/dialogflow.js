@@ -73,9 +73,9 @@ app.post("/dialogflow", async (req, res) => {
     const apiUrl = `${process.env.BACKEND_URL}/api/personals/${personal_id}`;
     axios
       .patch(apiUrl, requestData, { headers })
-      .then((response) => {
-        console.log("Personal record updated:", response.data);
-      })
+      // .then((response) => {
+      //   console.log("Personal record updated:", response.data);
+      // })
       .catch((error) => {
         console.error("API Error:", error.message);
       });
