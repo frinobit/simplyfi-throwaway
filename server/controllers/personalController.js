@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 
 // get all personals
 const getPersonals = async (req, res) => {
-  // const user_id = req.user._id;
   const user_id = req.user.user_id;
 
   const personals = await Personal.find({ user_id }).sort({ createdAt: -1 });
@@ -34,7 +33,6 @@ const createPersonal = async (req, res) => {
 
   // add doc to db
   try {
-    // const user_id = req.user._id;
     const user_id = req.user.user_id;
     const personal = await Personal.create({
       name,

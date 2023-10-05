@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
 import { usePersonalsContext } from "../hooks/usePersonalsContext";
@@ -16,14 +16,7 @@ const Home = () => {
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
   const { personals, dispatch: personalsDispatch } = usePersonalsContext();
 
-  // socket
-  // testing
-  const [message, setMessage] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
-  const sendMessage = () => {
-    socket.emit("send_message", { message });
-  };
-  // send back user info
+  // socket - send user info to backend
   socket.emit("user_info", { user });
 
   useEffect(() => {
@@ -53,12 +46,9 @@ const Home = () => {
       }
     };
 
-    socket.on("receive_message", (data) => {
-      setMessageReceived(data.message);
-    });
-
+    // socket - receive message from backend that user info is updated
     socket.on("post_request_done", (data) => {
-      setMessageReceived(data.message);
+      console.log(data.message);
       fetchPersonals();
     });
 
@@ -70,18 +60,20 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div className="financial-details">
-        {financials &&
-          financials.map((financial) => (
-            <FinancialDetails key={financial._id} financial={financial} />
-          ))}
-      </div>
+      <div>
+        <div className="financial-details">
+          {financials &&
+            financials.map((financial) => (
+              <FinancialDetails key={financial._id} financial={financial} />
+            ))}
+        </div>
 
-      <div className="personal-details">
-        {personals &&
-          personals.map((personal) => (
-            <PersonalDetails key={personal._id} personal={personal} />
-          ))}
+        <div className="personal-details">
+          {personals &&
+            personals.map((personal) => (
+              <PersonalDetails key={personal._id} personal={personal} />
+            ))}
+        </div>
       </div>
 
       <div className="chatbot-container">
@@ -92,18 +84,6 @@ const Home = () => {
           height="430"
           src="https://console.dialogflow.com/api-client/demo/embedded/4111016e-e8c8-4065-a6e5-45828871440c"
         ></iframe>
-      </div>
-
-      <div className="test">
-        <input
-          placeholder="message..."
-          onChange={(event) => {
-            setMessage(event.target.value);
-          }}
-        />
-        <button onClick={sendMessage}>send message</button>
-        <h1>Message: </h1>
-        {messageReceived}
       </div>
     </div>
   );

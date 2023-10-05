@@ -24,14 +24,7 @@ let user_token;
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
-  // testing
-  socket.on("send_message", (data) => {
-    socket.emit("receive_message", data);
-    socket.broadcast.emit("receive_message", data);
-    // socket.to(data.room).emit("receive_message", data);
-  });
-
-  // get token from frontend then decode to get user_id
+  // receive user info from backend
   socket.on("user_info", async (data) => {
     user_token = data.user.token;
 
@@ -80,7 +73,7 @@ app.post("/dialogflow", async (req, res) => {
         console.error("API Error:", error.message);
       });
 
-    // testing
+    // socket - send message to frontend that user info updated
     const message = { message: "A POST request was done!" };
     socketIo.emit("post_request_done", message);
   }

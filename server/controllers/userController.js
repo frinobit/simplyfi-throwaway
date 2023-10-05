@@ -4,17 +4,13 @@ const {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInAnonymously,
-  EmailAuthProvider,
-  linkWithCredential,
 } = require("firebase/auth");
 
 const User = require("../models/userModel");
 const UserGuest = require("../models/userGuestModel");
 const Financial = require("../models/financialModel");
-const Goal = require("../models/goalModel");
 const Personal = require("../models/personalModel");
 
-const jwt = require("jsonwebtoken");
 const axios = require("axios");
 
 const admin = require("firebase-admin");
@@ -40,46 +36,19 @@ const signupUser = async (req, res) => {
 
     // create User in database
     User.create({
-      email: email,
-      // password: password,
       user_id: user.uid,
+      email: email,
     });
 
     // create db with default
     const requestData = {
-      name: "",
-      contact: "",
-      date_of_birth: "",
-      ic_number: "",
-      marital_status: "",
       user_id: user.uid,
     };
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     const apiUrl = `${process.env.BACKEND_URL}/api/personals`;
-    axios.post(apiUrl, requestData, { headers });
-
-    // old
-    //   const user = await User.signup(email, password);
-
-    //   // create a token
-    //   const token = createToken(user._id);
-
-    //   // create db with default
-    //   const requestData = {
-    //     name: "",
-    //     contact: "",
-    //     date_of_birth: "",
-    //     ic_number: "",
-    //     marital_status: "",
-    //     user_id: user._id,
-    //   };
-    //   const headers = {
-    //     Authorization: `Bearer ${token}`,
-    //   };
-    //   const apiUrl = `${process.env.BACKEND_URL}/api/personals`;
-    //   axios.post(apiUrl, requestData, { headers });
+    axios.post(apiUrl, { requestData }, { headers });
 
     // success
     res.status(200).json({ email, token });
@@ -104,12 +73,6 @@ const loginUser = async (req, res) => {
 
     // create a token
     const token = await user.getIdToken();
-
-    // // old
-    // const user = await User.login(email, password);
-
-    // // create a token
-    // const token = createToken(user._id);
 
     res.status(200).json({ email, token });
   } catch (error) {
@@ -138,11 +101,6 @@ const loginUserGuest = async (req, res) => {
 
       // create db with default
       const requestData = {
-        name: "",
-        contact: "",
-        date_of_birth: "",
-        ic_number: "",
-        marital_status: "",
         user_id: user.uid,
       };
       const headers = {
@@ -182,17 +140,12 @@ const signupUserGuest = async (req, res) => {
 
     // create User in database
     User.create({
-      email: email,
-      // password: password,
       user_id: user.uid,
+      email: email,
     });
 
     // update all db to new user_id
     const resultFinancial = await Financial.updateMany(
-      { user_id: old_user_id },
-      { $set: { user_id: user.uid } }
-    );
-    const resultGoal = await Goal.updateMany(
       { user_id: old_user_id },
       { $set: { user_id: user.uid } }
     );

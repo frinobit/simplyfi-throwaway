@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/user");
 const financialRoutes = require("./routes/financials");
-const goalRoutes = require("./routes/goals");
 const personalRoutes = require("./routes/personals");
 
 const dialogflowApp = require("./dialogflow");
@@ -24,7 +23,6 @@ app.use((req, res, next) => {
 // routes
 app.use("/api/user", userRoutes);
 app.use("/api/financials", financialRoutes);
-app.use("/api/goals", goalRoutes);
 app.use("/api/personals", personalRoutes);
 
 // app
