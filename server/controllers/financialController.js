@@ -31,29 +31,6 @@ const getFinancial = async (req, res) => {
 const createFinancial = async (req, res) => {
   const { name, income, expenses, assets, liabilities } = req.body;
 
-  let emptyFields = [];
-
-  if (!name) {
-    emptyFields.push("name");
-  }
-  if (!income) {
-    emptyFields.push("income");
-  }
-  if (!expenses) {
-    emptyFields.push("expenses");
-  }
-  if (!assets) {
-    emptyFields.push("assets");
-  }
-  if (!liabilities) {
-    emptyFields.push("liabilities");
-  }
-  if (emptyFields.length > 0) {
-    return res
-      .status(400)
-      .json({ error: "Please fill in all the fields", emptyFields });
-  }
-
   // add doc to db
   try {
     const user_id = req.user.user_id;

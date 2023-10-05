@@ -47,8 +47,10 @@ const signupUser = async (req, res) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    const apiUrl = `${process.env.BACKEND_URL}/api/personals`;
-    axios.post(apiUrl, { requestData }, { headers });
+    const apiUrlPersonals = `${process.env.BACKEND_URL}/api/personals`;
+    axios.post(apiUrlPersonals, { requestData }, { headers });
+    const apiUrlFinancials = `${process.env.BACKEND_URL}/api/financials`;
+    axios.post(apiUrlFinancials, { requestData }, { headers });
 
     // success
     res.status(200).json({ email, token });
@@ -106,8 +108,10 @@ const loginUserGuest = async (req, res) => {
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      const apiUrl = `${process.env.BACKEND_URL}/api/personals`;
-      axios.post(apiUrl, requestData, { headers });
+      const apiUrlPersonals = `${process.env.BACKEND_URL}/api/personals`;
+      axios.post(apiUrlPersonals, { requestData }, { headers });
+      const apiUrlFinancials = `${process.env.BACKEND_URL}/api/financials`;
+      axios.post(apiUrlFinancials, { requestData }, { headers });
     }
 
     res.status(200).json({ token });

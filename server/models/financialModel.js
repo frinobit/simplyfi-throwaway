@@ -2,32 +2,52 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const incomeSchema = new Schema({
+  user_id: {
+    type: String,
+    required: true,
+  },
+  description: String,
+  amount: Number,
+});
+
+const expensesSchema = new Schema({
+  user_id: {
+    type: String,
+    required: true,
+  },
+  description: String,
+  amount: Number,
+});
+
+const assetsSchema = new Schema({
+  user_id: {
+    type: String,
+    required: true,
+  },
+  description: String,
+  amount: Number,
+});
+
+const liabilitiesSchema = new Schema({
+  user_id: {
+    type: String,
+    required: true,
+  },
+  description: String,
+  amount: Number,
+});
+
 const financialSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    income: {
-      type: Number,
-      required: true,
-    },
-    expenses: {
-      type: Number,
-      required: true,
-    },
-    assets: {
-      type: Number,
-      required: true,
-    },
-    liabilities: {
-      type: Number,
-      required: true,
-    },
     user_id: {
       type: String,
       required: true,
     },
+    income: [incomeSchema],
+    expenses: [expensesSchema],
+    assets: [assetsSchema],
+    liabilities: [liabilitiesSchema],
   },
   { timestamps: true }
 );
