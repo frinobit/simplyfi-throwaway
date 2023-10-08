@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const dependantSchema = new Schema({
-  user_id: {
-    type: String,
-    required: true,
-  },
   name: String,
   relationship: String,
   date_of_birth: Date, // "YYYY-MM-DD"

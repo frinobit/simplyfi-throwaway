@@ -7,6 +7,9 @@ import { usePersonalsContext } from "../hooks/usePersonalsContext";
 import FinancialDetails from "../components/FinancialDetails";
 import PersonalDetails from "../components/PersonalDetails";
 
+// kommunicate
+import KommunicateChat from "../kommunicate";
+
 // socket
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:3001");
@@ -84,6 +87,18 @@ const Home = () => {
           height="430"
           src="https://console.dialogflow.com/api-client/demo/embedded/4111016e-e8c8-4065-a6e5-45828871440c"
         ></iframe>
+      </div>
+      <div className="chatbot-container">
+        <iframe
+          title="chatbot;"
+          allow="microphone; geolocation;"
+          width="400px"
+          height="600px"
+          src="https://widget.kommunicate.io/chat?appId=3ade211f1be68b8fa842cd394984144f"
+        ></iframe>
+      </div>
+      <div>
+        <KommunicateChat />
       </div>
     </div>
   );
