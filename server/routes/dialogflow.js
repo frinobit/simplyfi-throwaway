@@ -1,0 +1,16 @@
+const express = require("express");
+
+// chatbot functions
+const { getDialogflow } = require("../chatbot/dialogflowRouter");
+
+// require auth for all personal routes
+const requireAuth = require("../middleware/requireAuth");
+
+const router = express.Router();
+
+router.use(requireAuth);
+
+// normal route
+router.post("/", getDialogflow);
+
+module.exports = router;

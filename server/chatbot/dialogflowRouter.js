@@ -1,29 +1,35 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const dialogflow = require("./dialogflow");
-
 const router = express.Router();
 
-// Middleware
-router.use(bodyParser.json());
+// Check authorization first
+const requireAuth = require("../middleware/requireAuth");
+router.use(requireAuth);
 
-// Import the processMessage function from your dialogflow module
+// Import methods from dialogflow module
+const dialogflow = require("./dialogflowLogic");
 const { processMessage } = dialogflow;
 
-router.post("/dialogflow", async (req, res) => {
+const getDialogflow = async (req, res) => {
   try {
+    const { authorization } = req.headers;
+    const user_id = req.user.user_id;
+    console.log("1. user_id:", user_id);
     const userMessage = req.body.message;
-    console.log("receive in POST: ", userMessage);
+    console.log("2. receive in POST:", userMessage);
 
     // Send the user's message to Dialogflow for processing using processMessage function
-    const botResponses = await processMessage([userMessage]); // Pass the user message as an array
-    console.log("bot response: ", botResponses[0]);
+    const botResponses = await processMessage(
+      [userMessage],
+      user_id,
+      authorization
+    ); // Pass the user message as an array
+    console.log("3. bot response:", botResponses[0]);
 
-    res.json({ message: botResponses[0] }); // Return the first response (assuming it's a single message)
+    res.status(200).json({ message: botResponses[0] }); // Return the first response (assuming it's a single message)
   } catch (error) {
     console.error("Error processing message:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-});
+};
 
-module.exports = router;
+module.exports = { getDialogflow };

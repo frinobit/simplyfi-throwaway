@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function Chatbot() {
+  const { user } = useAuthContext();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
@@ -22,6 +24,7 @@ function Chatbot() {
       const response = await fetch("/dialogflow", {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ message: inputMessage }),

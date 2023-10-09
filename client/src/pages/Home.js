@@ -50,6 +50,7 @@ const Home = () => {
     // socket - receive message from backend that user info is updated
     socket.on("post_request_done", (data) => {
       console.log(data.message);
+      fetchFinancials();
       fetchPersonals();
     });
 
