@@ -28,16 +28,16 @@ server.listen(process.env.WS_PORT, () => {
   console.log("WS server started on port", process.env.WS_PORT);
 });
 
-const projectId = "testing-simplyask-npfp";
-const sessionId = "123456";
-const languageCode = "en";
-
 const sessionClient = new dialogflow.SessionsClient();
 
 // Keeping the context across queries to simulate an ongoing conversation
 let context = [];
 
 const processMessage = async (queries, user_id, authorization) => {
+  const projectId = "testing-simplyask-npfp";
+  const sessionId = user_id;
+  const languageCode = "en";
+
   const sessionPath = sessionClient.projectAgentSessionPath(
     projectId,
     sessionId
