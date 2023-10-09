@@ -6,9 +6,7 @@ import { usePersonalsContext } from "../hooks/usePersonalsContext";
 // components
 import FinancialDetails from "../components/FinancialDetails";
 import PersonalDetails from "../components/PersonalDetails";
-
-// kommunicate
-import KommunicateChat from "../kommunicate";
+import Chatbot from "../components/Chatbot";
 
 // socket
 import io from "socket.io-client";
@@ -63,7 +61,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div>
+      <div className="home-container">
         <div className="financial-details">
           {financials &&
             financials.map((financial) => (
@@ -79,26 +77,8 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="chatbot-container">
-        <iframe
-          title="chatbot;"
-          allow="microphone;"
-          width="350"
-          height="430"
-          src="https://console.dialogflow.com/api-client/demo/embedded/4111016e-e8c8-4065-a6e5-45828871440c"
-        ></iframe>
-      </div>
-      <div className="chatbot-container">
-        <iframe
-          title="chatbot;"
-          allow="microphone; geolocation;"
-          width="400px"
-          height="600px"
-          src="https://widget.kommunicate.io/chat?appId=3ade211f1be68b8fa842cd394984144f"
-        ></iframe>
-      </div>
-      <div>
-        <KommunicateChat />
+      <div className="home-container">
+        <Chatbot />
       </div>
     </div>
   );

@@ -7,7 +7,8 @@ const userRoutes = require("./routes/user");
 const financialRoutes = require("./routes/financials");
 const personalRoutes = require("./routes/personals");
 
-const dialogflowApp = require("./dialogflow");
+// const dialogflowApp = require("./dialogflow");
+const dialogflowRouter = require("./chatbot/dialogflowRouter");
 
 // express app
 const app = express();
@@ -26,7 +27,8 @@ app.use("/api/financials", financialRoutes);
 app.use("/api/personals", personalRoutes);
 
 // app
-app.use(dialogflowApp);
+// app.use(dialogflowApp);
+app.use(dialogflowRouter);
 
 // connect to db
 mongoose

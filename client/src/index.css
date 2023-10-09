@@ -49,7 +49,7 @@ header a {
   margin-right: 20px;
   padding: 20px;
   position: relative;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.05);
 }
 .financial-details h4 {
   margin: 0 0 10px 0;
@@ -78,7 +78,7 @@ header a {
   margin-right: 20px;
   padding: 20px;
   position: relative;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.05);
 }
 .personal-details h4 {
   margin: 0 0 10px 0;
@@ -100,14 +100,14 @@ header a {
   border-radius: 50%;
   color: #333;
 }
-.chatbot-container {
+.home-container {
   flex: 1;
   background: #fff;
   border-radius: 4px;
   margin-right: 20px;
   padding: 20px;
   position: relative;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.05);
 }
 .financial-form {
   flex: 1;
@@ -116,7 +116,7 @@ header a {
   margin-right: 20px;
   padding: 20px;
   position: relative;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.05);
 }
 
 /* new workout form */
@@ -188,4 +188,15 @@ form.login {
 .button-container {
   display: block;
   margin-bottom: 10px;
+}
+
+/* chatbot */
+button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
 }
