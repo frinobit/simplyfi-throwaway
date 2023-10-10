@@ -4,6 +4,9 @@
 # firebase config
 /config
 
+# dialogflow config
+/chatbot/serviceAccountKey.json
+
 # tests
 /test
 
