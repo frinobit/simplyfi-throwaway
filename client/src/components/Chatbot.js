@@ -10,6 +10,12 @@ function Chatbot() {
     setInputMessage(event.target.value);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;
 
@@ -63,6 +69,7 @@ function Chatbot() {
         <input
           type="text"
           value={inputMessage}
+          onKeyDown={handleKeyDown}
           onChange={handleInputChange}
           placeholder="Type a message..."
         />

@@ -127,9 +127,7 @@ const signupUserGuest = async (req, res) => {
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(oldToken);
-    console.log(decodedToken);
     const { user_id: old_user_id } = decodedToken;
-    console.log(old_user_id);
 
     // create new User in firebase
     const userCredential = await createUserWithEmailAndPassword(
