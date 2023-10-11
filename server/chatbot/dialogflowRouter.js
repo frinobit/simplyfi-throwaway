@@ -6,7 +6,7 @@ const requireAuth = require("../middleware/requireAuth");
 router.use(requireAuth);
 
 // Import methods from dialogflow module
-const dialogflow = require("./dialogflowLogic");
+const dialogflow = require("./dialogflowLogicCX");
 const { processMessage } = dialogflow;
 
 const getDialogflow = async (req, res) => {
