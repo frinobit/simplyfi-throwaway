@@ -6,6 +6,7 @@ const {
   signupUser,
   loginUserGuest,
   signupUserGuest,
+  loginUserGoogle,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -21,5 +22,8 @@ router.post("/loginGuest", loginUserGuest);
 
 // signup as guest route
 router.post("/signupGuest", signupUserGuest);
+
+// login with google route
+router.post("/loginGoogle", loginUserGoogle);
 
 module.exports = router;

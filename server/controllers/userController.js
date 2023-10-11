@@ -162,4 +162,50 @@ const signupUserGuest = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser, loginUserGuest, signupUserGuest };
+// login user with google
+const loginUserGoogle = async (req, res) => {
+  const { email, uid, token } = req.body;
+
+  try {
+    const user = await User.findOne({ user_id: uid });
+
+    if (!user) {
+      try {
+        // create User in database
+        User.create({
+          user_id: uid,
+          email: email,
+        });
+
+        // create db with default
+        const requestData = {
+          user_id: uid,
+        };
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+        const apiUrlPersonals = `${process.env.BACKEND_URL}/api/personals`;
+        axios.post(apiUrlPersonals, { requestData }, { headers });
+        const apiUrlFinancials = `${process.env.BACKEND_URL}/api/financials`;
+        axios.post(apiUrlFinancials, { requestData }, { headers });
+
+        // success
+        res.status(200).json({ email, token });
+      } catch (error) {
+        res.status(400).json({ error: error.message });
+      }
+    } else {
+      res.status(200).json({ email, token });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  signupUser,
+  loginUser,
+  loginUserGuest,
+  signupUserGuest,
+  loginUserGoogle,
+};
