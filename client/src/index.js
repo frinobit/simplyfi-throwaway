@@ -10,13 +10,13 @@ import { PersonalsContextProvider } from "./context/PersonalsContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
+    <FinancialsContextProvider>
       <PersonalsContextProvider>
-        <FinancialsContextProvider>
+        <AuthContextProvider>
           <App />
-        </FinancialsContextProvider>
+        </AuthContextProvider>
       </PersonalsContextProvider>
-    </AuthContextProvider>
+    </FinancialsContextProvider>
   </React.StrictMode>
 );
 

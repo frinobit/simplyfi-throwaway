@@ -2,21 +2,29 @@ import { useAuthContext } from "./useAuthContext";
 import { useFinancialsContext } from "./useFinancialsContext";
 import { usePersonalsContext } from "./usePersonalsContext";
 
+import { app } from "../config/firebase-config";
+import { getAuth, signOut } from "firebase/auth";
+
 export const useLogout = () => {
   const { dispatch } = useAuthContext();
   const { dispatch: financialsDispatch } = useFinancialsContext();
   const { dispatch: personalsDispatch } = usePersonalsContext();
 
-  const logout = () => {
+  const auth = getAuth(app);
+
+  const logout = async () => {
+    // logout of firebase
+    await signOut(auth);
+
     // remove user from storage
     localStorage.removeItem("user");
 
     // dispatch logout action
-    dispatch({ type: "LOGOUT" });
+    await dispatch({ type: "LOGOUT" });
 
     // clear screen
-    financialsDispatch({ type: "SET_FINANCIALS", payload: null });
-    personalsDispatch({ type: "SET_PERSONALS", payload: null });
+    await financialsDispatch({ type: "SET_FINANCIALS", payload: null });
+    await personalsDispatch({ type: "SET_PERSONALS", payload: null });
   };
 
   return { logout };

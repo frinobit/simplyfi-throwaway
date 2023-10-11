@@ -17,9 +17,6 @@ const Home = () => {
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
   const { personals, dispatch: personalsDispatch } = usePersonalsContext();
 
-  // socket - send user info to backend
-  socket.emit("user_info", { user });
-
   useEffect(() => {
     const fetchFinancials = async () => {
       const response = await fetch("/api/financials", {

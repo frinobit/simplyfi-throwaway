@@ -23,7 +23,7 @@ export const personalsReducer = (state, action) => {
 
 export const PersonalsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(personalsReducer, {
-    financials: null,
+    personals: null,
   });
 
   return (
