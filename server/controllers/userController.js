@@ -1,3 +1,5 @@
+const admin = require("../config/firebaseAdmin");
+
 const User = require("../models/userModel");
 const UserGuest = require("../models/userGuestModel");
 
@@ -6,7 +8,7 @@ const {
   createUserAndUpdateDatabase,
 } = require("./userControllerSupport");
 
-// signup user
+// signup user with email
 const signupUser = async (req, res) => {
   const { uid, email, token } = req.body;
 
@@ -26,7 +28,7 @@ const signupUser = async (req, res) => {
   }
 };
 
-// login user
+// login user with email
 const loginUser = async (req, res) => {
   const { email, token } = req.body;
 
@@ -51,7 +53,7 @@ const loginUserGuest = async (req, res) => {
       const result = await createUserAndInitializeDatabase(uid, email, token);
 
       if (result === true) {
-        console.log("login user guest (email) successful.");
+        console.log("login user guest successful.");
       } else {
         console.error("Initialization failed.");
       }
@@ -63,7 +65,7 @@ const loginUserGuest = async (req, res) => {
   }
 };
 
-// signup user guest
+// signup user guest with email / google
 const signupUserGuest = async (req, res) => {
   const { old_uid, new_uid, email, token } = req.body;
 
@@ -72,13 +74,16 @@ const signupUserGuest = async (req, res) => {
     const result = await createUserAndUpdateDatabase(old_uid, new_uid, email);
 
     if (result === true) {
-      console.log("signup user guest (email) successful.");
+      console.log("signup user guest (email / google) successful.");
     } else {
       console.error("Initialization failed.");
     }
 
     // Delete user guest
     await UserGuest.deleteOne({ user_id: old_uid });
+
+    // Delete firebase guest account
+    admin.auth().deleteUser(old_uid);
 
     res.status(200).json({ email, token });
   } catch (error) {

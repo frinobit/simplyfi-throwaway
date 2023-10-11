@@ -2,27 +2,25 @@ import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
 import { app } from "../config/firebase-config";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-export const useSignupGuest = () => {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(null);
+export const useSignupGuestGoogle = () => {
+  const [errorGoogle, setErrorGoogle] = useState(null);
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState(null);
   const { dispatch } = useAuthContext();
 
   const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
-  const signupGuest = async (email, password) => {
-    setIsLoading(true);
-    setError(null);
+  const signupGuestGoogle = async () => {
+    setIsLoadingGoogle(true);
+    setErrorGoogle(null);
 
     const old_uid = auth.currentUser.uid;
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const userCredential = await signInWithPopup(auth, provider);
     const user = userCredential.user;
     const new_uid = user.uid;
+    const email = user.email;
     const token = await user.getIdToken();
 
     const response = await fetch("/api/user/signupGuest", {
@@ -33,8 +31,8 @@ export const useSignupGuest = () => {
     const json = await response.json();
 
     if (!response.ok) {
-      setIsLoading(false);
-      setError(json.error);
+      setIsLoadingGoogle(false);
+      setErrorGoogle(json.error);
     }
     if (response.ok) {
       // save the user to local storage
@@ -43,9 +41,9 @@ export const useSignupGuest = () => {
       // update the auth context
       dispatch({ type: "LOGIN", payload: json });
 
-      setIsLoading(false);
+      setIsLoadingGoogle(false);
     }
   };
 
-  return { signupGuest, isLoading, error };
+  return { signupGuestGoogle, isLoadingGoogle, errorGoogle };
 };

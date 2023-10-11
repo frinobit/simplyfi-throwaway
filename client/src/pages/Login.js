@@ -63,7 +63,6 @@ const Login = () => {
         disabled={isLoadingGoogle}
         onClick={() => {
           handleLoginGoogle();
-          // signInWithGoogle();
         }}
       >
         Sign in with Google
