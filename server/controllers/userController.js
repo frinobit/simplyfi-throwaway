@@ -1,58 +1,25 @@
-const app = require("../config/firebase-config");
-const {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInAnonymously,
-} = require("firebase/auth");
-
 const User = require("../models/userModel");
 const UserGuest = require("../models/userGuestModel");
-const Financial = require("../models/financialModel");
-const Personal = require("../models/personalModel");
 
-const axios = require("axios");
-
-const admin = require("firebase-admin");
+const {
+  createUserAndInitializeDatabase,
+  createUserAndUpdateDatabase,
+} = require("./userControllerSupport");
 
 // signup user
 const signupUser = async (req, res) => {
-  const { email, password } = req.body;
-  const auth = getAuth(app);
+  const { uid, email, token } = req.body;
 
   try {
-    // firebase
+    // Initialize database
+    const result = await createUserAndInitializeDatabase(uid, email, token);
 
-    // create User in firebase
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
+    if (result === true) {
+      console.log("signup user (email) successful.");
+    } else {
+      console.error("Initialization failed.");
+    }
 
-    // create a token
-    const token = await user.getIdToken();
-
-    // create User in database
-    User.create({
-      user_id: user.uid,
-      email: email,
-    });
-
-    // create db with default
-    const requestData = {
-      user_id: user.uid,
-    };
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const apiUrlPersonals = `${process.env.BACKEND_URL}/api/personals`;
-    axios.post(apiUrlPersonals, { requestData }, { headers });
-    const apiUrlFinancials = `${process.env.BACKEND_URL}/api/financials`;
-    axios.post(apiUrlFinancials, { requestData }, { headers });
-
-    // success
     res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -61,21 +28,10 @@ const signupUser = async (req, res) => {
 
 // login user
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-  const auth = getAuth(app);
+  const { email, token } = req.body;
 
   try {
-    // firebase
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-
-    // create a token
-    const token = await user.getIdToken();
-
+    console.log("login user (email) successful.");
     res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -84,34 +40,21 @@ const loginUser = async (req, res) => {
 
 // login user as guest
 const loginUserGuest = async (req, res) => {
-  const auth = getAuth(app);
+  const { uid, email, token } = req.body;
 
   try {
-    // firebase
+    // Check if user guest already in database
+    const userGuest = await UserGuest.findOne({ user_id: uid });
 
-    // create User in firebase
-    const userCredential = await signInAnonymously(auth);
-    const user = userCredential.user;
-
-    // create a token
-    const token = await user.getIdToken();
-
-    // create User in database
-    const userGuest = await UserGuest.findOne({ user_id: user.uid });
     if (!userGuest) {
-      UserGuest.create({ user_id: user.uid });
+      // Initialize database
+      const result = await createUserAndInitializeDatabase(uid, email, token);
 
-      // create db with default
-      const requestData = {
-        user_id: user.uid,
-      };
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-      const apiUrlPersonals = `${process.env.BACKEND_URL}/api/personals`;
-      axios.post(apiUrlPersonals, { requestData }, { headers });
-      const apiUrlFinancials = `${process.env.BACKEND_URL}/api/financials`;
-      axios.post(apiUrlFinancials, { requestData }, { headers });
+      if (result === true) {
+        console.log("login user guest (email) successful.");
+      } else {
+        console.error("Initialization failed.");
+      }
     }
 
     res.status(200).json({ token });
@@ -122,39 +65,20 @@ const loginUserGuest = async (req, res) => {
 
 // signup user guest
 const signupUserGuest = async (req, res) => {
-  const { email, password, token: oldToken } = req.body;
-  const auth = getAuth(app);
+  const { old_uid, new_uid, email, token } = req.body;
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(oldToken);
-    const { user_id: old_user_id } = decodedToken;
+    // Update database
+    const result = await createUserAndUpdateDatabase(old_uid, new_uid, email);
 
-    // create new User in firebase
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
+    if (result === true) {
+      console.log("signup user guest (email) successful.");
+    } else {
+      console.error("Initialization failed.");
+    }
 
-    // create a token
-    const token = await user.getIdToken();
-
-    // create User in database
-    User.create({
-      user_id: user.uid,
-      email: email,
-    });
-
-    // update all db to new user_id
-    const resultFinancial = await Financial.updateMany(
-      { user_id: old_user_id },
-      { $set: { user_id: user.uid } }
-    );
-    const resultPersonal = await Personal.updateMany(
-      { user_id: old_user_id },
-      { $set: { user_id: user.uid } }
-    );
+    // Delete user guest
+    await UserGuest.deleteOne({ user_id: old_uid });
 
     res.status(200).json({ email, token });
   } catch (error) {
@@ -164,39 +88,27 @@ const signupUserGuest = async (req, res) => {
 
 // login user with google
 const loginUserGoogle = async (req, res) => {
-  const { email, uid, token } = req.body;
+  const { uid, email, token } = req.body;
 
   try {
     const user = await User.findOne({ user_id: uid });
 
+    // if user first time login
     if (!user) {
-      try {
-        // create User in database
-        User.create({
-          user_id: uid,
-          email: email,
-        });
+      // Initialize database
+      const result = await createUserAndInitializeDatabase(uid, email, token);
 
-        // create db with default
-        const requestData = {
-          user_id: uid,
-        };
-        const headers = {
-          Authorization: `Bearer ${token}`,
-        };
-        const apiUrlPersonals = `${process.env.BACKEND_URL}/api/personals`;
-        axios.post(apiUrlPersonals, { requestData }, { headers });
-        const apiUrlFinancials = `${process.env.BACKEND_URL}/api/financials`;
-        axios.post(apiUrlFinancials, { requestData }, { headers });
-
-        // success
-        res.status(200).json({ email, token });
-      } catch (error) {
+      if (result === true) {
+        console.log("signup user (google) successful.");
+      } else {
+        console.error("Initialization failed.");
         res.status(400).json({ error: error.message });
+        return;
       }
-    } else {
-      res.status(200).json({ email, token });
     }
+
+    console.log("login user (google) successful.");
+    res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

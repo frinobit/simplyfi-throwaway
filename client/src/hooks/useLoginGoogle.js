@@ -13,16 +13,19 @@ export const useLoginGoogle = () => {
   const provider = new GoogleAuthProvider();
 
   const loginGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-    const email = user.email;
+    setIsLoadingGoogle(true);
+    setErrorGoogle(null);
+
+    const userCredential = await signInWithPopup(auth, provider);
+    const user = userCredential.user;
     const uid = user.uid;
+    const email = user.email;
     const token = await user.getIdToken();
 
     const response = await fetch("/api/user/loginGoogle", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, uid, token }),
+      body: JSON.stringify({ uid, email, token }),
     });
     const json = await response.json();
 

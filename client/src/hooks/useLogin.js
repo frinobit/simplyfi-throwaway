@@ -1,19 +1,32 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
+import { app } from "../config/firebase-config";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
+  const auth = getAuth(app);
+
   const login = async (email, password) => {
     setIsLoading(true);
     setError(null);
 
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    const token = await user.getIdToken();
+
     const response = await fetch("/api/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, token }),
     });
     const json = await response.json();
 

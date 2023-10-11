@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
-// import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,27 +14,3 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-
-// export const auth = getAuth(app);
-
-// const provider = new GoogleAuthProvider();
-
-// export const signInWithGoogle = async () => {
-//   try {
-//     const result = await signInWithPopup(auth, provider);
-//     const user = result.user;
-//     const email = user.email;
-//     const uid = user.uid;
-//     const token = await user.getIdToken();
-
-//     const response = await fetch("/api/user/loginGoogle", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ email, uid, token }),
-//     });
-//     const json = await response.json();
-//     console.log(json);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };

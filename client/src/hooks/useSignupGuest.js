@@ -1,21 +1,34 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
+import { app } from "../config/firebase-config";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 export const useSignupGuest = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
-  const { user, dispatch } = useAuthContext();
+  const { dispatch } = useAuthContext();
 
-  const token = user.token;
+  const auth = getAuth(app);
 
   const signupGuest = async (email, password) => {
     setIsLoading(true);
     setError(null);
 
+    const old_uid = await auth.currentUser.uid;
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    const new_uid = user.uid;
+    const token = await user.getIdToken();
+
     const response = await fetch("/api/user/signupGuest", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, token }),
+      body: JSON.stringify({ old_uid, new_uid, email, token }),
     });
     const json = await response.json();
 
