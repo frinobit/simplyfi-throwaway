@@ -34,7 +34,9 @@ const SignupGuest = () => {
           value={password}
         />
 
-        <button disabled={isLoading}>Sign Up Guest</button>
+        <button className="button-container" disabled={isLoading}>
+          Sign Up Guest
+        </button>
         {error && <div className="error">{error}</div>}
       </form>
 

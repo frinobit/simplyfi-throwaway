@@ -30,7 +30,9 @@ const Signup = () => {
           value={password}
         />
 
-        <button disabled={isLoading}>Sign Up</button>
+        <button className="button-container" disabled={isLoading}>
+          Sign Up
+        </button>
         {error && <div className="error">{error}</div>}
       </form>
     </div>
