@@ -14,13 +14,25 @@ const Navbar = () => {
     <header>
       <div className="container">
         <Link to="/simplyfi-throwaway">
-          <h1>Simplyfi</h1>
+          <span className="nav-welc">Welcome</span>
         </Link>
         <Link to="/simplyfi-throwaway">
-          <h3>Home</h3>
+          <span className="nav-snap">Snapshot</span>
+        </Link>
+        <Link to="/simplyfi-throwaway">
+          <span className="nav-deep">Deep Dive</span>
+        </Link>
+        <Link to="/simplyfi-throwaway">
+          <span className="nav-goal">Goals</span>
+        </Link>
+        <Link to="/simplyfi-throwaway">
+          <span className="nav-love">Loved Ones</span>
+        </Link>
+        <Link to="/simplyfi-throwaway">
+          <span className="nav-risk">Risk & Investment</span>
         </Link>
         <Link to="/simplyfi-throwaway/profile">
-          <h3>Profile</h3>
+          <span>Profile</span>
         </Link>
         <nav>
           {user && user.email && (
@@ -31,8 +43,10 @@ const Navbar = () => {
           )}
           {user && !user.email && (
             <div>
-              <span>Logged in as guest</span>
-              <Link to="/simplyfi-throwaway/signupGuest">SignupGuest</Link>
+              <span>Guest</span>
+              <Link to="/simplyfi-throwaway/signupGuest">
+                <span>SignupGuest</span>
+              </Link>
               <button onClick={handleClick}>Logout</button>
             </div>
           )}

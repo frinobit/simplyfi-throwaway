@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import SignupGuest from "./pages/SignupGuest";
+import NavbarVertical from "./components/NavbarVertical";
 
 function App() {
   const { user } = useAuthContext();
@@ -17,6 +18,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        <NavbarVertical />
         <div className="pages">
           <Routes>
             <Route
