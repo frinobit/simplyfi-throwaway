@@ -16,11 +16,19 @@
 body {
   background: var(--text-grey);
   margin: 0;
+  background-image: radial-gradient(
+    circle at center,
+    #cdcdcd 0.1rem,
+    transparent 0
+  );
+  background-size: 1.5rem 1.5rem;
+  background-repeat: round;
 }
 
 /* navbar horizontal */
 header {
   background-color: var(--text-white);
+  border-bottom: 2px solid var(--text-grey);
 }
 header .container {
   max-width: 1800px;
