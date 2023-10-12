@@ -9,7 +9,6 @@ import PersonalDetails from "../components/PersonalDetails";
 import Chatbot from "../components/Chatbot";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
-import SignupGuest from "../components/loginSignup/SignupGuest";
 
 // socket
 import io from "socket.io-client";
@@ -96,8 +95,6 @@ const Home = () => {
       )}
 
       {!user && showSignUp && <Signup onBackToLoginClick={handleBackToLogin} />}
-
-      {user && !user.email && <SignupGuest />}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import NavbarVertical from "./components/NavbarVertical";
 import Profile from "./pages/Profile";
+import SignupGuest from "./pages/SignupGuest";
 
 function App() {
   const { user } = useAuthContext();
@@ -23,6 +24,16 @@ function App() {
               path="/simplyfi-throwaway/profile"
               element={
                 user ? <Profile /> : <Navigate to="/simplyfi-throwaway" />
+              }
+            />
+            <Route
+              path="/simplyfi-throwaway/signupGuest"
+              element={
+                user && !user.email ? (
+                  <SignupGuest />
+                ) : (
+                  <Navigate to="/simplyfi-throwaway" />
+                )
               }
             />
           </Routes>

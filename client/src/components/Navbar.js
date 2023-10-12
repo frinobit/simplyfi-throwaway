@@ -31,9 +31,9 @@ const Navbar = () => {
         <Link to="/simplyfi-throwaway">
           <span className="nav-risk">Risk & Investment</span>
         </Link>
-        <Link to="/simplyfi-throwaway/profile">
+        {/* <Link to="/simplyfi-throwaway/profile">
           <span>Profile</span>
-        </Link>
+        </Link> */}
         <nav>
           {user && user.email && (
             <div>
@@ -43,8 +43,11 @@ const Navbar = () => {
           )}
           {user && !user.email && (
             <div>
-              <span>Guest</span>
-              <Link to="/simplyfi-throwaway">
+              <span>Logged in as guest</span>
+              <Link
+                to="/simplyfi-throwaway/signupGuest"
+                className="button-link"
+              >
                 <span>SignupGuest</span>
               </Link>
               <button onClick={handleClick}>Logout</button>

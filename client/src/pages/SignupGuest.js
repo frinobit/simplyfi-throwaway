@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSignupGuest } from "../../hooks/useSignupGuest";
-import { useSignupGuestGoogle } from "../../hooks/useSignupGuestGoogle";
+import { useSignupGuest } from "../hooks/useSignupGuest";
+import { useSignupGuestGoogle } from "../hooks/useSignupGuestGoogle";
 
 const SignupGuest = () => {
   const [email, setEmail] = useState("");

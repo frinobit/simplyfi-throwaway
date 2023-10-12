@@ -43,7 +43,8 @@ header nav {
 header nav a {
   margin-left: 20px;
 }
-header nav button {
+header nav button,
+.button-link {
   background: var(--text-white);
   color: var(--text-main);
   border: 2px solid var(--text-main);
