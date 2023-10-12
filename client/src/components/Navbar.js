@@ -44,16 +44,10 @@ const Navbar = () => {
           {user && !user.email && (
             <div>
               <span>Guest</span>
-              <Link to="/simplyfi-throwaway/signupGuest">
+              <Link to="/simplyfi-throwaway">
                 <span>SignupGuest</span>
               </Link>
               <button onClick={handleClick}>Logout</button>
-            </div>
-          )}
-          {!user && (
-            <div>
-              <Link to="/simplyfi-throwaway/login">Login</Link>
-              <Link to="/simplyfi-throwaway/signup">Signup</Link>
             </div>
           )}
         </nav>

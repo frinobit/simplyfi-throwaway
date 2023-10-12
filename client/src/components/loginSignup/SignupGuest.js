@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSignupGuest } from "../hooks/useSignupGuest";
-import { useSignupGuestGoogle } from "../hooks/useSignupGuestGoogle";
+import { useSignupGuest } from "../../hooks/useSignupGuest";
+import { useSignupGuestGoogle } from "../../hooks/useSignupGuestGoogle";
 
 const SignupGuest = () => {
   const [email, setEmail] = useState("");
@@ -11,35 +11,13 @@ const SignupGuest = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     await signupGuest(email, password);
   };
 
   return (
     <div className="signup">
-      {/* sign up guest with email password*/}
-      <form onSubmit={handleSubmit}>
-        <h3>Sign Up Guest</h3>
-
-        <label>Email address:</label>
-        <input
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        <label>Password:</label>
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-
-        <button className="button-container" disabled={isLoading}>
-          Sign Up Guest
-        </button>
-        {error && <div className="error">{error}</div>}
-      </form>
-
+      <p className="login-title">Sign in to Simply Ask</p>
+      <p className="login-desc">Create a profile to save your progress!</p>
       {/* log in guest with google*/}
       <button
         className="login-with-google-btn"
@@ -51,6 +29,29 @@ const SignupGuest = () => {
         Sign in with Google
       </button>
       {errorGoogle && <div className="error">{errorGoogle}</div>}
+
+      <div className="line-or"></div>
+
+      {/* sign up guest with email password*/}
+      <form onSubmit={handleSubmit}>
+        <label>Sign Up Guest</label>
+        <input
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          placeholder="Password"
+        />
+        <button className="button-container" disabled={isLoading}>
+          Sign Up Guest
+        </button>
+        {error && <div className="error">{error}</div>}
+      </form>
     </div>
   );
 };
