@@ -1,4 +1,3 @@
-// components
 import FinancialForm from "../components/FinancialForm";
 
 const Profile = () => {

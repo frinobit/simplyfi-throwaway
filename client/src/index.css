@@ -4,8 +4,7 @@
 /* layout */
 :root {
   --error: #e7195a;
-  /* new */
-  font-size: 14px;
+  font-size: 16px;
   font-family: "Poppins";
   --text-black: #000000;
   --text-white: #ffffff;
@@ -486,14 +485,51 @@ button {
   margin-top: 10px;
 }
 .form-link span {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--text-black);
   text-decoration: none;
 }
 .form-link a {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 400;
   color: #d8640a;
   text-decoration: none;
+}
+
+/* welcome page */
+.welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+.welcome-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+.welcome-nav-item {
+  width: 100%;
+}
+.welcome-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-black);
+  text-decoration: none;
+  transition: var(--transition-speed);
+}
+.welcome-nav-link svg {
+  width: 10rem;
+  min-width: 15rem;
+  margin-right: 20px;
+  /* margin: 0 0 0 0; */
+}
+.welcome-link-text {
+  margin-left: 1rem;
 }

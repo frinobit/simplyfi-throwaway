@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useLogout } from "../hooks/useLogout";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../../hooks/useLogout";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Navbar = () => {
   const { logout } = useLogout();
@@ -16,7 +16,7 @@ const Navbar = () => {
         <Link to="/simplyfi-throwaway">
           <span className="nav-welc">Welcome</span>
         </Link>
-        <Link to="/simplyfi-throwaway">
+        <Link to="/simplyfi-throwaway/snapshot">
           <span className="nav-snap">Snapshot</span>
         </Link>
         <Link to="/simplyfi-throwaway">
