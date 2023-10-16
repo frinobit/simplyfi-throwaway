@@ -73,7 +73,10 @@ const Chatbot = () => {
     <div className="chatbot">
       <div className="chatbot-container">
         <header>
-          <img src="./assets/berry_smooth.svg" alt="berry_smooth" />
+          <img
+            src="/simplyfi-throwaway/assets/berry_smooth.svg"
+            alt="berry_smooth"
+          />
           <h2>Berry Smooth</h2>
         </header>
         <ul className="chatbox" ref={chatboxRef}>

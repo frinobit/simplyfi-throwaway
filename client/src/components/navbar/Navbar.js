@@ -61,9 +61,10 @@ const Navbar = () => {
         <nav className="nav-right">
           <ul className="nav-right-nav">
             <li>
-              <Link to="/simplyfi-throwaway">
-                <img src="./assets/icon_guest.svg" alt="icon_guest" />
-              </Link>
+              <img
+                src="/simplyfi-throwaway/assets/icon_guest.svg"
+                alt="icon_guest"
+              />
             </li>
             <li>
               <Link to="/simplyfi-throwaway">
