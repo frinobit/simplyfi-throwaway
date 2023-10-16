@@ -7,7 +7,7 @@ const Navbar = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
-  const handleClick = () => {
+  const handleLogout = () => {
     logout();
   };
 
@@ -36,21 +36,18 @@ const Navbar = () => {
       <div className={NavbarCSS.container}>
         <nav>
           {user && user.email && (
-            <div>
+            <div className={NavbarCSS.user_active}>
               <span>{user.email}</span>
-              <button onClick={handleClick}>Logout</button>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           )}
           {user && !user.email && (
-            <div>
-              <span>Logged in as guest</span>
-              <Link
-                to="/simplyfi-throwaway/signupGuest"
-                className={NavbarCSS.button_link}
-              >
-                <span>SignupGuest</span>
+            <div className={NavbarCSS.user_active}>
+              <span>Guest</span>
+              <Link to="/simplyfi-throwaway/signupGuest">
+                <span className={NavbarCSS.guest_span}>Signup</span>
               </Link>
-              <button onClick={handleClick}>Logout</button>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           )}
         </nav>
