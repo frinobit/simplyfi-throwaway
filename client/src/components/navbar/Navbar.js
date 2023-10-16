@@ -1,4 +1,4 @@
-// import NavbarCSS from "../../styles/components/Navbar.module.css";
+import NavbarCSS from "../../styles/components/Navbar.module.css";
 import { Link } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -13,27 +13,27 @@ const Navbar = () => {
 
   return (
     <header>
-      <div className="container">
+      <div className={NavbarCSS.container}>
         <Link to="/simplyfi-throwaway">
-          <span className="nav-welc">Welcome</span>
+          <span className={NavbarCSS.nav_welc}>Welcome</span>
         </Link>
         <Link to="/simplyfi-throwaway/snapshot">
-          <span className="nav-snap">Snapshot</span>
+          <span className={NavbarCSS.nav_snap}>Snapshot</span>
         </Link>
         <Link to="/simplyfi-throwaway">
-          <span className="nav-deep">Deep Dive</span>
+          <span className={NavbarCSS.nav_deep}>Deep Dive</span>
         </Link>
         <Link to="/simplyfi-throwaway">
-          <span className="nav-goal">Goals</span>
+          <span className={NavbarCSS.nav_goal}>Goals</span>
         </Link>
         <Link to="/simplyfi-throwaway">
-          <span className="nav-love">Loved Ones</span>
+          <span className={NavbarCSS.nav_love}>Loved Ones</span>
         </Link>
         <Link to="/simplyfi-throwaway">
-          <span className="nav-risk">Risk & Investment</span>
+          <span className={NavbarCSS.nav_risk}>Risk & Investment</span>
         </Link>
       </div>
-      <div className="container">
+      <div className={NavbarCSS.container}>
         <nav>
           {user && user.email && (
             <div>
@@ -46,7 +46,7 @@ const Navbar = () => {
               <span>Logged in as guest</span>
               <Link
                 to="/simplyfi-throwaway/signupGuest"
-                className="button-link"
+                className={NavbarCSS.button_link}
               >
                 <span>SignupGuest</span>
               </Link>
@@ -55,9 +55,9 @@ const Navbar = () => {
           )}
         </nav>
       </div>
-      <div className="container">
-        <nav className="nav-right">
-          <ul className="nav-right-nav">
+      <div className={NavbarCSS.container}>
+        <nav className={NavbarCSS.nav_right}>
+          <ul className={NavbarCSS.nav_right_nav}>
             <li>
               <img
                 src="/simplyfi-throwaway/assets/icon_guest.svg"
@@ -97,7 +97,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/simplyfi-throwaway" className="share-button">
+              <Link to="/simplyfi-throwaway" className={NavbarCSS.share_button}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
