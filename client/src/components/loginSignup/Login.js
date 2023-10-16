@@ -1,3 +1,4 @@
+import LoginCSS from "../../styles/components/loginSignup.module.css";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { useLoginGuest } from "../../hooks/useLoginGuest";
@@ -29,13 +30,15 @@ const Login = ({ onSignUpClick }) => {
   };
 
   return (
-    <div className="login">
-      <p className="login-title">Sign in to Simply Ask</p>
-      <p className="login-desc">Create a profile to save your progress!</p>
+    <div className={LoginCSS.login}>
+      <p className={LoginCSS.login_title}>Sign in to Simply Ask</p>
+      <p className={LoginCSS.login_desc}>
+        Create a profile to save your progress!
+      </p>
 
       {/* sign up / login with google*/}
       <button
-        className="login-with-google-btn"
+        className={LoginCSS.login_with_google_btn}
         disabled={isLoadingGoogle}
         onClick={() => {
           handleLoginGoogle();
@@ -45,7 +48,7 @@ const Login = ({ onSignUpClick }) => {
       </button>
       {errorGoogle && <div className="error">{errorGoogle}</div>}
 
-      <div className="line-or"></div>
+      <div className={LoginCSS.line_or}></div>
 
       {/* log in with email password*/}
       <form onSubmit={handleLogin}>
@@ -62,17 +65,15 @@ const Login = ({ onSignUpClick }) => {
           value={password}
           placeholder="Password"
         />
-        <button className="button-container" disabled={isLoading}>
-          Log In
-        </button>
+        <button disabled={isLoading}>Log In</button>
         {error && <div className="error">{error}</div>}
       </form>
 
-      <div className="form-link">
+      <div className={LoginCSS.form_link}>
         <a href="/simplyfi-throwaway">Forgot password?</a>
       </div>
 
-      <div className="form-link">
+      <div className={LoginCSS.form_link}>
         <span>
           Don't have an account?&nbsp;
           <a href="/simplyfi-throwaway" onClick={handleSignUpClick}>
@@ -82,11 +83,7 @@ const Login = ({ onSignUpClick }) => {
       </div>
 
       {/* log in as guest*/}
-      <button
-        className="button-container"
-        disabled={isLoadingGuest}
-        onClick={handleLoginGuest}
-      >
+      <button disabled={isLoadingGuest} onClick={handleLoginGuest}>
         Log In As Guest
       </button>
       {errorGuest && <div className="error">{errorGuest}</div>}
