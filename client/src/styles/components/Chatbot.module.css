@@ -1,0 +1,82 @@
+/* chatbot */
+.chatbot {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--text-white);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.05);
+  width: 30rem;
+}
+.chatbot_container header {
+  background: var(--text-main);
+  padding: 0.6rem 1.2rem;
+  justify-content: flex-start;
+}
+.chatbot_container header img {
+  width: 4rem;
+}
+.chatbot_container h2 {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 1rem;
+}
+.chatbot .chatbox {
+  height: 60vh;
+  overflow-y: auto;
+}
+.chatbox .chat {
+  display: flex;
+}
+.chatbox .bot span {
+  width: 2rem;
+  background: var(--text-main);
+  color: var(--text-white);
+  align-self: flex-end;
+  text-align: center;
+  line-height: 2rem;
+  border-radius: 4px;
+  margin: 0 0.6rem 1rem -1.2rem;
+}
+.chatbox .user {
+  margin: 0 0.6rem;
+  justify-content: flex-end;
+}
+.chatbox .chat p {
+  background: var(--text-black);
+  color: var(--text-white);
+  border-radius: 10px 10px 0 10px;
+  max-width: 75%;
+  font-size: 0.9rem;
+  padding: 0.8rem 1rem;
+  word-wrap: break-word;
+}
+.chatbox .bot p {
+  background: var(--text-grey);
+  color: var(--text-black);
+  border-radius: 10px 10px 10px 0;
+}
+.chatbot .chat_input {
+  display: flex;
+  padding: 0.2rem 1.2rem;
+  border-top: 2px solid var(--text-grey);
+}
+
+/* input area */
+.chat_input textarea {
+  font-family: "Poppins";
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  resize: none;
+  padding: 1rem 0 0 1rem;
+}
+.chat_input button {
+  width: 2rem;
+  border: none;
+  outline: none;
+  background: var(--text-white);
+  color: var(--text-main);
+  padding: 0;
+}

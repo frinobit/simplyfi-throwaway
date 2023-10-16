@@ -1,3 +1,4 @@
+import ChatbotCSS from "../styles/components/Chatbot.module.css";
 import React, { useState, useRef, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -70,8 +71,8 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot">
-      <div className="chatbot-container">
+    <div className={ChatbotCSS.chatbot}>
+      <div className={ChatbotCSS.chatbot_container}>
         <header>
           <img
             src="/simplyfi-throwaway/assets/berry_smooth.svg"
@@ -79,23 +80,29 @@ const Chatbot = () => {
           />
           <h2>Berry Smooth</h2>
         </header>
-        <ul className="chatbox" ref={chatboxRef}>
+        <ul className={ChatbotCSS.chatbox} ref={chatboxRef}>
           {messages.map((message, index) => (
             <li
               key={index}
-              className={`chat ${message.isUser ? "user" : "bot"}`}
+              className={`${ChatbotCSS.chat} ${
+                message.isUser ? ChatbotCSS.user : ChatbotCSS.bot
+              }`}
             >
               {message.isUser ? null : (
                 <span className="material-symbols-outlined">smart_toy</span>
               )}
-              <p className={`message ${message.isUser ? "user" : "bot"}`}>
+              <p
+                className={`message ${
+                  message.isUser ? ChatbotCSS.user : ChatbotCSS.bot
+                }`}
+              >
                 {message.text}
               </p>
             </li>
           ))}
         </ul>
       </div>
-      <div className="chat-input">
+      <div className={ChatbotCSS.chat_input}>
         <textarea
           type="text"
           ref={textareaRef}
@@ -106,7 +113,6 @@ const Chatbot = () => {
           required
         />
         <button
-          id="send-btn"
           className="material-symbols-outlined"
           onClick={handleSendMessage}
         >
