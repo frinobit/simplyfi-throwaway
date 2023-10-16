@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-function Chatbot() {
+const Chatbot = () => {
   const { user } = useAuthContext();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
+  const chatboxRef = useRef(null);
+  const textareaRef = useRef(null);
+
+  const adjustTextareaHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [inputMessage]);
 
   const handleInputChange = (event) => {
     setInputMessage(event.target.value);
@@ -12,6 +25,7 @@ function Chatbot() {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
+      event.preventDefault();
       handleSendMessage();
     }
   };
@@ -47,36 +61,57 @@ function Chatbot() {
       const chatbotResponse = { text: data.message, isUser: false };
       const updatedMessagesWithBot = [...updatedMessages, chatbotResponse];
       setMessages(updatedMessagesWithBot);
+      setTimeout(() => {
+        chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+      }, 0);
     } catch (error) {
       console.error("Error sending message:", error);
     }
   };
 
   return (
-    <div>
-      <div className="chat-container">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`message ${message.isUser ? "user" : "bot"}`}
-          >
-            {message.isUser ? "User: " : "Chatbot: "}
-            {message.text}
-          </div>
-        ))}
+    <div className="chatbot">
+      <div className="chatbot-container">
+        <header>
+          <img src="./assets/berry_smooth.svg" alt="berry_smooth" />
+          <h2>Berry Smooth</h2>
+        </header>
+        <ul className="chatbox" ref={chatboxRef}>
+          {messages.map((message, index) => (
+            <li
+              key={index}
+              className={`chat ${message.isUser ? "user" : "bot"}`}
+            >
+              {message.isUser ? null : (
+                <span className="material-symbols-outlined">smart_toy</span>
+              )}
+              <p className={`message ${message.isUser ? "user" : "bot"}`}>
+                {message.text}
+              </p>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="input-container">
-        <input
+      <div className="chat-input">
+        <textarea
           type="text"
+          ref={textareaRef}
           value={inputMessage}
           onKeyDown={handleKeyDown}
           onChange={handleInputChange}
-          placeholder="Type a message..."
+          placeholder="Type a reply..."
+          required
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <button
+          id="send-btn"
+          className="material-symbols-outlined"
+          onClick={handleSendMessage}
+        >
+          send
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default Chatbot;

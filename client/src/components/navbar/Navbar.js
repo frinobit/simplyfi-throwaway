@@ -34,6 +34,8 @@ const Navbar = () => {
         {/* <Link to="/simplyfi-throwaway/profile">
           <span>Profile</span>
         </Link> */}
+      </div>
+      <div className="container">
         <nav>
           {user && user.email && (
             <div>
@@ -53,6 +55,64 @@ const Navbar = () => {
               <button onClick={handleClick}>Logout</button>
             </div>
           )}
+        </nav>
+      </div>
+      <div className="container">
+        <nav className="nav-right">
+          <ul className="nav-right-nav">
+            <li>
+              <Link to="/simplyfi-throwaway">
+                <img src="./assets/icon_guest.svg" alt="icon_guest" />
+              </Link>
+            </li>
+            <li>
+              <Link to="/simplyfi-throwaway">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    d="M14.385 15.446a6.75 6.75 0 1 1 1.06-1.06l5.156 5.155a.75.75 0 1 1-1.06 1.06l-5.156-5.155Zm-7.926-1.562a5.25 5.25 0 1 1 7.43-.005l-.005.005l-.005.004a5.25 5.25 0 0 1-7.42-.004Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+            </li>
+            <li>
+              <Link to="/simplyfi-throwaway">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M2 8.994A5.99 5.99 0 0 1 8 3h8c3.313 0 6 2.695 6 5.994V21H8c-3.313 0-6-2.695-6-5.994V8.994ZM20 19V8.994A4.004 4.004 0 0 0 16 5H8a3.99 3.99 0 0 0-4 3.994v6.012A4.004 4.004 0 0 0 8 19h12Zm-6-8h2v2h-2v-2Zm-6 0h2v2H8v-2Z"
+                  />
+                </svg>
+              </Link>
+            </li>
+            <li>
+              <Link to="/simplyfi-throwaway" className="share-button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18 22q-1.25 0-2.125-.875T15 19q0-.175.025-.363t.075-.337l-7.05-4.1q-.425.375-.95.588T6 15q-1.25 0-2.125-.875T3 12q0-1.25.875-2.125T6 9q.575 0 1.1.213t.95.587l7.05-4.1q-.05-.15-.075-.337T15 5q0-1.25.875-2.125T18 2q1.25 0 2.125.875T21 5q0 1.25-.875 2.125T18 8q-.575 0-1.1-.212t-.95-.588L8.9 11.3q.05.15.075.338T9 12q0 .175-.025.363T8.9 12.7l7.05 4.1q.425-.375.95-.587T18 16q1.25 0 2.125.875T21 19q0 1.25-.875 2.125T18 22Z"
+                  />
+                </svg>
+              </Link>
+            </li>
+          </ul>
         </nav>
       </div>
     </header>

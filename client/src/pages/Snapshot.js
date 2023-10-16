@@ -71,23 +71,27 @@ const Snapshot = () => {
   return (
     <div className="home">
       <div className="home-container">
-        <div className="financial-details">
-          {financials &&
-            financials.map((financial) => (
-              <FinancialDetails key={financial._id} financial={financial} />
-            ))}
-        </div>
+        <div className="component-a">
+          <div className="financial-details">
+            {financials &&
+              financials.map((financial) => (
+                <FinancialDetails key={financial._id} financial={financial} />
+              ))}
+          </div>
 
-        <div className="personal-details">
-          {personals &&
-            personals.map((personal) => (
-              <PersonalDetails key={personal._id} personal={personal} />
-            ))}
+          <div className="personal-details">
+            {personals &&
+              personals.map((personal) => (
+                <PersonalDetails key={personal._id} personal={personal} />
+              ))}
+          </div>
         </div>
       </div>
 
-      <div className="home-container">
-        <Chatbot />
+      <div className="component-b">
+        <div className="home-container">
+          <Chatbot />
+        </div>
       </div>
 
       {!user && !showSignUp && (
