@@ -1,3 +1,4 @@
+// import NavbarCSS from "../../styles/components/Navbar.module.css";
 import { Link } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -31,9 +32,6 @@ const Navbar = () => {
         <Link to="/simplyfi-throwaway">
           <span className="nav-risk">Risk & Investment</span>
         </Link>
-        {/* <Link to="/simplyfi-throwaway/profile">
-          <span>Profile</span>
-        </Link> */}
       </div>
       <div className="container">
         <nav>

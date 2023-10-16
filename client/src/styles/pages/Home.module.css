@@ -1,0 +1,47 @@
+/* home page */
+.home {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.financial_details,
+.personal_details {
+  flex: 1;
+  background: var(--text-white);
+  border-radius: 4px;
+  margin-right: 20px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.05);
+}
+.financial_details h4,
+.personal_details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--text-main);
+}
+.financial_details p,
+.personal_details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.financial_details span,
+.personal_details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: var(--text-white);
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+.home_container {
+  flex: 1;
+  background: transparent;
+  border-radius: 4px;
+  margin-right: 20px;
+  padding: 20px;
+  position: relative;
+}

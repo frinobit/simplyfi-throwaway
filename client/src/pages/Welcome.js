@@ -1,3 +1,4 @@
+import WelcomeCSS from "../styles/pages/Welcome.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -14,11 +15,14 @@ const Welcome = () => {
   };
 
   return (
-    <div className="welcome">
+    <div className={WelcomeCSS.welcome}>
       <div>
-        <ul className="welcome-nav">
-          <li className="welcome-nav-item">
-            <Link to="/simplyfi-throwaway" className="welcome-nav-link">
+        <ul className={WelcomeCSS.welcome_nav}>
+          <li className={WelcomeCSS.welcome_nav_item}>
+            <Link
+              to="/simplyfi-throwaway"
+              className={WelcomeCSS.welcome_nav_link}
+            >
               <svg
                 width="190"
                 height="58"
@@ -34,12 +38,12 @@ const Welcome = () => {
                 />
               </svg>
             </Link>
-            <span className="welcome-link-text">Welcome</span>
+            <span className={WelcomeCSS.welcome_link_text}>Welcome</span>
           </li>
-          <li className="welcome-nav-item">
+          <li className={WelcomeCSS.welcome_nav_item}>
             <Link
               to="/simplyfi-throwaway/snapshot"
-              className="welcome-nav-link"
+              className={WelcomeCSS.welcome_nav_link}
             >
               <svg
                 width="190"
@@ -56,10 +60,13 @@ const Welcome = () => {
                 />
               </svg>
             </Link>
-            <span className="welcome-link-text">Snapshot</span>
+            <span className={WelcomeCSS.welcome_link_text}>Snapshot</span>
           </li>
-          <li className="welcome-nav-item">
-            <Link to="/simplyfi-throwaway" className="welcome-nav-link">
+          <li className={WelcomeCSS.welcome_nav_item}>
+            <Link
+              to="/simplyfi-throwaway"
+              className={WelcomeCSS.welcome_nav_link}
+            >
               <svg
                 width="190"
                 height="58"
@@ -75,10 +82,13 @@ const Welcome = () => {
                 />
               </svg>
             </Link>
-            <span className="welcome-link-text">Deep Dive</span>
+            <span className={WelcomeCSS.welcome_link_text}>Deep Dive</span>
           </li>
-          <li className="welcome-nav-item">
-            <Link to="/simplyfi-throwaway" className="welcome-nav-link">
+          <li className={WelcomeCSS.welcome_nav_item}>
+            <Link
+              to="/simplyfi-throwaway"
+              className={WelcomeCSS.welcome_nav_link}
+            >
               <svg
                 width="190"
                 height="58"
@@ -94,10 +104,13 @@ const Welcome = () => {
                 />
               </svg>
             </Link>
-            <span className="welcome-link-text">Goals</span>
+            <span className={WelcomeCSS.welcome_link_text}>Goals</span>
           </li>
-          <li className="welcome-nav-item">
-            <Link to="/simplyfi-throwaway" className="welcome-nav-link">
+          <li className={WelcomeCSS.welcome_nav_item}>
+            <Link
+              to="/simplyfi-throwaway"
+              className={WelcomeCSS.welcome_nav_link}
+            >
               <svg
                 width="190"
                 height="58"
@@ -113,10 +126,13 @@ const Welcome = () => {
                 />
               </svg>
             </Link>
-            <span className="welcome-link-text">Loved Ones</span>
+            <span className={WelcomeCSS.welcome_link_text}>Loved Ones</span>
           </li>
-          <li className="welcome-nav-item">
-            <Link to="/simplyfi-throwaway" className="welcome-nav-link">
+          <li className={WelcomeCSS.welcome_nav_item}>
+            <Link
+              to="/simplyfi-throwaway"
+              className={WelcomeCSS.welcome_nav_link}
+            >
               <svg
                 width="189"
                 height="58"
@@ -128,7 +144,9 @@ const Welcome = () => {
                 <circle cx="28.5" cy="29.5" r="10.5" fill="black" />
               </svg>
             </Link>
-            <span className="welcome-link-text">Risk & Investment</span>
+            <span className={WelcomeCSS.welcome_link_text}>
+              Risk & Investment
+            </span>
           </li>
         </ul>
       </div>

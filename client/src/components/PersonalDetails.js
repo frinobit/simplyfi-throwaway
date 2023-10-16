@@ -1,6 +1,8 @@
+import HomeCSS from "../styles/pages/Home.module.css";
+
 const PersonalDetails = ({ personal }) => {
   return (
-    <div className="personal-details">
+    <div className={HomeCSS.personal_details}>
       <h3>PersonalDetails</h3>
       <p>
         <strong>user_id: </strong>

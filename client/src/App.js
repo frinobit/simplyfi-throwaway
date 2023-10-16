@@ -4,10 +4,10 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 // pages & components
 import Welcome from "./pages/Welcome";
-import Snapshot from "./pages/Snapshot";
+import Home from "./pages/Home";
+// import Snapshot from "./pages/Snapshot";
 import Navbar from "./components/navbar/Navbar";
 import NavbarVertical from "./components/navbar/NavbarVertical";
-import Profile from "./pages/Profile";
 import SignupGuest from "./pages/SignupGuest";
 
 function App() {
@@ -21,13 +21,8 @@ function App() {
         <div className="pages">
           <Routes>
             <Route path="/simplyfi-throwaway" element={<Welcome />} />
-            <Route path="/simplyfi-throwaway/snapshot" element={<Snapshot />} />
-            <Route
-              path="/simplyfi-throwaway/profile"
-              element={
-                user ? <Profile /> : <Navigate to="/simplyfi-throwaway" />
-              }
-            />
+            {/* <Route path="/simplyfi-throwaway/snapshot" element={<Snapshot />} /> */}
+            <Route path="/simplyfi-throwaway/snapshot" element={<Home />} />
             <Route
               path="/simplyfi-throwaway/signupGuest"
               element={

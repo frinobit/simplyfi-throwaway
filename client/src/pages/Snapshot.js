@@ -71,7 +71,7 @@ const Snapshot = () => {
   return (
     <div className="home">
       <div className="home-container">
-        <div className="component-a">
+        <div>
           <div className="financial-details">
             {financials &&
               financials.map((financial) => (
@@ -88,7 +88,7 @@ const Snapshot = () => {
         </div>
       </div>
 
-      <div className="component-b">
+      <div>
         <div className="home-container">
           <Chatbot />
         </div>

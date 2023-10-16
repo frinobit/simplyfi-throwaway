@@ -1,3 +1,4 @@
+import HomeCSS from "../styles/pages/Home.module.css";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
@@ -69,9 +70,9 @@ const Home = () => {
   }, [financialsDispatch, personalsDispatch, user]);
 
   return (
-    <div className="home">
-      <div className="home-container">
-        <div className="financial-details">
+    <div className={HomeCSS.home}>
+      <div className={HomeCSS.home_container}>
+        <div className={HomeCSS.financial_details}>
           {financials &&
             financials.map((financial) => (
               <FinancialDetails key={financial._id} financial={financial} />
@@ -86,7 +87,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="home-container">
+      <div className={HomeCSS.home_container}>
         <Chatbot />
       </div>
 

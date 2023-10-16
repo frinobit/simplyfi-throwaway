@@ -1,0 +1,35 @@
+/* welcome page */
+.welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+.welcome_nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+.welcome_nav_item {
+  width: 100%;
+}
+.welcome_nav_link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-black);
+  text-decoration: none;
+  transition: var(--transition-speed);
+}
+.welcome_nav_link svg {
+  width: 10rem;
+  min-width: 15rem;
+  margin-right: 1.5rem;
+}
+.welcome_link_text {
+  margin-left: 1rem;
+}

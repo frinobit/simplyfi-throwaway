@@ -1,6 +1,8 @@
+import HomeCSS from "../styles/pages/Home.module.css";
+
 const FinancialDetails = ({ financial }) => {
   return (
-    <div className="financial-details">
+    <div className={HomeCSS.financial_details}>
       <h3>FinancialDetails</h3>
       <p>
         <strong>income: </strong>
