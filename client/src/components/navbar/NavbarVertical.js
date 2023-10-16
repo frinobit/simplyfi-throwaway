@@ -10,6 +10,11 @@ const NavbarVertical = () => {
             to="/simplyfi-throwaway"
             className={VerticalCSS.navbar_link_logo}
           >
+            <span
+              className={`${VerticalCSS.link_text} ${VerticalCSS.logo_text}`}
+            >
+              Simplyfi
+            </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -26,11 +31,6 @@ const NavbarVertical = () => {
                 d="M0 26.0027L2.81104 33.5789L0 34.9558V26.0027Z"
               />
             </svg>
-            <span
-              className={`${VerticalCSS.link_text} ${VerticalCSS.logo_text}`}
-            >
-              Simplyfi
-            </span>
           </Link>
         </li>
         <li className={`${VerticalCSS.nav_item} ${VerticalCSS.nav_item1}`}>

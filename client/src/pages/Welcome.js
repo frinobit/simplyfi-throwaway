@@ -18,7 +18,7 @@ const Welcome = () => {
     <div className={WelcomeCSS.welcome}>
       <div>
         <ul className={WelcomeCSS.welcome_nav}>
-          <li className={WelcomeCSS.welcome_nav_item}>
+          <li>
             <Link
               to="/simplyfi-throwaway"
               className={WelcomeCSS.welcome_nav_link}
@@ -40,7 +40,7 @@ const Welcome = () => {
             </Link>
             <span className={WelcomeCSS.welcome_link_text}>Welcome</span>
           </li>
-          <li className={WelcomeCSS.welcome_nav_item}>
+          <li>
             <Link
               to="/simplyfi-throwaway/snapshot"
               className={WelcomeCSS.welcome_nav_link}
@@ -62,7 +62,7 @@ const Welcome = () => {
             </Link>
             <span className={WelcomeCSS.welcome_link_text}>Snapshot</span>
           </li>
-          <li className={WelcomeCSS.welcome_nav_item}>
+          <li>
             <Link
               to="/simplyfi-throwaway"
               className={WelcomeCSS.welcome_nav_link}
@@ -84,7 +84,7 @@ const Welcome = () => {
             </Link>
             <span className={WelcomeCSS.welcome_link_text}>Deep Dive</span>
           </li>
-          <li className={WelcomeCSS.welcome_nav_item}>
+          <li>
             <Link
               to="/simplyfi-throwaway"
               className={WelcomeCSS.welcome_nav_link}
@@ -106,7 +106,7 @@ const Welcome = () => {
             </Link>
             <span className={WelcomeCSS.welcome_link_text}>Goals</span>
           </li>
-          <li className={WelcomeCSS.welcome_nav_item}>
+          <li>
             <Link
               to="/simplyfi-throwaway"
               className={WelcomeCSS.welcome_nav_link}
@@ -128,7 +128,7 @@ const Welcome = () => {
             </Link>
             <span className={WelcomeCSS.welcome_link_text}>Loved Ones</span>
           </li>
-          <li className={WelcomeCSS.welcome_nav_item}>
+          <li>
             <Link
               to="/simplyfi-throwaway"
               className={WelcomeCSS.welcome_nav_link}

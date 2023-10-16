@@ -79,7 +79,7 @@ const Home = () => {
             ))}
         </div>
 
-        <div className="personal-details">
+        <div className={HomeCSS.personal_details}>
           {personals &&
             personals.map((personal) => (
               <PersonalDetails key={personal._id} personal={personal} />
