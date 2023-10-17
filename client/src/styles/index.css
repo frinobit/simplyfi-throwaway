@@ -10,14 +10,16 @@
   --text-white: #ffffff;
   --text-grey: #f1f1f1;
   --text-main: #f57d20;
+  --text-green: #1faf38;
+  --text-red: #de2242;
   --transition-speed: 600ms;
 }
 body {
-  background: var(--text-grey);
+  background: #f9f9f9;
   margin: 0;
   background-image: radial-gradient(
     circle at center,
-    #cdcdcd 0.1rem,
+    #e5e5e5 0.1rem,
     transparent 0
   );
   background-size: 1.5rem 1.5rem;

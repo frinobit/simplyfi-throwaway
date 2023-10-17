@@ -2,7 +2,7 @@ import ChatbotCSS from "../styles/components/Chatbot.module.css";
 import React, { useState, useRef, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const Chatbot = ({ resetMessages }) => {
+const Chatbot = () => {
   const { user } = useAuthContext();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");

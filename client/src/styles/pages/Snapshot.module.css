@@ -6,44 +6,108 @@
   margin: 0 auto;
   align-items: flex-start;
 }
-.top_details,
-.bottom_details {
-  flex: 1;
-  background: var(--text-white);
-  border-radius: 4px;
-  margin-right: 20px;
-  padding: 20px;
-  position: relative;
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.05);
-}
-.financial_details h4,
-.personal_details h4 {
-  margin: 0 0 10px 0;
-  font-size: 1.2em;
-  color: var(--text-main);
-}
-.financial_details p,
-.personal_details p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #555;
-}
-.financial_details span,
-.personal_details span {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  background: var(--text-white);
-  padding: 6px;
-  border-radius: 50%;
-  color: #333;
-}
 .snapshot_container {
   flex: 1;
+  background: var(--text-black);
   background: transparent;
   border-radius: 4px;
-  margin-right: 20px;
-  padding: 20px;
+  margin-right: 1rem;
   position: relative;
+}
+.top_details,
+.left_details,
+.mid_details,
+.right_details,
+.bot_details {
+  flex: 1;
+  background: var(--text-white);
+  background: transparent;
+  border-radius: 4px;
+  margin: 0 1rem 1rem 1rem;
+  padding: 1rem;
+  position: relative;
+}
+.top_details p,
+.left_details p,
+.mid_details p,
+.right_details p,
+.bot_details p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+/* layout */
+.top_details,
+.bot_details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+.mid_container {
+  display: flex;
+  flex-direction: row;
+}
+.right_details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.income_details {
+  margin-bottom: 0.6rem;
+}
+.savings_details {
+  display: flex;
+  flex-direction: row;
+}
+.bot_details {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+.mid_details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.couple_image img {
+  width: 10rem;
+  height: auto;
+}
+.name_details {
+  display: flex;
+  flex-direction: row;
+}
+
+/* h5 design */
+h5 {
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+}
+.bot_details h5 {
+  text-align: center;
+}
+.name_details h5 {
+  margin: 0 1.2rem;
+}
+
+/* individual boxes */
+.smallbox {
+  width: 8rem;
+  margin: 0.15rem 0.6rem;
+  padding: 0.15rem 0.6rem;
+  text-align: center;
+  border-radius: 4px;
+}
+.greenbox {
+  color: var(--text-green);
+  background-color: rgba(47, 199, 122, 0.4);
+  border: 2px solid var(--text-green);
+}
+.redbox {
+  color: var(--text-red);
+  background-color: rgba(222, 34, 66, 0.4);
+  border: 2px solid var(--text-red);
 }
