@@ -9,7 +9,7 @@ import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 
 // utils
-import { getIncome } from "./utils/financialUtils";
+import { getIncome, getExpenses } from "./utils/financialUtils";
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -97,19 +97,19 @@ const Home = () => {
                   className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
                 >
                   <p>Fixed</p>
-                  <p>$---</p>
+                  <p>{getExpenses(financials, "expenses", "Fixed")}</p>
                 </div>
                 <div
                   className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
                 >
                   <p>Variables</p>
-                  <p>$---</p>
+                  <p>{getExpenses(financials, "expenses", "Variables")}</p>
                 </div>
                 <div
                   className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
                 >
                   <p>Annual</p>
-                  <p>$---</p>
+                  <p>{getExpenses(financials, "expenses", "Annual")}</p>
                 </div>
               </div>
             </div>

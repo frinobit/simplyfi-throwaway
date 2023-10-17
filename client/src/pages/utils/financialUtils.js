@@ -22,3 +22,19 @@ export const getIncome = (financials, category, description) => {
 
   return "---";
 };
+
+export const getExpenses = (financials, category, type) => {
+  const expenses = financials?.["0"]?.[category].filter(
+    (item) => item.type === type
+  );
+
+  if (expenses.length > 0) {
+    const totalExpenses = expenses.reduce(
+      (total, item) => total + item.amount,
+      0
+    );
+    return `$${totalExpenses.toLocaleString()}`;
+  } else {
+    return "---";
+  }
+};

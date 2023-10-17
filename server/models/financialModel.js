@@ -9,6 +9,10 @@ const incomeSchema = new Schema({
 
 const expensesSchema = new Schema({
   description: String,
+  type: {
+    type: String,
+    enum: ["Fixed", "Variables", "Annual"],
+  },
   amount: Number,
 });
 
