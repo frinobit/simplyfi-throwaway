@@ -1,13 +1,13 @@
-/* home page */
-.home {
+/* snapshot page */
+.snapshot {
   display: flex;
   justify-content: center;
   max-width: 1600px;
   margin: 0 auto;
   align-items: flex-start;
 }
-.financial_details,
-.personal_details {
+.top_details,
+.bottom_details {
   flex: 1;
   background: var(--text-white);
   border-radius: 4px;
@@ -16,13 +16,30 @@
   position: relative;
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.05);
 }
+.financial_details h4,
+.personal_details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--text-main);
+}
 .financial_details p,
 .personal_details p {
   margin: 0;
   font-size: 0.9em;
   color: #555;
 }
-.home_container {
+.financial_details span,
+.personal_details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: var(--text-white);
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+.snapshot_container {
   flex: 1;
   background: transparent;
   border-radius: 4px;

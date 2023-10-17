@@ -2,7 +2,7 @@ import ChatbotCSS from "../styles/components/Chatbot.module.css";
 import React, { useState, useRef, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const Chatbot = () => {
+const Chatbot = ({ resetMessages }) => {
   const { user } = useAuthContext();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
@@ -19,6 +19,13 @@ const Chatbot = () => {
   useEffect(() => {
     adjustTextareaHeight();
   }, [inputMessage]);
+
+  useEffect(() => {
+    if (!user) {
+      setMessages([]);
+      setInputMessage("");
+    }
+  }, [user]);
 
   const handleInputChange = (event) => {
     setInputMessage(event.target.value);

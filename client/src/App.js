@@ -4,8 +4,8 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 // pages & components
 import Welcome from "./pages/Welcome";
-import Home from "./pages/Home";
 // import Snapshot from "./pages/Snapshot";
+import Home from "./pages/Home";
 import Navbar from "./components/navbar/Navbar";
 import NavbarVertical from "./components/navbar/NavbarVertical";
 import SignupGuest from "./pages/SignupGuest";
