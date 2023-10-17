@@ -217,7 +217,7 @@ const Home = () => {
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
-                <p>CPF (Medisave)</p>
+                <p>---</p>
                 <p>$---</p>
               </div>
             </div>
