@@ -10,6 +10,8 @@ import Signup from "../components/loginSignup/Signup";
 
 // utils
 import { getIncome, getExpenses } from "./utils/financialUtils";
+import AssetsBox from "./utils/assetsBox";
+import LiabilitiesBox from "./utils/liabilitiesBox";
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -68,6 +70,7 @@ const Home = () => {
               </div>
             </div>
           </div>
+
           <div className={SnapshotCSS.mid_container}>
             <div className={SnapshotCSS.left_details}>
               <div className={SnapshotCSS.income_details}>
@@ -118,8 +121,8 @@ const Home = () => {
                 <img src="/simplyfi-throwaway/assets/couple.svg" alt="couple" />
               </div>
               <div className={SnapshotCSS.name_details}>
-                <h5>John</h5>
-                <h5>Mary</h5>
+                <h5>---</h5>
+                <h5>---</h5>
               </div>
             </div>
             <div className={SnapshotCSS.right_details}>
@@ -167,51 +170,36 @@ const Home = () => {
               </div>
             </div>
           </div>
+
           <div className={SnapshotCSS.bot_details}>
             <div className={SnapshotCSS.credit_details}>
               <h5>Credit Rating</h5>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
-                <p>John</p>
+                <p>---</p>
                 <p>---</p>
               </div>
             </div>
             <div className={SnapshotCSS.assets_details}>
               <h5>Assets</h5>
-              <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-              >
-                <p>HDB (My Home)</p>
-                <p>$---</p>
-              </div>
-              <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-              >
-                <p>Commercial (Puchong Office)</p>
-                <p>$---</p>
-              </div>
-              <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-              >
-                <p>Car (Tesla Model 3)</p>
-                <p>$---</p>
-              </div>
+              {financials["0"].assets.map((item, index) => (
+                <AssetsBox
+                  key={index} // Ensure each component has a unique key
+                  description={item.description}
+                  amount={item.amount}
+                />
+              ))}
             </div>
             <div className={SnapshotCSS.liabilities_details}>
               <h5>Liabilities</h5>
-              <div className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}>
-                <p>Loan (My Home)</p>
-                <p>$---</p>
-              </div>
-              <div className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}>
-                <p>Loan (Puchong Office)</p>
-                <p>$---</p>
-              </div>
-              <div className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}>
-                <p>Loan (Tesla Model 3)</p>
-                <p>$---</p>
-              </div>
+              {financials["0"].liabilities.map((item, index) => (
+                <LiabilitiesBox
+                  key={index} // Ensure each component has a unique key
+                  description={item.description}
+                  amount={item.amount}
+                />
+              ))}
             </div>
             <div className={SnapshotCSS.investment_details}>
               <h5>Investment</h5>
