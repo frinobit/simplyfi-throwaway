@@ -5,11 +5,11 @@ import { useFinancialsContext } from "../hooks/useFinancialsContext";
 import { usePersonalsContext } from "../hooks/usePersonalsContext";
 
 // components
-import FinancialDetails from "../components/FinancialDetails";
-import PersonalDetails from "../components/PersonalDetails";
 import Chatbot from "../components/Chatbot";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
+import FinancialDetails from "../components/FinancialDetails";
+import PersonalDetails from "../components/PersonalDetails";
 
 // socket
 import io from "socket.io-client";
@@ -17,9 +17,9 @@ const socket = io.connect("http://localhost:3001");
 
 const Home = () => {
   const { user } = useAuthContext();
+  const [showSignUp, setShowSignUp] = useState(false);
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
   const { personals, dispatch: personalsDispatch } = usePersonalsContext();
-  const [showSignUp, setShowSignUp] = useState(false);
 
   const handleBackToLogin = () => {
     setShowSignUp(false);

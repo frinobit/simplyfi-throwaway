@@ -35,12 +35,12 @@ const createFinancial = async (req, res) => {
   try {
     const user_id = req.user.user_id;
     const financial = await Financial.create({
+      user_id,
       name,
       income,
       expenses,
       assets,
       liabilities,
-      user_id,
     });
     res.status(200).json(financial);
   } catch (error) {
