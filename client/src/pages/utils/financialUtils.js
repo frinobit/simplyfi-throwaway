@@ -1,40 +1,110 @@
-export const getIncome = (financials, category, description) => {
-  const filteredIncome = financials?.["0"]?.[category].filter(
-    (item) => item.description !== "Salary" && item.description !== "Bonuses"
-  );
+import AssetsBox from "./assetsBox";
+import LiabilitiesBox from "./liabilitiesBox";
 
-  if (description === "Salary" || description === "Bonuses") {
-    const incomeItem = financials?.["0"]?.[category].find(
-      (item) => item.description === description
+export const getIncome = (financials, category, type) => {
+  try {
+    const income = financials?.["0"]?.[category].filter(
+      (item) => item.type === type
     );
-    if (incomeItem) {
-      return `$${incomeItem.amount.toLocaleString()}`;
+
+    if (income.length > 0) {
+      const totalIncome = income.reduce(
+        (total, item) => total + item.amount,
+        0
+      );
+      return `$${totalIncome.toLocaleString()}`;
+    } else {
+      return "$---";
     }
-  } else {
-    const totalOtherIncome = filteredIncome.reduce(
-      (total, item) => total + item.amount,
-      0
-    );
-    if (totalOtherIncome) {
-      return `$${totalOtherIncome.toLocaleString()}`;
-    }
+  } catch (error) {
+    // Handle the error here, you can log it or return an error message
+    console.log("An error occurred:", error.message);
+    return "$---";
   }
-
-  return "---";
 };
 
 export const getExpenses = (financials, category, type) => {
-  const expenses = financials?.["0"]?.[category].filter(
-    (item) => item.type === type
-  );
-
-  if (expenses.length > 0) {
-    const totalExpenses = expenses.reduce(
-      (total, item) => total + item.amount,
-      0
+  try {
+    const expenses = financials?.["0"]?.[category].filter(
+      (item) => item.type === type
     );
-    return `$${totalExpenses.toLocaleString()}`;
-  } else {
-    return "---";
+
+    if (expenses.length > 0) {
+      const totalExpenses = expenses.reduce(
+        (total, item) => total + item.amount,
+        0
+      );
+      return `$${totalExpenses.toLocaleString()}`;
+    } else {
+      return "$---";
+    }
+  } catch (error) {
+    // Handle the error here, you can log it or return an error message
+    console.log("An error occurred:", error.message);
+    return "$---";
   }
 };
+
+export const getSavings = (financials, category, type) => {
+  try {
+    const savings = financials?.["0"]?.[category].filter(
+      (item) => item.type === type
+    );
+
+    if (savings.length > 0) {
+      const totalSavings = savings.reduce(
+        (total, item) => total + item.amount,
+        0
+      );
+      return `$${totalSavings.toLocaleString()}`;
+    } else {
+      return "$---";
+    }
+  } catch (error) {
+    // Handle the error here, you can log it or return an error message
+    console.log("An error occurred:", error.message);
+    return "$---";
+  }
+};
+
+const Assets = ({ financials }) => {
+  try {
+    if (financials["0"].assets.length > 0) {
+      return financials["0"].assets.map((item, index) => (
+        <AssetsBox
+          key={index}
+          description={item.description}
+          amount={item.amount}
+        />
+      ));
+    } else {
+      return <AssetsBox description="---" amount="---" />;
+    }
+  } catch (error) {
+    // Handle the error here, you can log it or return an error message
+    console.log("An error occurred:", error.message);
+    return <AssetsBox description="---" amount="---" />;
+  }
+};
+
+const Liabilities = ({ financials }) => {
+  try {
+    if (financials["0"].liabilities.length > 0) {
+      return financials["0"].liabilities.map((item, index) => (
+        <LiabilitiesBox
+          key={index}
+          description={item.description}
+          amount={item.amount}
+        />
+      ));
+    } else {
+      return <LiabilitiesBox description="---" amount="---" />;
+    }
+  } catch (error) {
+    // Handle the error here, you can log it or return an error message
+    console.log("An error occurred:", error.message);
+    return <LiabilitiesBox description="---" amount="---" />;
+  }
+};
+
+export { Assets, Liabilities };

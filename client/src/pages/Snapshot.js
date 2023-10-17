@@ -9,9 +9,13 @@ import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 
 // utils
-import { getIncome, getExpenses } from "./utils/financialUtils";
-import AssetsBox from "./utils/assetsBox";
-import LiabilitiesBox from "./utils/liabilitiesBox";
+import {
+  getIncome,
+  getExpenses,
+  getSavings,
+  // getAssets,
+} from "./utils/financialUtils";
+import { Assets, Liabilities } from "./utils/financialUtils";
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -54,19 +58,19 @@ const Home = () => {
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
                 <p>Long-Term</p>
-                <p>$---</p>
+                <p>{getSavings(financials, "savings", "Long-Term")}</p>
               </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
                 <p>Emergency Fund</p>
-                <p>$---</p>
+                <p>{getSavings(financials, "savings", "Emergency Fund")}</p>
               </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
                 <p>Short-Term</p>
-                <p>$---</p>
+                <p>{getSavings(financials, "savings", "Short-Term")}</p>
               </div>
             </div>
           </div>
@@ -183,23 +187,15 @@ const Home = () => {
             </div>
             <div className={SnapshotCSS.assets_details}>
               <h5>Assets</h5>
-              {financials["0"].assets.map((item, index) => (
-                <AssetsBox
-                  key={index} // Ensure each component has a unique key
-                  description={item.description}
-                  amount={item.amount}
-                />
-              ))}
+              <div>
+                <Assets financials={financials} />
+              </div>
             </div>
             <div className={SnapshotCSS.liabilities_details}>
               <h5>Liabilities</h5>
-              {financials["0"].liabilities.map((item, index) => (
-                <LiabilitiesBox
-                  key={index} // Ensure each component has a unique key
-                  description={item.description}
-                  amount={item.amount}
-                />
-              ))}
+              <div>
+                <Liabilities financials={financials} />
+              </div>
             </div>
             <div className={SnapshotCSS.investment_details}>
               <h5>Investment</h5>

@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const incomeSchema = new Schema({
   description: String,
+  type: {
+    type: String,
+    enum: ["Salary", "Bonuses", "Others"],
+  },
   amount: Number,
 });
 
@@ -26,6 +30,15 @@ const liabilitiesSchema = new Schema({
   amount: Number,
 });
 
+const savingsSchema = new Schema({
+  description: String,
+  type: {
+    type: String,
+    enum: ["Long-Term", "Emergency Fund", "Short-Term"],
+  },
+  amount: Number,
+});
+
 const financialSchema = new Schema(
   {
     user_id: {
@@ -36,6 +49,7 @@ const financialSchema = new Schema(
     expenses: [expensesSchema],
     assets: [assetsSchema],
     liabilities: [liabilitiesSchema],
+    savings: [savingsSchema],
   },
   { timestamps: true }
 );

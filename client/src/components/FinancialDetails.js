@@ -20,6 +20,10 @@ const FinancialDetails = ({ financial }) => {
         <strong>liabilities: </strong>
         {financial.liabilities}
       </p>
+      <p>
+        <strong>savings: </strong>
+        {financial.savings}
+      </p>
     </div>
   );
 };

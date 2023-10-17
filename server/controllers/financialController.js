@@ -29,7 +29,7 @@ const getFinancial = async (req, res) => {
 
 // create new financial
 const createFinancial = async (req, res) => {
-  const { name, income, expenses, assets, liabilities } = req.body;
+  const { name, income, expenses, assets, liabilities, savings } = req.body;
 
   // add doc to db
   try {
@@ -41,6 +41,7 @@ const createFinancial = async (req, res) => {
       expenses,
       assets,
       liabilities,
+      savings,
     });
     res.status(200).json(financial);
   } catch (error) {

@@ -11,6 +11,7 @@ const FinancialForm = () => {
   const [expenses, setExpenses] = useState("");
   const [assets, setAssets] = useState("");
   const [liabilities, setLiabilities] = useState("");
+  const [savings, setSavings] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -44,6 +45,7 @@ const FinancialForm = () => {
       setExpenses("");
       setAssets("");
       setLiabilities("");
+      setSavings("");
       setError(null);
       setEmptyFields([]);
       dispatch({ type: "CREATE_FINANCIAL", payload: json });
@@ -92,6 +94,14 @@ const FinancialForm = () => {
         onChange={(e) => setLiabilities(e.target.value)}
         value={liabilities}
         className={emptyFields.includes("liabilities") ? "error" : ""}
+      />
+
+      <label>Savings:</label>
+      <input
+        type="number"
+        onChange={(e) => setSavings(e.target.value)}
+        value={savings}
+        className={emptyFields.includes("savings") ? "error" : ""}
       />
 
       <button>Add Financial</button>
