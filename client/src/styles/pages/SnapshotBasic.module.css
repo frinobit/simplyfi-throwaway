@@ -35,6 +35,11 @@
   margin: 0;
   font-size: 0.9em;
 }
+.refresh_details p {
+  font-size: 0.65rem;
+  padding: 0 0 1rem 0;
+  color: #aaaaaa;
+}
 
 /* layout */
 .top_details,
@@ -83,6 +88,9 @@
 .name_details {
   display: flex;
   flex-direction: row;
+}
+.refresh_details {
+  text-align: center;
 }
 
 /* h5 design */
