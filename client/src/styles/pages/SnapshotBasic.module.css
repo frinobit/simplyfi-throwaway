@@ -10,10 +10,12 @@
   flex: 1;
   background: var(--text-white);
   /* background: transparent; */
-  border: 1px solid #aaaaaa;
-  border-radius: 15px;
   margin-right: 1rem;
   position: relative;
+  border: 1px solid #aaaaaa;
+  border-radius: 15px;
+  height: 85vh;
+  overflow-y: auto;
 }
 .top_details,
 .left_details,

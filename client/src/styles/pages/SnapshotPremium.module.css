@@ -10,8 +10,6 @@
   flex: 1;
   background: var(--text-white);
   background: transparent;
-  border: 1px solid #aaaaaa;
-  border-radius: 15px;
   margin-right: 1rem;
   position: relative;
 }
