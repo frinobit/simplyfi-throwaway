@@ -77,46 +77,65 @@ const Home = () => {
 
           <div className={SnapshotCSS.mid_container}>
             <div className={SnapshotCSS.left_details}>
-              <div className={SnapshotCSS.income_details}>
-                <h5>Income</h5>
-                <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-                >
-                  <p>Salary</p>
-                  <p>{getIncome(financials, "income", "Salary")}</p>
+              <div className={SnapshotCSS.left_container}>
+                <div className={SnapshotCSS.income_details}>
+                  <h5>Income</h5>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.left_hori}`}
+                  >
+                    <p>Salary</p>
+                    <p>{getIncome(financials, "income", "Salary")}</p>
+                  </div>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.left_vert}`}
+                  >
+                    <p>Bonuses</p>
+                    <p>{getIncome(financials, "income", "Bonuses")}</p>
+                  </div>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.left_hori}`}
+                  >
+                    <p>Others</p>
+                    <p>{getIncome(financials, "income", "Others")}</p>
+                  </div>
                 </div>
-                <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-                >
-                  <p>Bonuses</p>
-                  <p>{getIncome(financials, "income", "Bonuses")}</p>
-                </div>
-                <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-                >
-                  <p>Others</p>
-                  <p>{getIncome(financials, "income", "Others")}</p>
+                <div className={SnapshotCSS.expenses_details}>
+                  <h5>Expenses</h5>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.left_hori}`}
+                  >
+                    <p>Fixed</p>
+                    <p>{getExpenses(financials, "expenses", "Fixed")}</p>
+                  </div>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.left_vert}`}
+                  >
+                    <p>Variables</p>
+                    <p>{getExpenses(financials, "expenses", "Variables")}</p>
+                  </div>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.left_hori}`}
+                  >
+                    <p>Annual</p>
+                    <p>{getExpenses(financials, "expenses", "Annual")}</p>
+                  </div>
                 </div>
               </div>
-              <div className={SnapshotCSS.expenses_details}>
-                <h5>Expenses</h5>
+              <div className={SnapshotCSS.left_mid_container}>
                 <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
+                  className={`${SnapshotCSS.year_details} ${SnapshotCSS.left_vert2}`}
                 >
-                  <p>Fixed</p>
-                  <p>{getExpenses(financials, "expenses", "Fixed")}</p>
+                  <p>$---/yr</p>
                 </div>
-                <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
-                >
-                  <p>Variables</p>
-                  <p>{getExpenses(financials, "expenses", "Variables")}</p>
+                <div className={SnapshotCSS.year_details}>
+                  <p>$---/yr</p>
                 </div>
+              </div>
+              <div className={SnapshotCSS.left_right_container}>
                 <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
+                  className={`${SnapshotCSS.final_year_details} ${SnapshotCSS.left_hori2}`}
                 >
-                  <p>Annual</p>
-                  <p>{getExpenses(financials, "expenses", "Annual")}</p>
+                  <p>$---/yr</p>
                 </div>
               </div>
             </div>

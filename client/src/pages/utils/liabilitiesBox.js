@@ -4,7 +4,7 @@ const LiabilitiesBox = ({ description, amount }) => {
   return (
     <div className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}>
       <p>{description}</p>
-      <p>`${amount.toLocaleString()}`</p>
+      <p>${amount.toLocaleString()}</p>
     </div>
   );
 };
