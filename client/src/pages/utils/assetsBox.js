@@ -1,4 +1,4 @@
-import SnapshotCSS from "../../styles/pages/Snapshot.module.css";
+import SnapshotCSS from "../../styles/pages/SnapshotPremium.module.css";
 
 const AssetsBox = ({ description, amount }) => {
   return (

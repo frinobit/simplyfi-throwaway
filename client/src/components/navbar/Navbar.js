@@ -17,7 +17,7 @@ const Navbar = () => {
         <Link to="/simplyfi-throwaway">
           <span className={NavbarCSS.nav_welc}>Welcome</span>
         </Link>
-        <Link to="/simplyfi-throwaway/snapshot">
+        <Link to="/simplyfi-throwaway/snapshotpremium">
           <span className={NavbarCSS.nav_snap}>Snapshot</span>
         </Link>
         <Link to="/simplyfi-throwaway">

@@ -1,4 +1,4 @@
-import SnapshotCSS from "../styles/pages/Snapshot.module.css";
+import SnapshotCSS from "../styles/pages/SnapshotPremium.module.css";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
@@ -9,15 +9,10 @@ import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 
 // utils
-import {
-  getIncome,
-  getExpenses,
-  getSavings,
-  // getAssets,
-} from "./utils/financialUtils";
+import { getIncome, getExpenses, getSavings } from "./utils/financialUtils";
 import { Assets, Liabilities } from "./utils/financialUtils";
 
-const Home = () => {
+const SnapshotPremium = () => {
   const { user } = useAuthContext();
   const [showSignUp, setShowSignUp] = useState(false);
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
@@ -55,19 +50,19 @@ const Home = () => {
             <h5>Savings</h5>
             <div className={SnapshotCSS.savings_details}>
               <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
+                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert}`}
               >
                 <p>Long-Term</p>
                 <p>{getSavings(financials, "savings", "Long-Term")}</p>
               </div>
               <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
+                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_hori}`}
               >
                 <p>Emergency Fund</p>
                 <p>{getSavings(financials, "savings", "Emergency Fund")}</p>
               </div>
               <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
+                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert2}`}
               >
                 <p>Short-Term</p>
                 <p>{getSavings(financials, "savings", "Short-Term")}</p>
@@ -274,4 +269,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SnapshotPremium;
