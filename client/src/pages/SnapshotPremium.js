@@ -74,7 +74,20 @@ const SnapshotPremium = () => {
             <div className={SnapshotCSS.left_details}>
               <div className={SnapshotCSS.left_container}>
                 <div className={SnapshotCSS.income_details}>
-                  <h5>Income</h5>
+                  <div className={SnapshotCSS.button_div}>
+                    <h5>Income</h5>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="#FF7E07"
+                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                      />
+                    </svg>
+                  </div>
                   <div
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.left_hori}`}
                   >
@@ -95,7 +108,20 @@ const SnapshotPremium = () => {
                   </div>
                 </div>
                 <div className={SnapshotCSS.expenses_details}>
-                  <h5>Expenses</h5>
+                  <div className={SnapshotCSS.button_div}>
+                    <h5>Expenses</h5>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="#FF7E07"
+                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                      />
+                    </svg>
+                  </div>
                   <div
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.left_hori}`}
                   >
@@ -180,7 +206,20 @@ const SnapshotPremium = () => {
               </div>
               <div className={SnapshotCSS.right_container}>
                 <div className={SnapshotCSS.income_details}>
-                  <h5>Income</h5>
+                  <div className={SnapshotCSS.button_div}>
+                    <h5>Income</h5>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="#FF7E07"
+                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                      />
+                    </svg>
+                  </div>
                   <div
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.right_hori}`}
                   >
@@ -201,7 +240,20 @@ const SnapshotPremium = () => {
                   </div>
                 </div>
                 <div className={SnapshotCSS.expenses_details}>
-                  <h5>Expenses</h5>
+                  <div className={SnapshotCSS.button_div}>
+                    <h5>Expenses</h5>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="#FF7E07"
+                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                      />
+                    </svg>
+                  </div>
                   <div
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.right_hori}`}
                   >
@@ -227,7 +279,20 @@ const SnapshotPremium = () => {
 
           <div className={SnapshotCSS.bot_details}>
             <div className={SnapshotCSS.credit_details}>
-              <h5>Credit Rating</h5>
+              <div className={SnapshotCSS.button_div}>
+                <h5>Credit Rating</h5>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#FF7E07"
+                    d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+              </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
@@ -236,19 +301,58 @@ const SnapshotPremium = () => {
               </div>
             </div>
             <div className={SnapshotCSS.assets_details}>
-              <h5>Assets</h5>
+              <div className={SnapshotCSS.button_div}>
+                <h5>Assets</h5>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#FF7E07"
+                    d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+              </div>
               <div>
                 <Assets financials={financials} />
               </div>
             </div>
             <div className={SnapshotCSS.liabilities_details}>
-              <h5>Liabilities</h5>
+              <div className={SnapshotCSS.button_div}>
+                <h5>Liabilities</h5>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#FF7E07"
+                    d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+              </div>
               <div>
                 <Liabilities financials={financials} />
               </div>
             </div>
             <div className={SnapshotCSS.investment_details}>
-              <h5>Investment</h5>
+              <div className={SnapshotCSS.button_div}>
+                <h5>Investment</h5>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#FF7E07"
+                    d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+              </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
@@ -257,7 +361,20 @@ const SnapshotPremium = () => {
               </div>
             </div>
             <div className={SnapshotCSS.protection_details}>
-              <h5>Protection</h5>
+              <div className={SnapshotCSS.button_div}>
+                <h5>Protection</h5>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#FF7E07"
+                    d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                  />
+                </svg>
+              </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
