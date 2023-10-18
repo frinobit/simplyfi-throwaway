@@ -149,46 +149,65 @@ const Home = () => {
               </div>
             </div>
             <div className={SnapshotCSS.right_details}>
-              <div className={SnapshotCSS.income_details}>
-                <h5>Income</h5>
+              <div className={SnapshotCSS.right_left_container}>
                 <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
+                  className={`${SnapshotCSS.right_final_year_details} ${SnapshotCSS.right_hori2}`}
                 >
-                  <p>Salary</p>
-                  <p>$---</p>
-                </div>
-                <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-                >
-                  <p>Bonuses</p>
-                  <p>$---</p>
-                </div>
-                <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-                >
-                  <p>Others</p>
                   <p>$---</p>
                 </div>
               </div>
-              <div className={SnapshotCSS.expenses_details}>
-                <h5>Expenses</h5>
+              <div className={SnapshotCSS.right_mid_container}>
                 <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
+                  className={`${SnapshotCSS.right_year_details} ${SnapshotCSS.right_vert2}`}
                 >
-                  <p>Fixed</p>
                   <p>$---</p>
                 </div>
-                <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
-                >
-                  <p>Variables</p>
+                <div className={SnapshotCSS.right_year_details}>
                   <p>$---</p>
                 </div>
-                <div
-                  className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
-                >
-                  <p>Annual</p>
-                  <p>$---</p>
+              </div>
+              <div className={SnapshotCSS.right_container}>
+                <div className={SnapshotCSS.income_details}>
+                  <h5>Income</h5>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.right_hori}`}
+                  >
+                    <p>Salary</p>
+                    <p>$---</p>
+                  </div>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.right_vert}`}
+                  >
+                    <p>Bonuses</p>
+                    <p>$---</p>
+                  </div>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.right_hori}`}
+                  >
+                    <p>Others</p>
+                    <p>$---</p>
+                  </div>
+                </div>
+                <div className={SnapshotCSS.expenses_details}>
+                  <h5>Expenses</h5>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.right_hori}`}
+                  >
+                    <p>Fixed</p>
+                    <p>$---</p>
+                  </div>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.right_vert}`}
+                  >
+                    <p>Variables</p>
+                    <p>$---</p>
+                  </div>
+                  <div
+                    className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.right_hori}`}
+                  >
+                    <p>Annual</p>
+                    <p>$---</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -221,13 +240,7 @@ const Home = () => {
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
               >
-                <p>CPF (Retirement)</p>
-                <p>$---</p>
-              </div>
-              <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-              >
-                <p>Stocks (Capital A Berhad)</p>
+                <p>---</p>
                 <p>$---</p>
               </div>
             </div>
