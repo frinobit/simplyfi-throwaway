@@ -17,8 +17,11 @@ const Navbar = () => {
         <Link to="/simplyfi-throwaway">
           <span className={NavbarCSS.nav_welc}>Welcome</span>
         </Link>
+        <Link to="/simplyfi-throwaway/snapshotbasic">
+          <span className={NavbarCSS.nav_snap}>Snapshot Basic</span>
+        </Link>
         <Link to="/simplyfi-throwaway/snapshotpremium">
-          <span className={NavbarCSS.nav_snap}>Snapshot</span>
+          <span className={NavbarCSS.nav_snap}>Snapshot Premium</span>
         </Link>
         <Link to="/simplyfi-throwaway">
           <span className={NavbarCSS.nav_deep}>Deep Dive</span>
@@ -52,7 +55,7 @@ const Navbar = () => {
           )}
         </nav>
       </div>
-      <div className={NavbarCSS.container}>
+      {/* <div className={NavbarCSS.container}>
         <nav className={NavbarCSS.nav_right}>
           <ul className={NavbarCSS.nav_right_nav}>
             <li>
@@ -110,7 +113,7 @@ const Navbar = () => {
             </li>
           </ul>
         </nav>
-      </div>
+      </div> */}
     </header>
   );
 };
