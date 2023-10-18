@@ -4,9 +4,10 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
 
 // components
-import Chatbot from "../components/Chatbot";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
+import Chatbot from "../components/Chatbot";
+import ProgressBar from "../components/ProgressBar";
 
 // utils
 import { getIncome, getExpenses, getSavings } from "./utils/financialUtils";
@@ -46,6 +47,9 @@ const SnapshotBasic = () => {
     <div className={SnapshotCSS.snapshot}>
       {financials ? (
         <div className={SnapshotCSS.snapshot_container}>
+          <div className={SnapshotCSS.progress_bar}>
+            <ProgressBar />
+          </div>
           <div className={SnapshotCSS.top_details}>
             <h5>Savings</h5>
             <div className={SnapshotCSS.savings_details}>

@@ -1,5 +1,5 @@
 import ChatbotCSS from "../styles/components/Chatbot.module.css";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const Chatbot = () => {
