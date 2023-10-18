@@ -150,7 +150,10 @@ const SnapshotPremium = () => {
                 <p>Last Refresh: 16/10/23 - 3:14pm</p>
               </div>
               <div className={SnapshotCSS.couple_image}>
-                <img src="/simplyfi-throwaway/assets/couple.svg" alt="couple" />
+                <img
+                  src="/simplyfi-throwaway/assets/couple_premium.svg"
+                  alt="couple_premium"
+                />
               </div>
               <div className={SnapshotCSS.name_details}>
                 <h5>---</h5>

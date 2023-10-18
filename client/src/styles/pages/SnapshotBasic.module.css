@@ -8,8 +8,8 @@
 }
 .snapshot_container {
   flex: 1;
-  background: var(--text-black);
-  background: transparent;
+  background: var(--text-white);
+  /* background: transparent; */
   border-radius: 4px;
   margin-right: 1rem;
   position: relative;
@@ -21,7 +21,7 @@
 .bot_details {
   flex: 1;
   background: var(--text-white);
-  background: transparent;
+  /* background: transparent; */
   border-radius: 4px;
   margin: 0 1rem 1rem 1rem;
   padding: 1rem;
@@ -40,6 +40,10 @@
   padding: 0 0 1rem 0;
   color: #aaaaaa;
 }
+.per_year_details p {
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
 
 /* layout */
 .top_details,
@@ -49,11 +53,16 @@
   align-items: center;
   padding: 0;
 }
-.left_details,
+.left_details {
+  flex: 2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .right_details {
   flex: 2;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 .mid_container {
@@ -102,36 +111,6 @@ h5 {
 .name_details h5 {
   margin: 0 1.2rem;
 }
-.left_mid_container,
-.right_mid_container {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: 12rem;
-}
-.year_details {
-  text-align: center;
-  margin-left: 1.1rem;
-  color: var(--text-green);
-  border-bottom: 2px solid #d9d9d9;
-  width: 7rem;
-}
-.final_year_details {
-  text-align: center;
-  color: var(--text-green);
-  width: 8rem;
-}
-.right_year_details {
-  text-align: center;
-  margin-right: 1.1rem;
-  color: var(--text-green);
-  border-bottom: 2px solid #d9d9d9;
-  width: 7rem;
-}
-.right_final_year_details {
-  text-align: center;
-  color: var(--text-green);
-  width: 8rem;
-}
 
 /* individual boxes */
 .smallbox {
@@ -154,85 +133,13 @@ h5 {
 }
 
 /* lines */
-.left_details .left_hori ::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -1.8rem;
-  height: 2px;
-  width: 1.2rem;
-  background-color: #d9d9d9;
-}
-.left_details .left_vert ::after {
-  content: "";
-  position: absolute;
-  top: -65%;
-  right: -1.8rem;
-  height: 235%;
-  width: 2px;
-  background-color: #d9d9d9;
-}
-.left_details .left_hori2 ::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 19.7rem;
-  height: 2px;
-  width: 1.2rem;
-  background-color: #d9d9d9;
-}
-.left_details .left_vert2 ::after {
-  content: "";
-  position: absolute;
-  top: 28%;
-  right: 9rem;
-  height: 49%;
-  width: 2px;
-  background-color: #d9d9d9;
-}
-.right_details .right_hori ::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -1.8rem;
-  height: 2px;
-  width: 1.2rem;
-  background-color: #d9d9d9;
-}
-.right_details .right_vert ::after {
-  content: "";
-  position: absolute;
-  top: -65%;
-  left: -1.8rem;
-  height: 235%;
-  width: 2px;
-  background-color: #d9d9d9;
-}
-.right_details .right_hori2 ::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 19.7rem;
-  height: 2px;
-  width: 1.2rem;
-  background-color: #d9d9d9;
-}
-.right_details .right_vert2 ::after {
-  content: "";
-  position: absolute;
-  top: 28%;
-  left: 9rem;
-  height: 49%;
-  width: 2px;
-  background-color: #d9d9d9;
-}
 .top_details .top_hori ::before {
   content: "";
   position: absolute;
   top: -70%;
   right: 8rem;
   height: 2px;
-  width: 27rem;
+  width: 24rem;
   background-color: #d9d9d9;
 }
 .top_details .top_hori ::after {
@@ -241,15 +148,15 @@ h5 {
   top: -70%;
   left: 8rem;
   height: 2px;
-  width: 27rem;
+  width: 24rem;
   background-color: #d9d9d9;
 }
 .top_details .top_vert ::after {
   content: "";
   position: absolute;
   top: -70%;
-  right: 24.3rem;
-  height: 235%;
+  right: 21.3rem;
+  height: 270%;
   width: 2px;
   background-color: #d9d9d9;
 }
@@ -257,8 +164,8 @@ h5 {
   content: "";
   position: absolute;
   top: -70%;
-  left: 24.3rem;
-  height: 235%;
+  left: 21.3rem;
+  height: 270%;
   width: 2px;
   background-color: #d9d9d9;
 }
