@@ -3,18 +3,6 @@ const Personal = require("../../models/personalModel");
 
 const updateName = async (socketIo, parameters, user_id, authorization) => {
   try {
-    // console.log(response[0].queryResult.match.intent.displayName);
-    //   console.log(
-    //     response[0].queryResult.parameters.fields.person.structValue.fields
-    //       .original.stringValue
-    //   );
-    //   console.log(
-    //     response[0].queryResult.parameters.fields.email.stringValue
-    //   );
-    //   console.log(
-    //     response[0].queryResult.parameters.fields.number.numberValue
-    //   );
-    // LOGIC
     const name =
       parameters.fields.person.structValue.fields.original.stringValue;
 

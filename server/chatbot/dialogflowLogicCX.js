@@ -4,6 +4,8 @@ const dialogflow = require("@google-cloud/dialogflow-cx");
 
 // utils
 const { updateName } = require("./chatbotUtils/updateName");
+const { updateSalary } = require("./chatbotUtils/updateSalary");
+const { updateFixed } = require("./chatbotUtils/updateFixed");
 
 // socket
 const http = require("http");
@@ -70,6 +72,12 @@ const processMessage = async (queries, user_id, authorization) => {
 
         if (intent === "provides.name") {
           result = updateName(socketIo, parameters, user_id, authorization);
+        }
+        if (intent === "provides.income") {
+          result = updateSalary(socketIo, parameters, user_id, authorization);
+        }
+        if (intent === "provides.expenses") {
+          result = updateFixed(socketIo, parameters, user_id, authorization);
         }
       } catch (error) {
         console.log(
