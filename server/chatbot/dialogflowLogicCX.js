@@ -36,7 +36,7 @@ let context = [];
 const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
   const location = "global";
-  const agentId = "b03b75ce-7557-462e-ba01-57804c28847c";
+  const agentId = "526625c3-d9c8-4201-a6f9-c9fd3e204864";
   const languageCode = "en";
   const sessionId = user_id;
 
@@ -64,7 +64,21 @@ const processMessage = async (queries, user_id, authorization) => {
 
     try {
       const response = await sessionClient.detectIntent(request);
-      console.log(response[0].queryResult.responseMessages[0].text.text[0]);
+      try {
+        console.log(response[0].queryResult.match.intent.displayName);
+        //   console.log(
+        //     response[0].queryResult.parameters.fields.person.structValue.fields
+        //       .original.stringValue
+        //   );
+        //   console.log(
+        //     response[0].queryResult.parameters.fields.email.stringValue
+        //   );
+        //   console.log(
+        //     response[0].queryResult.parameters.fields.number.numberValue
+        //   );
+      } catch (error) {
+        console.error("Error processing message:", error.message);
+      }
       responses.push(response[0]);
       context = response[0].queryResult.outputContexts;
     } catch (error) {
@@ -110,4 +124,9 @@ const processMessage = async (queries, user_id, authorization) => {
   return botResponses;
 };
 
-module.exports = { processMessage };
+// Function to initiate a conversation
+const startConversation = () => {
+  return "this is manual. hi please say 'add chatbot'";
+};
+
+module.exports = { processMessage, startConversation };

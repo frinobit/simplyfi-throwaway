@@ -6,8 +6,9 @@ const requireAuth = require("../middleware/requireAuth");
 router.use(requireAuth);
 
 // Import methods from dialogflow module
-const dialogflow = require("./dialogflowLogicES");
-const { processMessage } = dialogflow;
+// const dialogflow = require("./dialogflowLogicES");
+const dialogflow = require("./dialogflowLogicCX");
+const { processMessage, startConversation } = dialogflow;
 
 const getDialogflow = async (req, res) => {
   try {
@@ -32,4 +33,19 @@ const getDialogflow = async (req, res) => {
   }
 };
 
-module.exports = { getDialogflow };
+const getStartConversation = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const user_id = req.user.user_id;
+
+    // Call startConversation to initiate the conversation
+    const botResponse = await startConversation(user_id, authorization);
+
+    res.status(200).json({ message: botResponse });
+  } catch (error) {
+    console.error("Error starting conversation:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { getDialogflow, getStartConversation };

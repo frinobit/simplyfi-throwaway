@@ -4,7 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 const Chatbot = () => {
   const { user } = useAuthContext();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([""]);
   const [inputMessage, setInputMessage] = useState("");
   const chatboxRef = useRef(null);
   const textareaRef = useRef(null);
@@ -22,6 +22,46 @@ const Chatbot = () => {
 
   useEffect(() => {
     if (!user) {
+      setMessages([]);
+      setInputMessage("");
+    }
+    // } else {
+    //   startConversation();
+    // }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        if (!user) {
+          console.error("User not available");
+          return;
+        }
+
+        try {
+          // Send an initial message to the backend API to start the conversation
+          const response = await fetch("/dialogflow/start-conversation", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to start the conversation");
+          }
+
+          const data = await response.json();
+
+          // Add the chatbot's response to the chat
+          const chatbotResponse = { text: data.message, isUser: false };
+          setMessages([chatbotResponse]); // Set the initial message
+        } catch (error) {
+          console.error("Error starting conversation (frontend):", error);
+        }
+      })();
+    } else {
       setMessages([]);
       setInputMessage("");
     }
