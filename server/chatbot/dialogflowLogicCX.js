@@ -93,7 +93,7 @@ const processMessage = async (queries, user_id, authorization) => {
           const personal_data = await Personal.findOne({ user_id });
           const personal_id = personal_data._id;
           const apiUrl = `${process.env.BACKEND_URL}/api/personals/${personal_id}`;
-          axios
+          await axios
             .patch(apiUrl, requestData, { headers })
             // .then((response) => {
             //   console.log("Personal record updated:", response.data);
@@ -102,9 +102,9 @@ const processMessage = async (queries, user_id, authorization) => {
               console.error("API Error:", error.message);
             });
 
-          // // socket - send message to frontend that user info updated
-          // const message = { message: "A POST request was done!" };
-          // socketIo.emit("post_request_done", message);
+          // socket - send message to frontend that user info updated
+          const message = { message: "A POST request was done!" };
+          socketIo.emit("post_request_done", message);
         }
       } catch (error) {
         console.error("Error processing message:", error.message);

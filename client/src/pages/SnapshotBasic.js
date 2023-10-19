@@ -15,6 +15,9 @@ import { getIncome, getExpenses, getSavings } from "./utils/financialUtils";
 import { Assets, Liabilities } from "./utils/financialUtils";
 import { getName } from "./utils/personalUtils";
 
+// socket
+import io from "socket.io-client";
+
 const SnapshotBasic = () => {
   const { user } = useAuthContext();
   const [showSignUp, setShowSignUp] = useState(false);
@@ -26,6 +29,8 @@ const SnapshotBasic = () => {
   };
 
   useEffect(() => {
+    let socket;
+
     const fetchFinancials = async () => {
       if (user) {
         const response = await fetch("/api/financials", {
@@ -59,7 +64,26 @@ const SnapshotBasic = () => {
     if (user) {
       fetchFinancials();
       fetchPersonals();
+      console.log("socket on");
+      socket = io.connect("http://localhost:3001");
+      socket.on("post_request_done", (data) => {
+        console.log(data.message);
+        fetchFinancials();
+        fetchPersonals();
+      });
+    } else {
+      console.log("socket off");
+      if (socket) {
+        socket.disconnect();
+      }
     }
+
+    return () => {
+      console.log("socket off");
+      if (socket) {
+        socket.disconnect();
+      }
+    };
   }, [financialsDispatch, personalsDispatch, user]);
 
   return (
