@@ -56,6 +56,7 @@
   background: var(--text-grey);
   color: var(--text-black);
   border-radius: 10px 10px 10px 0;
+  white-space: pre-line;
 }
 .chatbot .chat_input {
   display: flex;

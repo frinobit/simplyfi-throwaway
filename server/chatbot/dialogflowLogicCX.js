@@ -65,7 +65,7 @@ const processMessage = async (queries, user_id, authorization) => {
     try {
       const response = await sessionClient.detectIntent(request);
       try {
-        console.log(response[0].queryResult.match.intent.displayName);
+        // console.log(response[0].queryResult.match.intent.displayName);
         //   console.log(
         //     response[0].queryResult.parameters.fields.person.structValue.fields
         //       .original.stringValue
@@ -76,6 +76,36 @@ const processMessage = async (queries, user_id, authorization) => {
         //   console.log(
         //     response[0].queryResult.parameters.fields.number.numberValue
         //   );
+        // LOGIC
+        const intent = response[0].queryResult.match.intent.displayName;
+        const parameters = response[0].queryResult.parameters;
+
+        if (intent === "provides.name") {
+          const name =
+            parameters.fields.person.structValue.fields.original.stringValue;
+
+          // edit user using api
+          const requestData = {
+            name: name,
+            user_id: user_id,
+          };
+          const headers = { Authorization: authorization };
+          const personal_data = await Personal.findOne({ user_id });
+          const personal_id = personal_data._id;
+          const apiUrl = `${process.env.BACKEND_URL}/api/personals/${personal_id}`;
+          axios
+            .patch(apiUrl, requestData, { headers })
+            // .then((response) => {
+            //   console.log("Personal record updated:", response.data);
+            // })
+            .catch((error) => {
+              console.error("API Error:", error.message);
+            });
+
+          // // socket - send message to frontend that user info updated
+          // const message = { message: "A POST request was done!" };
+          // socketIo.emit("post_request_done", message);
+        }
       } catch (error) {
         console.error("Error processing message:", error.message);
       }
@@ -91,42 +121,12 @@ const processMessage = async (queries, user_id, authorization) => {
     (response) => response.queryResult.responseMessages[0].text.text[0]
   );
 
-  //   // LOGIC
-  //   const intent = responses[0].queryResult.intent.displayName;
-  //   const parameters = responses[0].queryResult.parameters;
-
-  //   if (intent === "update-name - context: ongoing-update-profile") {
-  //     const name = parameters.fields["given-name"].stringValue;
-
-  //     // edit user using api
-  //     const requestData = {
-  //       name: name,
-  //       user_id: user_id,
-  //     };
-  //     const headers = { Authorization: authorization };
-  //     const personal_data = await Personal.findOne({ user_id });
-  //     const personal_id = personal_data._id;
-  //     const apiUrl = `${process.env.BACKEND_URL}/api/personals/${personal_id}`;
-  //     axios
-  //       .patch(apiUrl, requestData, { headers })
-  //       // .then((response) => {
-  //       //   console.log("Personal record updated:", response.data);
-  //       // })
-  //       .catch((error) => {
-  //         console.error("API Error:", error.message);
-  //       });
-
-  //     // socket - send message to frontend that user info updated
-  //     const message = { message: "A POST request was done!" };
-  //     socketIo.emit("post_request_done", message);
-  //   }
-
   return botResponses;
 };
 
 // Function to initiate a conversation
 const startConversation = () => {
-  return "this is manual. hi please say 'add chatbot'";
+  return "Hey there! 🍓 Before we blend your finances into a smooth overview, let's start by understanding your income. Take a sip, relax, and let's go through it step by step. Remember, if anything seems unclear or if you're unsure about any details, I'm right here to help you out!\n\nWhen you are ready, please type 'ready'";
 };
 
 module.exports = { processMessage, startConversation };

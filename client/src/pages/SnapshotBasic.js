@@ -2,6 +2,7 @@ import SnapshotCSS from "../styles/pages/SnapshotBasic.module.css";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
+import { usePersonalsContext } from "../hooks/usePersonalsContext";
 
 // components
 import Login from "../components/loginSignup/Login";
@@ -12,11 +13,13 @@ import ProgressBar from "../components/ProgressBar";
 // utils
 import { getIncome, getExpenses, getSavings } from "./utils/financialUtils";
 import { Assets, Liabilities } from "./utils/financialUtils";
+import { getName } from "./utils/personalUtils";
 
 const SnapshotBasic = () => {
   const { user } = useAuthContext();
   const [showSignUp, setShowSignUp] = useState(false);
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
+  const { personals, dispatch: personalsDispatch } = usePersonalsContext();
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
@@ -38,10 +41,26 @@ const SnapshotBasic = () => {
       }
     };
 
+    const fetchPersonals = async () => {
+      if (user) {
+        const response = await fetch("/api/personals", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const json = await response.json();
+
+        if (response.ok) {
+          personalsDispatch({ type: "SET_PERSONALS", payload: json });
+        }
+      }
+    };
+
     if (user) {
       fetchFinancials();
+      fetchPersonals();
     }
-  }, [financialsDispatch, user, financials]);
+  }, [financialsDispatch, personalsDispatch, user]);
 
   return (
     <div className={SnapshotCSS.snapshot}>
@@ -148,7 +167,7 @@ const SnapshotBasic = () => {
                 />
               </div>
               <div className={SnapshotCSS.name_details}>
-                <h5>---</h5>
+                <h5>{getName(personals, "name")}</h5>
                 <h5>---</h5>
               </div>
             </div>
