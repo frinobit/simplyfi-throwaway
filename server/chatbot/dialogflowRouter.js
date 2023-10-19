@@ -28,7 +28,7 @@ const getDialogflow = async (req, res) => {
 
     res.status(200).json({ message: botResponses[0] }); // Return the first response (assuming it's a single message)
   } catch (error) {
-    console.error("Error processing message:", error);
+    console.log("Error processing message (getDialogflow):", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -43,7 +43,7 @@ const getStartConversation = async (req, res) => {
 
     res.status(200).json({ message: botResponse });
   } catch (error) {
-    console.error("Error starting conversation:", error);
+    console.log("Error starting conversation:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

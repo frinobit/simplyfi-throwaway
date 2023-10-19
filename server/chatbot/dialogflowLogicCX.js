@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const dialogflow = require("@google-cloud/dialogflow-cx");
 
-const axios = require("axios");
-const Personal = require("../models/personalModel");
+// utils
+const { updateName } = require("./chatbotUtils/updateName");
 
 // socket
 const http = require("http");
@@ -65,54 +65,23 @@ const processMessage = async (queries, user_id, authorization) => {
     try {
       const response = await sessionClient.detectIntent(request);
       try {
-        // console.log(response[0].queryResult.match.intent.displayName);
-        //   console.log(
-        //     response[0].queryResult.parameters.fields.person.structValue.fields
-        //       .original.stringValue
-        //   );
-        //   console.log(
-        //     response[0].queryResult.parameters.fields.email.stringValue
-        //   );
-        //   console.log(
-        //     response[0].queryResult.parameters.fields.number.numberValue
-        //   );
-        // LOGIC
         const intent = response[0].queryResult.match.intent.displayName;
         const parameters = response[0].queryResult.parameters;
 
         if (intent === "provides.name") {
-          const name =
-            parameters.fields.person.structValue.fields.original.stringValue;
-
-          // edit user using api
-          const requestData = {
-            name: name,
-            user_id: user_id,
-          };
-          const headers = { Authorization: authorization };
-          const personal_data = await Personal.findOne({ user_id });
-          const personal_id = personal_data._id;
-          const apiUrl = `${process.env.BACKEND_URL}/api/personals/${personal_id}`;
-          await axios
-            .patch(apiUrl, requestData, { headers })
-            // .then((response) => {
-            //   console.log("Personal record updated:", response.data);
-            // })
-            .catch((error) => {
-              console.error("API Error:", error.message);
-            });
-
-          // socket - send message to frontend that user info updated
-          const message = { message: "A POST request was done!" };
-          socketIo.emit("post_request_done", message);
+          result = updateName(socketIo, parameters, user_id, authorization);
         }
       } catch (error) {
-        console.error("Error processing message:", error.message);
+        console.log(
+          "Error processing message (processMessage1):",
+          error.message
+        );
       }
+
       responses.push(response[0]);
       context = response[0].queryResult.outputContexts;
     } catch (error) {
-      console.error("Error processing message:", error);
+      console.log("Error processing message (processMessage2):", error.message);
     }
   }
 

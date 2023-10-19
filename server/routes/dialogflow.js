@@ -17,6 +17,6 @@ router.use(requireAuth);
 router.post("/", getDialogflow);
 
 // normal route
-router.post("/start-conversation", getStartConversation);
+router.post("/start_conversation", getStartConversation);
 
 module.exports = router;

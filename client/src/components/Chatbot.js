@@ -21,26 +21,16 @@ const Chatbot = () => {
   }, [inputMessage]);
 
   useEffect(() => {
-    if (!user) {
-      setMessages([]);
-      setInputMessage("");
-    }
-    // } else {
-    //   startConversation();
-    // }
-  }, [user]);
-
-  useEffect(() => {
     if (user) {
       (async () => {
         if (!user) {
-          console.error("User not available");
+          console.log("User not available");
           return;
         }
 
         try {
           // Send an initial message to the backend API to start the conversation
-          const response = await fetch("/dialogflow/start-conversation", {
+          const response = await fetch("/dialogflow/start_conversation", {
             method: "POST",
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -58,7 +48,7 @@ const Chatbot = () => {
           const chatbotResponse = { text: data.message, isUser: false };
           setMessages([chatbotResponse]); // Set the initial message
         } catch (error) {
-          console.error("Error starting conversation (frontend):", error);
+          console.log("Error starting conversation (frontend):", error.message);
         }
       })();
     } else {
