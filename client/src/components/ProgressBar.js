@@ -9,7 +9,7 @@ const ProgressBar = () => {
     setCurrentStep(newStep);
   };
 
-  const circles = Array.from({ length: 6 }, (_, index) => (
+  const circles = Array.from({ length: 7 }, (_, index) => (
     <span
       key={index}
       className={`${ProgressBarCSS.circle} ${
@@ -21,12 +21,13 @@ const ProgressBar = () => {
   ));
 
   const stepMessages = [
-    "Step 1: First Message",
-    "Step 2: Second Message",
-    "Step 3: Third Message",
-    "Step 4: Fourth Message",
-    "Step 5: Fifth Message",
-    "Step 6: Sixth Message",
+    "Step 1: Income",
+    "Step 2: Expenses",
+    "Step 3: Assets",
+    "Step 4: Liabilities",
+    "Step 5: Investment",
+    "Step 6: Protection",
+    "Step 7: Savings",
   ];
 
   return (
@@ -36,7 +37,7 @@ const ProgressBar = () => {
         <div className={ProgressBarCSS.progress_bar}>
           <span
             className={ProgressBarCSS.indicator}
-            style={{ width: `${((currentStep - 1) / 5) * 100}%` }}
+            style={{ width: `${((currentStep - 1) / 6) * 100}%` }}
           ></span>
         </div>
       </div>
@@ -53,7 +54,7 @@ const ProgressBar = () => {
         </button>
         <button
           id="next"
-          disabled={currentStep === 6}
+          disabled={currentStep === 7}
           onClick={() => updateSteps(1)}
         >
           Next

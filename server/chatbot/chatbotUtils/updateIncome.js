@@ -1,16 +1,32 @@
 const axios = require("axios");
 const Financial = require("../../models/financialModel");
 
-const updateSalary = async (socketIo, parameters, user_id, authorization) => {
+const updateIncome = async (
+  socketIo,
+  parameters,
+  user_id,
+  authorization,
+  description
+) => {
   try {
-    const salary = parameters.fields.number.numberValue;
+    const amount = parameters.fields.number.numberValue;
+
+    const descriptionToTypeMapping = {
+      salary: "Salary",
+      freelance: "Others",
+      bonus: "Bonuses",
+      rental: "Others",
+      dividend: "Others",
+      other_income: "Others",
+    };
+    const type = descriptionToTypeMapping[description];
 
     // edit user using api
     const requestData = {
       income: {
-        description: "default",
-        type: "Salary",
-        amount: salary,
+        description: description,
+        type: type,
+        amount: amount,
       },
       user_id: user_id,
     };
@@ -35,4 +51,4 @@ const updateSalary = async (socketIo, parameters, user_id, authorization) => {
   }
 };
 
-module.exports = { updateSalary };
+module.exports = { updateIncome };

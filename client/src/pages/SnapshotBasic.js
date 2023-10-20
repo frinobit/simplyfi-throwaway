@@ -141,8 +141,8 @@ const SnapshotBasic = () => {
                   <div
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
                   >
-                    <p>Salary</p>
-                    <p>{getIncome(financials, "income", "Salary")}</p>
+                    <p>Total</p>
+                    <p>{getIncome(financials, "income", "total")}</p>
                   </div>
                 </div>
                 <div className={SnapshotCSS.expenses_details}>
@@ -163,8 +163,8 @@ const SnapshotBasic = () => {
                   <div
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
                   >
-                    <p>Fixed</p>
-                    <p>{getExpenses(financials, "expenses", "Fixed")}</p>
+                    <p>Total</p>
+                    <p>{getExpenses(financials, "expenses", "total")}</p>
                   </div>
                 </div>
               </div>

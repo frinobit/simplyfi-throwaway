@@ -3,9 +3,15 @@ import LiabilitiesBox from "./liabilitiesBox";
 
 export const getIncome = (financials, category, type) => {
   try {
-    const income = financials?.["0"]?.[category].filter(
-      (item) => item.type === type
-    );
+    let income;
+
+    if (type === "total") {
+      income = financials?.["0"]?.[category];
+    } else {
+      income = financials?.["0"]?.[category].filter(
+        (item) => item.type === type
+      );
+    }
 
     if (income.length > 0) {
       const totalIncome = income.reduce(
@@ -25,9 +31,15 @@ export const getIncome = (financials, category, type) => {
 
 export const getExpenses = (financials, category, type) => {
   try {
-    const expenses = financials?.["0"]?.[category].filter(
-      (item) => item.type === type
-    );
+    let expenses;
+
+    if (type === "total") {
+      expenses = financials?.["0"]?.[category];
+    } else {
+      expenses = financials?.["0"]?.[category].filter(
+        (item) => item.type === type
+      );
+    }
 
     if (expenses.length > 0) {
       const totalExpenses = expenses.reduce(

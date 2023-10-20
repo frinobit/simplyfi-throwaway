@@ -70,18 +70,42 @@ const deleteFinancial = async (req, res) => {
 const updateFinancial = async (req, res) => {
   const { id } = req.params;
 
+  console.log(req.body);
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such financial" });
   }
 
-  const financial = await Financial.findOneAndUpdate(
-    { _id: id },
-    { ...req.body }
-  );
+  // const financial = await Financial.findOneAndUpdate(
+  //   { _id: id },
+  //   { ...req.body }
+  // );
+
+  const financial = await Financial.findById(id);
 
   if (!financial) {
     return res.status(404).json({ error: "No such financial" });
   }
+
+  const updatedIncome = {
+    description: req.body.income.description,
+    type: req.body.income.type,
+    amount: req.body.income.amount,
+  };
+
+  const existingIncomeIndex = financial.income.findIndex(
+    (income) =>
+      income.description === updatedIncome.description &&
+      income.type === updatedIncome.type
+  );
+
+  if (existingIncomeIndex !== -1) {
+    financial.income[existingIncomeIndex] = updatedIncome;
+  } else {
+    financial.income.push(updatedIncome);
+  }
+
+  await financial.save();
 
   res.status(200).json(financial);
 };
