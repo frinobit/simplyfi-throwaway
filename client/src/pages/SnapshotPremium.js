@@ -2,6 +2,7 @@ import SnapshotCSS from "../styles/pages/SnapshotPremium.module.css";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
+import { usePersonalsContext } from "../hooks/usePersonalsContext";
 
 // components
 import Chatbot from "../components/Chatbot";
@@ -11,17 +12,24 @@ import Signup from "../components/loginSignup/Signup";
 // utils
 import { getIncome, getExpenses, getSavings } from "./utils/financialUtils";
 import { Assets, Liabilities } from "./utils/financialUtils";
+import { getName } from "./utils/personalUtils";
+
+// socket
+import io from "socket.io-client";
 
 const SnapshotPremium = () => {
   const { user } = useAuthContext();
   const [showSignUp, setShowSignUp] = useState(false);
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
+  const { personals, dispatch: personalsDispatch } = usePersonalsContext();
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
   };
 
   useEffect(() => {
+    let socket;
+
     const fetchFinancials = async () => {
       if (user) {
         const response = await fetch("/api/financials", {
@@ -37,10 +45,45 @@ const SnapshotPremium = () => {
       }
     };
 
+    const fetchPersonals = async () => {
+      if (user) {
+        const response = await fetch("/api/personals", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const json = await response.json();
+
+        if (response.ok) {
+          personalsDispatch({ type: "SET_PERSONALS", payload: json });
+        }
+      }
+    };
+
     if (user) {
       fetchFinancials();
+      fetchPersonals();
+      console.log("socket on");
+      socket = io.connect("http://localhost:3001");
+      socket.on("post_request_done", (data) => {
+        console.log(data.message);
+        fetchFinancials();
+        fetchPersonals();
+      });
+    } else {
+      console.log("socket off");
+      if (socket) {
+        socket.disconnect();
+      }
     }
-  }, [financialsDispatch, user, financials]);
+
+    return () => {
+      console.log("socket off");
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, [financialsDispatch, personalsDispatch, user]);
 
   return (
     <div className={SnapshotCSS.snapshot}>
@@ -182,7 +225,7 @@ const SnapshotPremium = () => {
                 />
               </div>
               <div className={SnapshotCSS.name_details}>
-                <h5>---</h5>
+                <h5>{getName(personals, "name")}</h5>
                 <h5>---</h5>
               </div>
             </div>

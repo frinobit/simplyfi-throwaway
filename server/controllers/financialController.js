@@ -70,8 +70,6 @@ const deleteFinancial = async (req, res) => {
 const updateFinancial = async (req, res) => {
   const { id } = req.params;
 
-  console.log(req.body);
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "No such financial" });
   }
