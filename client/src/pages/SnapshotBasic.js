@@ -91,7 +91,7 @@ const SnapshotBasic = () => {
       {financials ? (
         <div className={SnapshotCSS.snapshot_container}>
           <div className={SnapshotCSS.progress_bar}>
-            <ProgressBar />
+            <ProgressBar financials={financials} />
           </div>
           <div className={SnapshotCSS.top_details}>
             <h5>Savings</h5>

@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import ProgressBarCSS from "../styles/components/ProgressBar.module.css";
 
-const ProgressBar = () => {
+const ProgressBar = (financials) => {
   const [currentStep, setCurrentStep] = useState(1);
-
-  const updateSteps = (nextStep) => {
-    const newStep = currentStep + nextStep;
-    setCurrentStep(newStep);
-  };
+  const [currentPercentage, setCurrentPercentage] = useState(0);
 
   const circles = Array.from({ length: 7 }, (_, index) => (
     <span
@@ -30,6 +26,16 @@ const ProgressBar = () => {
     "Step 7: Savings",
   ];
 
+  useEffect(() => {
+    try {
+      const step1 = financials.financials[0].income.length;
+      setCurrentStep(1 + Math.floor(step1 / 6));
+      setCurrentPercentage(((step1 / 6 / 6) * 100).toFixed(2) + "%");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [financials]);
+
   return (
     <div className={ProgressBarCSS.container}>
       <div className={ProgressBarCSS.steps}>
@@ -37,28 +43,12 @@ const ProgressBar = () => {
         <div className={ProgressBarCSS.progress_bar}>
           <span
             className={ProgressBarCSS.indicator}
-            style={{ width: `${((currentStep - 1) / 6) * 100}%` }}
+            style={{ width: currentPercentage }}
           ></span>
         </div>
       </div>
       <div className={ProgressBarCSS.messages}>
         <p>{stepMessages[currentStep - 1]}</p>
-      </div>
-      <div className={ProgressBarCSS.buttons}>
-        <button
-          id="prev"
-          disabled={currentStep === 1}
-          onClick={() => updateSteps(-1)}
-        >
-          Prev
-        </button>
-        <button
-          id="next"
-          disabled={currentStep === 7}
-          onClick={() => updateSteps(1)}
-        >
-          Next
-        </button>
       </div>
     </div>
   );
