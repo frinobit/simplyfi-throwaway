@@ -9,15 +9,15 @@ const Chatbot = () => {
   const chatboxRef = useRef(null);
   const textareaRef = useRef(null);
 
-  const adjustTextareaHeight = () => {
+  useEffect(() => {
+    chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+  }, [messages]);
+
+  useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  };
-
-  useEffect(() => {
-    adjustTextareaHeight();
   }, [inputMessage]);
 
   useEffect(() => {
@@ -28,6 +28,35 @@ const Chatbot = () => {
           return;
         }
 
+        // LOAD OLD CONVO
+        try {
+          const response = await fetch("/api/messages", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch messages");
+          }
+
+          const data = await response.json();
+
+          const updatedMessages = [];
+          data.forEach((message) => {
+            const oldMessage = {
+              text: message.content,
+              isUser: message.is_user_message,
+            };
+            updatedMessages.push(oldMessage);
+          });
+          setMessages(updatedMessages);
+        } catch (error) {
+          console.log("Error fetching messages:", error);
+        }
+
+        // START CONVO
         try {
           // Send an initial message to the backend API to start the conversation
           const response = await fetch("/dialogflow/start_conversation", {
@@ -46,7 +75,7 @@ const Chatbot = () => {
 
           // Add the chatbot's response to the chat
           const chatbotResponse = { text: data.message, isUser: false };
-          setMessages([chatbotResponse]); // Set the initial message
+          setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
         } catch (error) {
           console.log("Error starting conversation (frontend):", error.message);
         }
