@@ -8,8 +8,8 @@ const updateName = async (socketIo, parameters, user_id, authorization) => {
 
     // edit user using api
     const requestData = {
-      name: name,
       user_id: user_id,
+      name: name,
     };
     const headers = { Authorization: authorization };
     const personal_data = await Personal.findOne({ user_id });

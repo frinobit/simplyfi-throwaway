@@ -23,12 +23,12 @@ const updateIncome = async (
 
     // edit user using api
     const requestData = {
+      user_id: user_id,
       income: {
         description: description,
         type: type,
         amount: amount,
       },
-      user_id: user_id,
     };
     const headers = { Authorization: authorization };
     const financial_data = await Financial.findOne({ user_id });
@@ -47,7 +47,7 @@ const updateIncome = async (
     const message = { message: "A POST request was done!" };
     socketIo.emit("post_request_done", message);
   } catch (error) {
-    console.log("Error processing message (updateSalary):", error.message);
+    console.log("Error processing message (updateIncome):", error.message);
   }
 };
 
