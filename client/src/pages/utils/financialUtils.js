@@ -23,7 +23,6 @@ export const getIncome = (financials, category, type) => {
       return "$---";
     }
   } catch (error) {
-    // Handle the error here, you can log it or return an error message
     console.log("An error occurred:", error.message);
     return "$---";
   }
@@ -51,7 +50,6 @@ export const getExpenses = (financials, category, type) => {
       return "$---";
     }
   } catch (error) {
-    // Handle the error here, you can log it or return an error message
     console.log("An error occurred:", error.message);
     return "$---";
   }
@@ -73,7 +71,6 @@ export const getSavings = (financials, category, type) => {
       return "$---";
     }
   } catch (error) {
-    // Handle the error here, you can log it or return an error message
     console.log("An error occurred:", error.message);
     return "$---";
   }
@@ -93,7 +90,6 @@ const Assets = ({ financials }) => {
       return <AssetsBox description="---" amount="---" />;
     }
   } catch (error) {
-    // Handle the error here, you can log it or return an error message
     console.log("An error occurred:", error.message);
     return <AssetsBox description="---" amount="---" />;
   }
@@ -113,7 +109,6 @@ const Liabilities = ({ financials }) => {
       return <LiabilitiesBox description="---" amount="---" />;
     }
   } catch (error) {
-    // Handle the error here, you can log it or return an error message
     console.log("An error occurred:", error.message);
     return <LiabilitiesBox description="---" amount="---" />;
   }

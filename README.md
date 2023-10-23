@@ -4,9 +4,8 @@ cd server<br>
 npm install<br>
 npm run dev<br>
 
-<h3>link dialogflow v1</h3>
+<h3>link dialogflow (only if need webhook, currently no)</h3>
 
-(use this)<br>
 cd server<br>
 ngrok http 4000<br>
 copy https link to dialogflow -> fulfillment -> webhook<br>
@@ -16,10 +15,3 @@ copy https link to dialogflow -> fulfillment -> webhook<br>
 cd client<br>
 npm install<br>
 npm start<br>
-
-<h3>link dialogflow v2</h3>
-
-(not tested yet)<br>
-cd server<br>
-gcloud auth login<br>
-gcloud auth application-default set-quota-project PROJECT-ID<br>
