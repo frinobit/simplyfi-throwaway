@@ -15,34 +15,32 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    const token = await user.getIdToken();
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    const response = await fetch("/api/user/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, token }),
-    });
-    const json = await response.json();
+      const user = userCredential.user;
+      const token = await user.getIdToken();
 
-    if (!response.ok) {
-      setIsLoading(false);
-      setError(json.error);
-    }
-    if (response.ok) {
+      const response = await fetch("/api/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, token }),
+      });
+      const json = await response.json();
+
       // save the user to local storage
-      console.log("ok");
       localStorage.setItem("user", JSON.stringify(json));
 
       // update the auth context
-      console.log("ok");
       dispatch({ type: "LOGIN", payload: json });
 
+      setIsLoading(false);
+    } catch (error) {
+      setError("Invalid login credentials");
       setIsLoading(false);
     }
   };

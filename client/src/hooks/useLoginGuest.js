@@ -15,30 +15,29 @@ export const useLoginGuest = () => {
     setIsLoadingGuest(true);
     setErrorGuest(null);
 
-    const userCredential = await signInAnonymously(auth);
-    const user = userCredential.user;
-    const uid = user.uid;
-    const token = await user.getIdToken();
-    const email = "";
+    try {
+      const userCredential = await signInAnonymously(auth);
+      const user = userCredential.user;
+      const uid = user.uid;
+      const token = await user.getIdToken();
+      const email = "";
 
-    const response = await fetch("/api/user/loginGuest", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ uid, email, token }),
-    });
-    const json = await response.json();
+      const response = await fetch("/api/user/loginGuest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uid, email, token }),
+      });
+      const json = await response.json();
 
-    if (!response.ok) {
-      setIsLoadingGuest(false);
-      setErrorGuest(json.error);
-    }
-    if (response.ok) {
       // save the user to local storage
       localStorage.setItem("user", JSON.stringify(json));
 
       // update the auth context
       dispatch({ type: "LOGIN", payload: json });
 
+      setIsLoadingGuest(false);
+    } catch (error) {
+      setErrorGuest("An error occurred. Please try again later.");
       setIsLoadingGuest(false);
     }
   };

@@ -1,3 +1,4 @@
+import LoginCSS from "../styles/components/loginSignup.module.css";
 import { useState } from "react";
 import { useSignupGuest } from "../hooks/useSignupGuest";
 import { useSignupGuestGoogle } from "../hooks/useSignupGuestGoogle";
@@ -9,18 +10,21 @@ const SignupGuest = () => {
   const { signupGuestGoogle, errorGoogle, isLoadingGoogle } =
     useSignupGuestGoogle();
 
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     await signupGuest(email, password);
   };
 
   return (
-    <div className="signup">
-      <p className="login-title">Sign in to Simply Ask</p>
-      <p className="login-desc">Create a profile to save your progress!</p>
-      {/* log in guest with google*/}
+    <div className={LoginCSS.login}>
+      <p className={LoginCSS.login_title}>Sign in to Simply Ask</p>
+      <p className={LoginCSS.login_desc}>
+        Create a profile to save your progress!
+      </p>
+
+      {/* sign up / login guest with google*/}
       <button
-        className="login-with-google-btn"
+        className={LoginCSS.login_with_google_btn}
         disabled={isLoadingGoogle}
         onClick={() => {
           signupGuestGoogle();
@@ -30,10 +34,10 @@ const SignupGuest = () => {
       </button>
       {errorGoogle && <div className="error">{errorGoogle}</div>}
 
-      <div className="line-or"></div>
+      <div className={LoginCSS.line_or}></div>
 
       {/* sign up guest with email password*/}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSignup}>
         <label>Sign Up Guest</label>
         <input
           type="email"
@@ -47,9 +51,7 @@ const SignupGuest = () => {
           value={password}
           placeholder="Password"
         />
-        <button className="button-container" disabled={isLoading}>
-          Sign Up Guest
-        </button>
+        <button disabled={isLoading}>Sign Up Guest</button>
         {error && <div className="error">{error}</div>}
       </form>
     </div>
