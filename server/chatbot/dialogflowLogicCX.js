@@ -6,12 +6,7 @@ const dialogflow = require("@google-cloud/dialogflow-cx");
 const { updateName } = require("./chatbotUtils/updateName");
 // const { updateIncome } = require("./chatbotUtils/updateIncome");
 // const { updateFixed } = require("./chatbotUtils/updateFixed");
-const {
-  addAsset,
-  addLiability,
-  addIncome,
-  addExpense,
-} = require("./chatbotUtils/addFinancial");
+const { handlePropertyAction } = require("./chatbotUtils/handlePropertyAction");
 
 // socket
 const http = require("http");
@@ -41,6 +36,8 @@ const sessionClient = new dialogflow.SessionsClient();
 // Keeping the context across queries to simulate an ongoing conversation
 let context = [];
 
+const propertyCounts = {};
+
 const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
   const location = "global";
@@ -55,6 +52,10 @@ const processMessage = async (queries, user_id, authorization) => {
     sessionId
   );
   const responses = [];
+
+  if (!propertyCounts[user_id]) {
+    propertyCounts[user_id] = 0;
+  }
 
   for (const userMessage of queries) {
     const request = {
@@ -82,38 +83,10 @@ const processMessage = async (queries, user_id, authorization) => {
         if (action === "provides.name") {
           result = updateName(socketIo, parameters, user_id, authorization);
         }
-        if (action === "provides.property.asset") {
-          result = addAsset(
-            "property1",
-            socketIo,
-            parameters,
-            user_id,
-            authorization
-          );
-        }
-        if (action === "provides.property.liability") {
-          result = addLiability(
-            "property1",
-            socketIo,
-            parameters,
-            user_id,
-            authorization
-          );
-        }
-        if (action === "provides.property.income") {
-          result = addIncome(
-            "property1",
-            "Others",
-            socketIo,
-            parameters,
-            user_id,
-            authorization
-          );
-        }
-        if (action === "provides.property.expense") {
-          result = addExpense(
-            "property1",
-            "Fixed",
+        if (action.startsWith("provides.property.")) {
+          handlePropertyAction(
+            action,
+            propertyCounts,
             socketIo,
             parameters,
             user_id,

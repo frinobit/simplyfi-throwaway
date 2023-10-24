@@ -1,5 +1,4 @@
-import AssetsBox from "./assetsBox";
-import LiabilitiesBox from "./liabilitiesBox";
+import { AssetsBox, LiabilitiesBox } from "./financialBox";
 
 export const getIncome = (array, type) => {
   try {

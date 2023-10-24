@@ -21,7 +21,7 @@ const addAsset = async (
       console.log("API Error:", error.message);
     });
 
-    const message = { message: "A POST request was done!" };
+    const message = { message: "addAsset was done!" };
     socketIo.emit("post_request_done", message);
   } catch (error) {
     console.log("Error processing message (addAsset):", error.message);
@@ -49,7 +49,7 @@ const addLiability = async (
       console.log("API Error:", error.message);
     });
 
-    const message = { message: "A POST request was done!" };
+    const message = { message: "addLiability was done!" };
     socketIo.emit("post_request_done", message);
   } catch (error) {
     console.log("Error processing message (addLiability):", error.message);
@@ -79,7 +79,7 @@ const addIncome = async (
       console.log("API Error:", error.message);
     });
 
-    const message = { message: "A POST request was done!" };
+    const message = { message: "addIncome was done!" };
     socketIo.emit("post_request_done", message);
   } catch (error) {
     console.log("Error processing message (addIncome):", error.message);
@@ -109,7 +109,7 @@ const addExpense = async (
       console.log("API Error:", error.message);
     });
 
-    const message = { message: "A POST request was done!" };
+    const message = { message: "addExpense was done!" };
     socketIo.emit("post_request_done", message);
   } catch (error) {
     console.log("Error processing message (addExpense):", error.message);
