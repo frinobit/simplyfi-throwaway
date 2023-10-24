@@ -1,9 +1,10 @@
 import SnapshotCSS from "../styles/pages/SnapshotBasic.module.css";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+
+// context
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
 import { usePersonalsContext } from "../hooks/usePersonalsContext";
-
 import { useAssetsContext } from "../hooks/financial/useAssetsContext";
 import { useLiabilitiesContext } from "../hooks/financial/useLiabilitiesContext";
 import { useIncomeContext } from "../hooks/financial/useIncomeContext";
@@ -19,6 +20,16 @@ import ProgressBar from "../components/ProgressBar";
 import { getIncome, getExpenses } from "./utils/financialUtils";
 import { Assets, Liabilities } from "./utils/financialUtils";
 import { getName } from "./utils/personalUtils";
+
+// api
+import {
+  fetchFinancials,
+  fetchPersonals,
+  fetchIncome,
+  fetchExpenses,
+  fetchAssets,
+  fetchLiabilities,
+} from "./utils/api";
 
 // socket
 import io from "socket.io-client";
@@ -41,96 +52,6 @@ const SnapshotBasic = () => {
 
   useEffect(() => {
     let socket;
-
-    const fetchFinancials = async () => {
-      if (user) {
-        const response = await fetch("/api/financials", {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-          financialsDispatch({ type: "SET_FINANCIALS", payload: json });
-        }
-      }
-    };
-
-    const fetchPersonals = async () => {
-      if (user) {
-        const response = await fetch("/api/personals", {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-          personalsDispatch({ type: "SET_PERSONALS", payload: json });
-        }
-      }
-    };
-
-    const fetchIncome = async () => {
-      if (user) {
-        const response = await fetch("/api/financial/income", {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-          incomeDispatch({ type: "SET_INCOMES", payload: json });
-        }
-      }
-    };
-
-    const fetchExpenses = async () => {
-      if (user) {
-        const response = await fetch("/api/financial/expense", {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-          expensesDispatch({ type: "SET_EXPENSES", payload: json });
-        }
-      }
-    };
-
-    const fetchAssets = async () => {
-      if (user) {
-        const response = await fetch("/api/financial/asset", {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-          assetsDispatch({ type: "SET_ASSETS", payload: json });
-        }
-      }
-    };
-
-    const fetchLiabilities = async () => {
-      if (user) {
-        const response = await fetch("/api/financial/liability", {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-          liabilitiesDispatch({ type: "SET_LIABILITIES", payload: json });
-        }
-      }
-    };
 
     if (user) {
       fetchFinancials();
