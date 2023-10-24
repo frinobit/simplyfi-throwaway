@@ -8,6 +8,10 @@ const incomeSchema = new Schema({
     required: true,
   },
   description: String,
+  type: {
+    type: String,
+    enum: ["Salary", "Bonuses", "Others"],
+  },
   amount: Number,
 });
 

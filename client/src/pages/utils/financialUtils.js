@@ -1,16 +1,14 @@
 import AssetsBox from "./assetsBox";
 import LiabilitiesBox from "./liabilitiesBox";
 
-export const getIncome = (financials, category, type) => {
+export const getIncome = (array, type) => {
   try {
     let income;
 
     if (type === "total") {
-      income = financials?.["0"]?.[category];
+      income = array;
     } else {
-      income = financials?.["0"]?.[category].filter(
-        (item) => item.type === type
-      );
+      income = array?.["0"].filter((item) => item.type === type);
     }
 
     if (income.length > 0) {
@@ -28,16 +26,14 @@ export const getIncome = (financials, category, type) => {
   }
 };
 
-export const getExpenses = (financials, category, type) => {
+export const getExpenses = (array, type) => {
   try {
     let expenses;
 
     if (type === "total") {
-      expenses = financials?.["0"]?.[category];
+      expenses = array;
     } else {
-      expenses = financials?.["0"]?.[category].filter(
-        (item) => item.type === type
-      );
+      expenses = array?.["0"].filter((item) => item.type === type);
     }
 
     if (expenses.length > 0) {
@@ -55,31 +51,11 @@ export const getExpenses = (financials, category, type) => {
   }
 };
 
-export const getSavings = (financials, category, type) => {
+const Assets = ({ assets }) => {
   try {
-    const savings = financials?.["0"]?.[category].filter(
-      (item) => item.type === type
-    );
-
-    if (savings.length > 0) {
-      const totalSavings = savings.reduce(
-        (total, item) => total + item.amount,
-        0
-      );
-      return `$${totalSavings.toLocaleString()}`;
-    } else {
-      return "$---";
-    }
-  } catch (error) {
-    console.log("An error occurred:", error.message);
-    return "$---";
-  }
-};
-
-const Assets = ({ financials }) => {
-  try {
-    if (financials["0"].assets.length > 0) {
-      return financials["0"].assets.map((item, index) => (
+    console.log(assets);
+    if (assets.length > 0) {
+      return assets.map((item, index) => (
         <AssetsBox
           key={index}
           description={item.description}
@@ -95,10 +71,10 @@ const Assets = ({ financials }) => {
   }
 };
 
-const Liabilities = ({ financials }) => {
+const Liabilities = ({ liabilities }) => {
   try {
-    if (financials["0"].liabilities.length > 0) {
-      return financials["0"].liabilities.map((item, index) => (
+    if (liabilities.length > 0) {
+      return liabilities.map((item, index) => (
         <LiabilitiesBox
           key={index}
           description={item.description}

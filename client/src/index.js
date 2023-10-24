@@ -6,15 +6,27 @@ import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/AuthContext";
 import { FinancialsContextProvider } from "./context/FinancialsContext";
 import { PersonalsContextProvider } from "./context/PersonalsContext";
+import { AssetsContextProvider } from "./context/financial/AssetsContext";
+import { LiabilitiesContextProvider } from "./context/financial/LiabilitiesContext";
+import { IncomeContextProvider } from "./context/financial/IncomeContext";
+import { ExpensesContextProvider } from "./context/financial/ExpensesContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <FinancialsContextProvider>
       <PersonalsContextProvider>
-        <AuthContextProvider>
-          <App />
-        </AuthContextProvider>
+        <AssetsContextProvider>
+          <LiabilitiesContextProvider>
+            <IncomeContextProvider>
+              <ExpensesContextProvider>
+                <AuthContextProvider>
+                  <App />
+                </AuthContextProvider>
+              </ExpensesContextProvider>
+            </IncomeContextProvider>
+          </LiabilitiesContextProvider>
+        </AssetsContextProvider>
       </PersonalsContextProvider>
     </FinancialsContextProvider>
   </React.StrictMode>

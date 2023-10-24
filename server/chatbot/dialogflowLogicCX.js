@@ -4,8 +4,14 @@ const dialogflow = require("@google-cloud/dialogflow-cx");
 
 // utils
 const { updateName } = require("./chatbotUtils/updateName");
-const { updateIncome } = require("./chatbotUtils/updateIncome");
-const { updateFixed } = require("./chatbotUtils/updateFixed");
+// const { updateIncome } = require("./chatbotUtils/updateIncome");
+// const { updateFixed } = require("./chatbotUtils/updateFixed");
+const {
+  addAsset,
+  addLiability,
+  addIncome,
+  addExpense,
+} = require("./chatbotUtils/addFinancial");
 
 // socket
 const http = require("http");
@@ -71,23 +77,48 @@ const processMessage = async (queries, user_id, authorization) => {
         const parameters = response[0].queryResult.parameters;
 
         parts = intent.split(".");
-        action = parts[0] + "." + parts[1];
-        description = parts[2];
+        action = parts[0] + "." + parts[1] + "." + parts[2];
 
         if (action === "provides.name") {
           result = updateName(socketIo, parameters, user_id, authorization);
         }
-        if (action === "provides.income") {
-          result = updateIncome(
+        if (action === "provides.property.asset") {
+          result = addAsset(
+            "property1",
             socketIo,
             parameters,
             user_id,
-            authorization,
-            description
+            authorization
           );
         }
-        if (action === "provides.expenses") {
-          result = updateFixed(socketIo, parameters, user_id, authorization);
+        if (action === "provides.property.liability") {
+          result = addLiability(
+            "property1",
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
+        if (action === "provides.property.income") {
+          result = addIncome(
+            "property1",
+            "Others",
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
+        if (action === "provides.property.expense") {
+          result = addExpense(
+            "property1",
+            "Fixed",
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
         }
       } catch (error) {
         console.log(
@@ -113,7 +144,7 @@ const processMessage = async (queries, user_id, authorization) => {
 
 // Function to initiate a conversation
 const startConversation = () => {
-  return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!";
+  return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!\n\nType 'ready' when you are ready!";
 };
 
 module.exports = { processMessage, startConversation };

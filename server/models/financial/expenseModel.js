@@ -8,6 +8,10 @@ const expenseSchema = new Schema({
     required: true,
   },
   description: String,
+  type: {
+    type: String,
+    enum: ["Fixed", "Variables", "Annual"],
+  },
   amount: Number,
 });
 

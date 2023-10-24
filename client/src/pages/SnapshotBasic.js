@@ -4,6 +4,11 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
 import { usePersonalsContext } from "../hooks/usePersonalsContext";
 
+import { useAssetsContext } from "../hooks/financial/useAssetsContext";
+import { useLiabilitiesContext } from "../hooks/financial/useLiabilitiesContext";
+import { useIncomeContext } from "../hooks/financial/useIncomeContext";
+import { useExpensesContext } from "../hooks/financial/useExpensesContext";
+
 // components
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
@@ -11,7 +16,7 @@ import Chatbot from "../components/Chatbot";
 import ProgressBar from "../components/ProgressBar";
 
 // utils
-import { getIncome, getExpenses, getSavings } from "./utils/financialUtils";
+import { getIncome, getExpenses } from "./utils/financialUtils";
 import { Assets, Liabilities } from "./utils/financialUtils";
 import { getName } from "./utils/personalUtils";
 
@@ -23,6 +28,12 @@ const SnapshotBasic = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
   const { personals, dispatch: personalsDispatch } = usePersonalsContext();
+
+  const { assets, dispatch: assetsDispatch } = useAssetsContext();
+  const { liabilities, dispatch: liabilitiesDispatch } =
+    useLiabilitiesContext();
+  const { income, dispatch: incomeDispatch } = useIncomeContext();
+  const { expenses, dispatch: expensesDispatch } = useExpensesContext();
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
@@ -61,15 +72,83 @@ const SnapshotBasic = () => {
       }
     };
 
+    const fetchIncome = async () => {
+      if (user) {
+        const response = await fetch("/api/financial/income", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const json = await response.json();
+
+        if (response.ok) {
+          incomeDispatch({ type: "SET_INCOMES", payload: json });
+        }
+      }
+    };
+
+    const fetchExpenses = async () => {
+      if (user) {
+        const response = await fetch("/api/financial/expense", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const json = await response.json();
+
+        if (response.ok) {
+          expensesDispatch({ type: "SET_EXPENSES", payload: json });
+        }
+      }
+    };
+
+    const fetchAssets = async () => {
+      if (user) {
+        const response = await fetch("/api/financial/asset", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const json = await response.json();
+
+        if (response.ok) {
+          assetsDispatch({ type: "SET_ASSETS", payload: json });
+        }
+      }
+    };
+
+    const fetchLiabilities = async () => {
+      if (user) {
+        const response = await fetch("/api/financial/liability", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const json = await response.json();
+
+        if (response.ok) {
+          liabilitiesDispatch({ type: "SET_LIABILITIES", payload: json });
+        }
+      }
+    };
+
     if (user) {
       fetchFinancials();
       fetchPersonals();
+      fetchIncome();
+      fetchExpenses();
+      fetchAssets();
+      fetchLiabilities();
       console.log("socket on");
       socket = io.connect("http://localhost:3001");
       socket.on("post_request_done", (data) => {
         console.log(data.message);
         fetchFinancials();
         fetchPersonals();
+        fetchIncome();
+        fetchExpenses();
+        fetchAssets();
+        fetchLiabilities();
       });
     } else {
       console.log("socket off");
@@ -84,11 +163,19 @@ const SnapshotBasic = () => {
         socket.disconnect();
       }
     };
-  }, [financialsDispatch, personalsDispatch, user]);
+  }, [
+    financialsDispatch,
+    personalsDispatch,
+    incomeDispatch,
+    expensesDispatch,
+    assetsDispatch,
+    liabilitiesDispatch,
+    user,
+  ]);
 
   return (
     <div className={SnapshotCSS.snapshot}>
-      {financials ? (
+      {personals ? (
         <div className={SnapshotCSS.snapshot_container}>
           <div className={SnapshotCSS.progress_bar}>
             <ProgressBar financials={financials} />
@@ -100,19 +187,19 @@ const SnapshotBasic = () => {
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert}`}
               >
                 <p>Long-Term</p>
-                <p>{getSavings(financials, "savings", "Long-Term")}</p>
+                <p>$---</p>
               </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_hori}`}
               >
                 <p>Emergency Fund</p>
-                <p>{getSavings(financials, "savings", "Emergency Fund")}</p>
+                <p>$---</p>
               </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert2}`}
               >
                 <p>Short-Term</p>
-                <p>{getSavings(financials, "savings", "Short-Term")}</p>
+                <p>$---</p>
               </div>
             </div>
           </div>
@@ -142,7 +229,7 @@ const SnapshotBasic = () => {
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
                   >
                     <p>Total</p>
-                    <p>{getIncome(financials, "income", "total")}</p>
+                    <p>{getIncome(income, "total")}</p>
                   </div>
                 </div>
                 <div className={SnapshotCSS.expenses_details}>
@@ -164,7 +251,7 @@ const SnapshotBasic = () => {
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
                   >
                     <p>Total</p>
-                    <p>{getExpenses(financials, "expenses", "total")}</p>
+                    <p>{getExpenses(expenses, "total")}</p>
                   </div>
                 </div>
               </div>
@@ -265,7 +352,7 @@ const SnapshotBasic = () => {
                 </svg>
               </div>
               <div>
-                <Assets financials={financials} />
+                <Assets assets={assets} />
               </div>
             </div>
             <div className={SnapshotCSS.liabilities_details}>
@@ -284,7 +371,7 @@ const SnapshotBasic = () => {
                 </svg>
               </div>
               <div>
-                <Liabilities financials={financials} />
+                <Liabilities liabilities={liabilities} />
               </div>
             </div>
             <div className={SnapshotCSS.investment_details}>
