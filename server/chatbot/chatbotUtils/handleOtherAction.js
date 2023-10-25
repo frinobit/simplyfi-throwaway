@@ -7,15 +7,13 @@ const {
 
 const handleOtherAction = (
   action,
-  otherCounts,
+  description,
   socketIo,
   parameters,
   user_id,
   authorization
 ) => {
   if (action === "provides.other.asset") {
-    otherCounts[user_id]++;
-    const description = `other${otherCounts[user_id]}`;
     result = addAsset(
       description,
       socketIo,
@@ -25,7 +23,6 @@ const handleOtherAction = (
     );
   }
   if (action === "provides.other.liability") {
-    const description = `other${otherCounts[user_id]}`;
     result = addLiability(
       description,
       socketIo,
@@ -35,7 +32,6 @@ const handleOtherAction = (
     );
   }
   if (action === "provides.other.income") {
-    const description = `other${otherCounts[user_id]}`;
     result = addIncome(
       description,
       "Others",
@@ -46,7 +42,6 @@ const handleOtherAction = (
     );
   }
   if (action === "provides.other.expense") {
-    const description = `other${otherCounts[user_id]}`;
     result = addExpense(
       description,
       "Fixed",

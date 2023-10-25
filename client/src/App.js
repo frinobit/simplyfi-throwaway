@@ -3,7 +3,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 // pages & components
 import Welcome from "./pages/Welcome";
-// import SnapshotPremium from "./pages/SnapshotPremium";
+import SnapshotPremium from "./pages/SnapshotPremium";
 import SnapshotBasic from "./pages/SnapshotBasic";
 // import Home from "./pages/Home";
 import Navbar from "./components/navbar/Navbar";
@@ -25,10 +25,10 @@ function App() {
               path="/simplyfi-throwaway/snapshotBasic"
               element={<SnapshotBasic />}
             />
-            {/* <Route
+            <Route
               path="/simplyfi-throwaway/snapshotpremium"
               element={<SnapshotPremium />}
-            /> */}
+            />
             {/* <Route path="/simplyfi-throwaway/snapshot" element={<Home />} /> */}
             <Route
               path="/simplyfi-throwaway/signupGuest"

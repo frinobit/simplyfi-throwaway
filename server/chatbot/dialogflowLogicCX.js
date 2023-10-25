@@ -35,7 +35,6 @@ const sessionClient = new dialogflow.SessionsClient();
 
 const propertyCounts = {};
 const vehicleCounts = {};
-const otherCounts = {};
 
 const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
@@ -57,9 +56,6 @@ const processMessage = async (queries, user_id, authorization) => {
   }
   if (!vehicleCounts[user_id]) {
     vehicleCounts[user_id] = 0;
-  }
-  if (!otherCounts[user_id]) {
-    otherCounts[user_id] = 0;
   }
 
   for (const userMessage of queries) {
@@ -106,9 +102,10 @@ const processMessage = async (queries, user_id, authorization) => {
           );
         }
         if (action.startsWith("provides.other.")) {
+          const description = parameters.fields.any.stringValue;
           handleOtherAction(
             action,
-            otherCounts,
+            description,
             socketIo,
             parameters,
             user_id,
@@ -138,7 +135,7 @@ const processMessage = async (queries, user_id, authorization) => {
 
 // Function to initiate a conversation
 const startConversation = () => {
-  return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!\n\nType 'ready' when you are ready!";
+  return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!\n\nType 'ready' to get started!\n\nOther services:\n- update name";
 };
 
 module.exports = { processMessage, startConversation };

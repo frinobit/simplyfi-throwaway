@@ -20,9 +20,9 @@ const Navbar = () => {
         <Link to="/simplyfi-throwaway/snapshotbasic">
           <span className={NavbarCSS.nav_snap}>Snapshot Basic</span>
         </Link>
-        {/* <Link to="/simplyfi-throwaway/snapshotpremium">
+        <Link to="/simplyfi-throwaway/snapshotpremium">
           <span className={NavbarCSS.nav_snap}>Snapshot Premium</span>
-        </Link> */}
+        </Link>
         <Link to="/simplyfi-throwaway">
           <span className={NavbarCSS.nav_deep}>Deep Dive</span>
         </Link>

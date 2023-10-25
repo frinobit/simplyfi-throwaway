@@ -62,18 +62,7 @@ const SnapshotBasic = () => {
       fetchLiabilities(user, liabilitiesDispatch);
       console.log("socket on");
       socket = io.connect("http://localhost:3001");
-      // socket.on("post_request_done", (data) => {
-      //   console.log(data.message);
-      //   fetchFinancials(user, financialsDispatch);
-      //   fetchPersonals(user, personalsDispatch);
-      //   fetchIncome(user, incomeDispatch);
-      //   fetchExpenses(user, expensesDispatch);
-      //   fetchAssets(user, assetsDispatch);
-      //   fetchLiabilities(user, liabilitiesDispatch);
-      // });
       socket.on("post_request_done", (data) => {
-        // console.log(data);
-        // console.log(data.message);
         const type = data.type;
 
         switch (type) {
