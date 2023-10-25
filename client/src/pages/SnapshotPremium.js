@@ -14,6 +14,7 @@ import { useExpensesContext } from "../hooks/financial/useExpensesContext";
 import Chatbot from "../components/Chatbot";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
+import ProgressBar from "../components/ProgressBar";
 
 // utils
 import { Assets, Liabilities } from "./utils/financialUtils";
@@ -110,8 +111,11 @@ const SnapshotPremium = () => {
 
   return (
     <div className={SnapshotCSS.snapshot}>
-      {financials ? (
+      {user ? (
         <div className={SnapshotCSS.snapshot_container}>
+          <div className={SnapshotCSS.progress_bar}>
+            <ProgressBar financials={financials} />
+          </div>
           <div className={SnapshotCSS.top_details}>
             <h5>Savings</h5>
             <div className={SnapshotCSS.savings_details}>
