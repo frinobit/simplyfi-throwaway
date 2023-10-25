@@ -28,36 +28,6 @@ export const fetchPersonals = async (user, personalsDispatch) => {
   }
 };
 
-export const fetchIncome = async (user, incomeDispatch) => {
-  if (user) {
-    const response = await fetch("/api/financial/income", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    const json = await response.json();
-
-    if (response.ok) {
-      incomeDispatch({ type: "SET_INCOMES", payload: json });
-    }
-  }
-};
-
-export const fetchExpenses = async (user, expensesDispatch) => {
-  if (user) {
-    const response = await fetch("/api/financial/expense", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    const json = await response.json();
-
-    if (response.ok) {
-      expensesDispatch({ type: "SET_EXPENSES", payload: json });
-    }
-  }
-};
-
 export const fetchAssets = async (user, assetsDispatch) => {
   if (user) {
     const response = await fetch("/api/financial/asset", {
@@ -84,6 +54,36 @@ export const fetchLiabilities = async (user, liabilitiesDispatch) => {
 
     if (response.ok) {
       liabilitiesDispatch({ type: "SET_LIABILITIES", payload: json });
+    }
+  }
+};
+
+export const fetchIncome = async (user, incomeDispatch) => {
+  if (user) {
+    const response = await fetch("/api/financial/income", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      incomeDispatch({ type: "SET_INCOMES", payload: json });
+    }
+  }
+};
+
+export const fetchExpenses = async (user, expensesDispatch) => {
+  if (user) {
+    const response = await fetch("/api/financial/expense", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      expensesDispatch({ type: "SET_EXPENSES", payload: json });
     }
   }
 };

@@ -16,18 +16,18 @@ import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 
 // utils
-import { getIncome, getExpenses } from "./utils/financialUtils";
 import { Assets, Liabilities } from "./utils/financialUtils";
+import { getIncome, getExpenses } from "./utils/financialUtils";
 import { getName } from "./utils/personalUtils";
 
 // api
 import {
   fetchFinancials,
   fetchPersonals,
-  fetchIncome,
-  fetchExpenses,
   fetchAssets,
   fetchLiabilities,
+  fetchIncome,
+  fetchExpenses,
 } from "./utils/api";
 
 // socket
@@ -55,10 +55,10 @@ const SnapshotPremium = () => {
     if (user) {
       fetchFinancials(user, financialsDispatch);
       fetchPersonals(user, personalsDispatch);
-      fetchIncome(user, incomeDispatch);
-      fetchExpenses(user, expensesDispatch);
       fetchAssets(user, assetsDispatch);
       fetchLiabilities(user, liabilitiesDispatch);
+      fetchIncome(user, incomeDispatch);
+      fetchExpenses(user, expensesDispatch);
       console.log("socket on");
       socket = io.connect("http://localhost:3001");
       socket.on("post_request_done", (data) => {
@@ -101,10 +101,10 @@ const SnapshotPremium = () => {
   }, [
     financialsDispatch,
     personalsDispatch,
-    incomeDispatch,
-    expensesDispatch,
     assetsDispatch,
     liabilitiesDispatch,
+    incomeDispatch,
+    expensesDispatch,
     user,
   ]);
 

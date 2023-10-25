@@ -1,5 +1,45 @@
 import { AssetsBox, LiabilitiesBox } from "./financialBox";
 
+const Assets = ({ assets }) => {
+  try {
+    if (assets.length > 0) {
+      return assets.map((item, index) => (
+        <AssetsBox
+          key={index}
+          description={item.description}
+          amount={item.amount}
+        />
+      ));
+    } else {
+      return <AssetsBox description="---" amount="---" />;
+    }
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return <AssetsBox description="---" amount="---" />;
+  }
+};
+
+const Liabilities = ({ liabilities }) => {
+  try {
+    if (liabilities.length > 0) {
+      return liabilities.map((item, index) => (
+        <LiabilitiesBox
+          key={index}
+          description={item.description}
+          amount={item.amount}
+        />
+      ));
+    } else {
+      return <LiabilitiesBox description="---" amount="---" />;
+    }
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return <LiabilitiesBox description="---" amount="---" />;
+  }
+};
+
+export { Assets, Liabilities };
+
 export const getIncome = (array, type) => {
   try {
     let income;
@@ -49,43 +89,3 @@ export const getExpenses = (array, type) => {
     return "$---";
   }
 };
-
-const Assets = ({ assets }) => {
-  try {
-    if (assets.length > 0) {
-      return assets.map((item, index) => (
-        <AssetsBox
-          key={index}
-          description={item.description}
-          amount={item.amount}
-        />
-      ));
-    } else {
-      return <AssetsBox description="---" amount="---" />;
-    }
-  } catch (error) {
-    console.log("An error occurred:", error.message);
-    return <AssetsBox description="---" amount="---" />;
-  }
-};
-
-const Liabilities = ({ liabilities }) => {
-  try {
-    if (liabilities.length > 0) {
-      return liabilities.map((item, index) => (
-        <LiabilitiesBox
-          key={index}
-          description={item.description}
-          amount={item.amount}
-        />
-      ));
-    } else {
-      return <LiabilitiesBox description="---" amount="---" />;
-    }
-  } catch (error) {
-    console.log("An error occurred:", error.message);
-    return <LiabilitiesBox description="---" amount="---" />;
-  }
-};
-
-export { Assets, Liabilities };
