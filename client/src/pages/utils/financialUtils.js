@@ -52,7 +52,6 @@ export const getExpenses = (array, type) => {
 
 const Assets = ({ assets }) => {
   try {
-    console.log(assets);
     if (assets.length > 0) {
       return assets.map((item, index) => (
         <AssetsBox

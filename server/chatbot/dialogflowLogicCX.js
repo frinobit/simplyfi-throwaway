@@ -4,9 +4,8 @@ const dialogflow = require("@google-cloud/dialogflow-cx");
 
 // utils
 const { updateName } = require("./chatbotUtils/updateName");
-// const { updateIncome } = require("./chatbotUtils/updateIncome");
-// const { updateFixed } = require("./chatbotUtils/updateFixed");
 const { handlePropertyAction } = require("./chatbotUtils/handlePropertyAction");
+const { handleVehicleAction } = require("./chatbotUtils/handleVehicleAction");
 
 // socket
 const http = require("http");
@@ -37,6 +36,7 @@ const sessionClient = new dialogflow.SessionsClient();
 let context = [];
 
 const propertyCounts = {};
+const vehicleCounts = {};
 
 const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
@@ -55,6 +55,9 @@ const processMessage = async (queries, user_id, authorization) => {
 
   if (!propertyCounts[user_id]) {
     propertyCounts[user_id] = 0;
+  }
+  if (!vehicleCounts[user_id]) {
+    vehicleCounts[user_id] = 0;
   }
 
   for (const userMessage of queries) {
@@ -80,13 +83,23 @@ const processMessage = async (queries, user_id, authorization) => {
         parts = intent.split(".");
         action = parts[0] + "." + parts[1] + "." + parts[2];
 
-        if (action === "provides.name") {
+        if (action === "provides.personal.name") {
           result = updateName(socketIo, parameters, user_id, authorization);
         }
         if (action.startsWith("provides.property.")) {
           handlePropertyAction(
             action,
             propertyCounts,
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
+        if (action.startsWith("provides.vehicle.")) {
+          handleVehicleAction(
+            action,
+            vehicleCounts,
             socketIo,
             parameters,
             user_id,

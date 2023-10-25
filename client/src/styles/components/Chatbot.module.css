@@ -29,10 +29,8 @@
 .chatbox .chat {
   display: flex;
 }
-.chatbox .bot span {
+.chatbox .bot img {
   width: 2rem;
-  background: var(--text-main);
-  color: var(--text-white);
   align-self: flex-end;
   text-align: center;
   line-height: 2rem;

@@ -170,7 +170,10 @@ const Chatbot = () => {
                   }`}
                 >
                   {message.isUser ? null : (
-                    <span className="material-symbols-outlined">smart_toy</span>
+                    <img
+                      src="/simplyfi-throwaway/assets/strawberry.svg"
+                      alt="strawberry"
+                    />
                   )}
                   <p
                     className={`message ${

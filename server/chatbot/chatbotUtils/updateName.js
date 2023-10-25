@@ -24,9 +24,10 @@ const updateName = async (socketIo, parameters, user_id, authorization) => {
         console.log("API Error:", error.message);
       });
 
-    // socket - send message to frontend that user info updated
-    const message = { message: "A POST request was done!" };
-    socketIo.emit("post_request_done", message);
+    socketIo.emit("post_request_done", {
+      type: "personal_done",
+      message: "addPersonal was done!",
+    });
   } catch (error) {
     console.log("Error processing message (updateName):", error.message);
   }

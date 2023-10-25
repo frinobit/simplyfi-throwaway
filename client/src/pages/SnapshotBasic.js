@@ -62,14 +62,40 @@ const SnapshotBasic = () => {
       fetchLiabilities(user, liabilitiesDispatch);
       console.log("socket on");
       socket = io.connect("http://localhost:3001");
+      // socket.on("post_request_done", (data) => {
+      //   console.log(data.message);
+      //   fetchFinancials(user, financialsDispatch);
+      //   fetchPersonals(user, personalsDispatch);
+      //   fetchIncome(user, incomeDispatch);
+      //   fetchExpenses(user, expensesDispatch);
+      //   fetchAssets(user, assetsDispatch);
+      //   fetchLiabilities(user, liabilitiesDispatch);
+      // });
       socket.on("post_request_done", (data) => {
-        console.log(data.message);
-        fetchFinancials(user, financialsDispatch);
-        fetchPersonals(user, personalsDispatch);
-        fetchIncome(user, incomeDispatch);
-        fetchExpenses(user, expensesDispatch);
-        fetchAssets(user, assetsDispatch);
-        fetchLiabilities(user, liabilitiesDispatch);
+        // console.log(data);
+        // console.log(data.message);
+        const type = data.type;
+
+        switch (type) {
+          case "personal_done":
+            fetchFinancials(user, financialsDispatch);
+            fetchPersonals(user, personalsDispatch);
+            break;
+          case "asset_done":
+            fetchAssets(user, assetsDispatch);
+            break;
+          case "liability_done":
+            fetchLiabilities(user, liabilitiesDispatch);
+            break;
+          case "income_done":
+            fetchIncome(user, incomeDispatch);
+            break;
+          case "expense_done":
+            fetchExpenses(user, expensesDispatch);
+            break;
+          default:
+            console.error("Unknown message type: " + type);
+        }
       });
     } else {
       console.log("socket off");
