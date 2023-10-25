@@ -180,3 +180,14 @@ h5 {
   gap: 1rem;
   padding-left: 2rem;
 }
+
+/* arrow */
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow p {
+  margin: 0 auto;
+}
