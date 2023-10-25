@@ -6,6 +6,7 @@ const dialogflow = require("@google-cloud/dialogflow-cx");
 const { updateName } = require("./chatbotUtils/updateName");
 const { handlePropertyAction } = require("./chatbotUtils/handlePropertyAction");
 const { handleVehicleAction } = require("./chatbotUtils/handleVehicleAction");
+const { handleOtherAction } = require("./chatbotUtils/handleOtherAction");
 
 // socket
 const http = require("http");
@@ -32,11 +33,9 @@ server.listen(process.env.WS_PORT, () => {
 
 const sessionClient = new dialogflow.SessionsClient();
 
-// Keeping the context across queries to simulate an ongoing conversation
-let context = [];
-
 const propertyCounts = {};
 const vehicleCounts = {};
+const otherCounts = {};
 
 const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
@@ -59,6 +58,9 @@ const processMessage = async (queries, user_id, authorization) => {
   if (!vehicleCounts[user_id]) {
     vehicleCounts[user_id] = 0;
   }
+  if (!otherCounts[user_id]) {
+    otherCounts[user_id] = 0;
+  }
 
   for (const userMessage of queries) {
     const request = {
@@ -68,9 +70,6 @@ const processMessage = async (queries, user_id, authorization) => {
           text: userMessage,
         },
         languageCode: languageCode,
-      },
-      queryParams: {
-        contexts: context || [], // Use the existing context from previous queries
       },
     };
 
@@ -106,6 +105,16 @@ const processMessage = async (queries, user_id, authorization) => {
             authorization
           );
         }
+        if (action.startsWith("provides.other.")) {
+          handleOtherAction(
+            action,
+            otherCounts,
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
       } catch (error) {
         console.log(
           "Error processing message (processMessage1):",
@@ -114,7 +123,6 @@ const processMessage = async (queries, user_id, authorization) => {
       }
 
       responses.push(response[0]);
-      context = response[0].queryResult.outputContexts;
     } catch (error) {
       console.log("Error processing message (processMessage2):", error.message);
     }
