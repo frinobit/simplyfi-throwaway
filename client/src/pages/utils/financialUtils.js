@@ -1,6 +1,6 @@
 import { AssetsBox, LiabilitiesBox } from "./financialBox";
 
-const Assets = ({ assets }) => {
+const Assets = ({ assets, income, expenses }) => {
   try {
     if (assets.length > 0) {
       return assets.map((item, index) => (
@@ -8,6 +8,8 @@ const Assets = ({ assets }) => {
           key={index}
           description={item.description}
           amount={item.amount}
+          income={income}
+          expenses={expenses}
         />
       ));
     } else {
@@ -40,18 +42,18 @@ const Liabilities = ({ liabilities }) => {
 
 export { Assets, Liabilities };
 
-export const getIncome = (array, type) => {
+export const getIncome = (income, type) => {
   try {
-    let income;
+    let filteredIncome;
 
     if (type === "total") {
-      income = array;
+      filteredIncome = income;
     } else {
-      income = array?.["0"].filter((item) => item.type === type);
+      filteredIncome = income?.["0"].filter((item) => item.type === type);
     }
 
-    if (income.length > 0) {
-      const totalIncome = income.reduce(
+    if (filteredIncome.length > 0) {
+      const totalIncome = filteredIncome.reduce(
         (total, item) => total + item.amount,
         0
       );
@@ -65,18 +67,18 @@ export const getIncome = (array, type) => {
   }
 };
 
-export const getExpenses = (array, type) => {
+export const getExpenses = (expenses, type) => {
   try {
-    let expenses;
+    let filteredExpenses;
 
     if (type === "total") {
-      expenses = array;
+      filteredExpenses = expenses;
     } else {
-      expenses = array?.["0"].filter((item) => item.type === type);
+      filteredExpenses = expenses?.["0"].filter((item) => item.type === type);
     }
 
-    if (expenses.length > 0) {
-      const totalExpenses = expenses.reduce(
+    if (filteredExpenses.length > 0) {
+      const totalExpenses = filteredExpenses.reduce(
         (total, item) => total + item.amount,
         0
       );
@@ -84,6 +86,26 @@ export const getExpenses = (array, type) => {
     } else {
       return "$---";
     }
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return "$---";
+  }
+};
+
+export const getNet = (income, expenses) => {
+  try {
+    let totalIncome;
+    let totalExpenses;
+    let netResult;
+
+    if (income.length > 0) {
+      totalIncome = income.reduce((total, item) => total + item.amount, 0);
+    }
+    if (expenses.length > 0) {
+      totalExpenses = expenses.reduce((total, item) => total + item.amount, 0);
+    }
+    netResult = (totalIncome - totalExpenses) * 12;
+    return `$${netResult.toLocaleString()}/yr`;
   } catch (error) {
     console.log("An error occurred:", error.message);
     return "$---";

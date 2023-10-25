@@ -18,7 +18,7 @@ import ProgressBar from "../components/ProgressBar";
 
 // utils
 import { Assets, Liabilities } from "./utils/financialUtils";
-import { getIncome, getExpenses } from "./utils/financialUtils";
+import { getIncome, getExpenses, getNet } from "./utils/financialUtils";
 import { getName } from "./utils/personalUtils";
 
 // api
@@ -123,7 +123,24 @@ const SnapshotBasic = () => {
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert}`}
               >
                 <p>Long-Term</p>
-                <p>$---</p>
+                <div className={SnapshotCSS.arrow}>
+                  <p>$---</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="none"
+                      stroke="#1faf38"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M12 20V4m0 0l6 6m-6-6l-6 6"
+                    />
+                  </svg>
+                </div>
               </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_hori}`}
@@ -135,7 +152,24 @@ const SnapshotBasic = () => {
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert2}`}
               >
                 <p>Short-Term</p>
-                <p>$---</p>
+                <div className={SnapshotCSS.arrow}>
+                  <p>$---</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="none"
+                      stroke="#1faf38"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M12 20V4m0 0l6 6m-6-6l-6 6"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
@@ -144,7 +178,7 @@ const SnapshotBasic = () => {
             <div className={SnapshotCSS.left_details}>
               <div className={SnapshotCSS.left_container}>
                 <div className={SnapshotCSS.per_year_details}>
-                  <p>$---/yr</p>
+                  <p>{getNet(income, expenses)}</p>
                 </div>
                 <div className={SnapshotCSS.income_details}>
                   <div className={SnapshotCSS.button_div}>
@@ -165,7 +199,24 @@ const SnapshotBasic = () => {
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
                   >
                     <p>Total</p>
-                    <p>{getIncome(income, "total")}</p>
+                    <div className={SnapshotCSS.arrow}>
+                      <p>{getIncome(income, "total")}</p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="none"
+                          stroke="#1faf38"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M12 20V4m0 0l6 6m-6-6l-6 6"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 <div className={SnapshotCSS.expenses_details}>
@@ -187,7 +238,24 @@ const SnapshotBasic = () => {
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox}`}
                   >
                     <p>Total</p>
-                    <p>{getExpenses(expenses, "total")}</p>
+                    <div className={SnapshotCSS.arrow}>
+                      <p>{getExpenses(expenses, "total")}</p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="none"
+                          stroke="#de2242"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M12 4v16m0 0l6-6m-6 6l-6-6"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -241,8 +309,25 @@ const SnapshotBasic = () => {
                   <div
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.right_hori}`}
                   >
-                    <p>Salary</p>
-                    <p>$---</p>
+                    <p>Total</p>
+                    <div className={SnapshotCSS.arrow}>
+                      <p>$---</p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="none"
+                          stroke="#1faf38"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M12 20V4m0 0l6 6m-6-6l-6 6"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 <div className={SnapshotCSS.expenses_details}>
@@ -263,8 +348,25 @@ const SnapshotBasic = () => {
                   <div
                     className={`${SnapshotCSS.smallbox} ${SnapshotCSS.redbox} ${SnapshotCSS.right_hori}`}
                   >
-                    <p>Fixed</p>
-                    <p>$---</p>
+                    <p>Total</p>
+                    <div className={SnapshotCSS.arrow}>
+                      <p>$---</p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="none"
+                          stroke="#de2242"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M12 4v16m0 0l6-6m-6 6l-6-6"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -288,7 +390,7 @@ const SnapshotBasic = () => {
                 </svg>
               </div>
               <div>
-                <Assets assets={assets} />
+                <Assets assets={assets} income={income} expenses={expenses} />
               </div>
             </div>
             <div className={SnapshotCSS.liabilities_details}>
