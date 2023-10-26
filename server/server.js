@@ -3,10 +3,11 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
-const userRoutes = require("./routes/user");
-const financialRoutes = require("./routes/financials");
-const personalRoutes = require("./routes/personals");
-const messageRoutes = require("./routes/messages");
+const userRoute = require("./routes/userRoute");
+const financialRoute = require("./routes/financialsRoute");
+const personalRoute = require("./routes/personalsRoute");
+const messageRoute = require("./routes/messagesRoute");
+const progressBarRoute = require("./routes/progressBarRoute");
 
 const assetRoute = require("./routes/financial//assetRoute");
 const liabilityRoute = require("./routes/financial//liabilityRoute");
@@ -16,7 +17,7 @@ const savingRoute = require("./routes/financial//savingRoute");
 const investmentRoute = require("./routes/financial//investmentRoute");
 const insuranceRoute = require("./routes/financial//insuranceRoute");
 
-const dialogflowRoutes = require("./routes/dialogflow");
+const dialogflowRoutes = require("./routes/dialogflowRoute");
 
 // express app
 const app = express();
@@ -30,10 +31,11 @@ app.use((req, res, next) => {
 });
 
 // routes - database
-app.use("/api/user", userRoutes);
-app.use("/api/financials", financialRoutes);
-app.use("/api/personals", personalRoutes);
-app.use("/api/messages", messageRoutes);
+app.use("/api/user", userRoute);
+app.use("/api/financials", financialRoute);
+app.use("/api/personals", personalRoute);
+app.use("/api/messages", messageRoute);
+app.use("/api/progressbar", progressBarRoute);
 
 app.use("/api/financial/asset", assetRoute);
 app.use("/api/financial/liability", liabilityRoute);

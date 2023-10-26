@@ -15,6 +15,7 @@ const progressBarSchema = new Schema({
   step6: { type: Number, default: 0 },
   step7: { type: Number, default: 0 },
   step8: { type: Number, default: 0 },
+  step9: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model("ProgressBar", progressBarSchema);

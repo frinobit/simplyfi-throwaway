@@ -5,18 +5,19 @@ const ProgressBar = (financials) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [currentPercentage, setCurrentPercentage] = useState(0);
 
-  const circles = Array.from({ length: 8 }, (_, index) => (
+  const circles = Array.from({ length: 10 }, (_, index) => (
     <span
       key={index}
       className={`${ProgressBarCSS.circle} ${
         index < currentStep ? ProgressBarCSS.active : ""
       }`}
     >
-      {index + 1}
+      {index}
     </span>
   ));
 
   const stepMessages = [
+    "Ready?",
     "Step 1: Property",
     "Step 2: Vehicle",
     "Step 3: Other Assets",
@@ -25,13 +26,14 @@ const ProgressBar = (financials) => {
     "Step 6: Savings",
     "Step 7: Investment",
     "Step 8: Protection",
+    "All done!",
   ];
 
   useEffect(() => {
     try {
       const step1 = financials.financials[0].income.length;
-      setCurrentStep(1 + Math.floor(step1 / 7));
-      setCurrentPercentage(((step1 / 7 / 7) * 100).toFixed(2) + "%");
+      setCurrentStep(1 + Math.floor(step1 / 9));
+      setCurrentPercentage(((step1 / 9 / 9) * 100).toFixed(2) + "%");
     } catch (error) {
       console.log(error.message);
     }
