@@ -229,7 +229,8 @@ const processMessage = async (queries, user_id, authorization) => {
 
 // Function to initiate a conversation
 const startConversation = () => {
-  return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!\n\nType 'ready' to get started!\n\nOther services:\n- update name";
+  // return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!\n\nType 'ready' to get started!\n\nOther services:\n- update name";
+  return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!\n\nType 'ready' to get started!";
 };
 
 module.exports = { processMessage, startConversation };

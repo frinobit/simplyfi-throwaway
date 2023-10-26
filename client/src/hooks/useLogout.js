@@ -1,6 +1,7 @@
 import { useAuthContext } from "./useAuthContext";
 import { useFinancialsContext } from "./useFinancialsContext";
 import { usePersonalsContext } from "./usePersonalsContext";
+import { useProgressBarContext } from "./useProgressBarContext";
 import { useAssetsContext } from "./financial/useAssetsContext";
 import { useLiabilitiesContext } from "./financial/useLiabilitiesContext";
 import { useIncomeContext } from "./financial/useIncomeContext";
@@ -15,6 +16,7 @@ export const useLogout = () => {
   const { dispatch } = useAuthContext();
   const { dispatch: financialsDispatch } = useFinancialsContext();
   const { dispatch: personalsDispatch } = usePersonalsContext();
+  const { dispatch: progressBarDispatch } = useProgressBarContext();
   const { dispatch: assetsDispatch } = useAssetsContext();
   const { dispatch: liabilitiesDispatch } = useLiabilitiesContext();
   const { dispatch: incomeDispatch } = useIncomeContext();
@@ -37,6 +39,7 @@ export const useLogout = () => {
     // clear screen
     await financialsDispatch({ type: "SET_FINANCIALS", payload: null });
     await personalsDispatch({ type: "SET_PERSONALS", payload: null });
+    await progressBarDispatch({ type: "SET_PROGRESSBAR", payload: null });
     await assetsDispatch({ type: "SET_ASSETS", payload: null });
     await liabilitiesDispatch({ type: "SET_LIABILITIES", payload: null });
     await incomeDispatch({ type: "SET_INCOMES", payload: null });

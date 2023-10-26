@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import ProgressBarCSS from "../styles/components/ProgressBar.module.css";
 
 const ProgressBar = ({ progressBar }) => {
-  console.log(progressBar?.["0"]);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentPercentage, setCurrentPercentage] = useState(0);
 
@@ -18,7 +17,7 @@ const ProgressBar = ({ progressBar }) => {
   ));
 
   const stepMessages = [
-    "Ready?",
+    "Let's warm up!",
     "Step 1: Property",
     "Step 2: Vehicle",
     "Step 3: Other Assets",
@@ -32,9 +31,13 @@ const ProgressBar = ({ progressBar }) => {
 
   useEffect(() => {
     try {
-      const step1 = progressBar.financials[0].income.length;
-      setCurrentStep(1 + Math.floor(step1 / 9));
-      setCurrentPercentage(((step1 / 9 / 9) * 100).toFixed(2) + "%");
+      const steps = progressBar?.["0"];
+      let totalSteps = 0;
+      for (let i = 1; i <= 9; i++) {
+        totalSteps += steps[`step${i}`];
+      }
+      setCurrentStep(totalSteps + 1);
+      setCurrentPercentage(((totalSteps + 0) / 9) * 100 + "%");
     } catch (error) {
       console.log(error.message);
     }

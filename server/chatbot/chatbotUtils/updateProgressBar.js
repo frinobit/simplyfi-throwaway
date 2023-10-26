@@ -7,13 +7,18 @@ const updateProgressBar = async (
   user_id,
   authorization
 ) => {
-  const yesno =
-    parameters.fields.yesnoresponse.structValue.fields.original.stringValue;
-  if (intent.startsWith("AskYesNo") && yesno !== "no") {
-    return;
-  }
-
+  console.log(intent);
   try {
+    try {
+      const yesno =
+        parameters.fields.yesnoresponse.structValue.fields.original.stringValue;
+      if (intent.startsWith("AskYesNo") && yesno !== "no") {
+        return;
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+
     let step = 1;
 
     switch (intent) {
