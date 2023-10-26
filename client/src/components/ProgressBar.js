@@ -37,7 +37,7 @@ const ProgressBar = ({ progressBar }) => {
         totalSteps += steps[`step${i}`];
       }
       setCurrentStep(totalSteps + 1);
-      setCurrentPercentage(((totalSteps + 0) / 9) * 100 + "%");
+      setCurrentPercentage((totalSteps / 9) * 100 + "%");
     } catch (error) {
       console.log(error.message);
     }
