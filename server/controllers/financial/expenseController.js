@@ -29,13 +29,14 @@ const getExpense = async (req, res) => {
 
 // create new expense
 const createExpense = async (req, res) => {
-  const { description, amount } = req.body;
+  const { description, type, amount } = req.body;
 
   // add doc to db
   try {
     const user_id = req.user.user_id;
     const expense = await Expense.create({
       description,
+      type,
       amount,
       user_id,
     });

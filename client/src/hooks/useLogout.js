@@ -5,6 +5,8 @@ import { useAssetsContext } from "./financial/useAssetsContext";
 import { useLiabilitiesContext } from "./financial/useLiabilitiesContext";
 import { useIncomeContext } from "./financial/useIncomeContext";
 import { useExpensesContext } from "./financial/useExpensesContext";
+import { useSavingsContext } from "./financial/useSavingsContext";
+import { useInvestmentsContext } from "./financial/useInvestmentsContext";
 
 import { app } from "../config/firebase-config";
 import { getAuth, signOut } from "firebase/auth";
@@ -17,6 +19,8 @@ export const useLogout = () => {
   const { dispatch: liabilitiesDispatch } = useLiabilitiesContext();
   const { dispatch: incomeDispatch } = useIncomeContext();
   const { dispatch: expensesDispatch } = useExpensesContext();
+  const { dispatch: savingsDispatch } = useSavingsContext();
+  const { dispatch: investmentsDispatch } = useInvestmentsContext();
 
   const auth = getAuth(app);
 
@@ -37,6 +41,8 @@ export const useLogout = () => {
     await liabilitiesDispatch({ type: "SET_LIABILITIES", payload: null });
     await incomeDispatch({ type: "SET_INCOMES", payload: null });
     await expensesDispatch({ type: "SET_EXPENSES", payload: null });
+    await savingsDispatch({ type: "SET_SAVINGS", payload: null });
+    await investmentsDispatch({ type: "SET_INVESTMENTS", payload: null });
   };
 
   return { logout };

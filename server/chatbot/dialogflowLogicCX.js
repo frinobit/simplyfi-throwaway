@@ -7,6 +7,12 @@ const { updateName } = require("./chatbotUtils/updateName");
 const { handlePropertyAction } = require("./chatbotUtils/handlePropertyAction");
 const { handleVehicleAction } = require("./chatbotUtils/handleVehicleAction");
 const { handleOtherAction } = require("./chatbotUtils/handleOtherAction");
+const { handleIncomeAction } = require("./chatbotUtils/handleIncomeAction");
+const { handleExpensesAction } = require("./chatbotUtils/handleExpensesAction");
+const { handleSavingsAction } = require("./chatbotUtils/handleSavingsAction");
+const {
+  handleInvestmentsAction,
+} = require("./chatbotUtils/handleInvestmentsAction");
 
 // socket
 const http = require("http");
@@ -104,6 +110,50 @@ const processMessage = async (queries, user_id, authorization) => {
         if (action.startsWith("provides.other.")) {
           const description = parameters.fields.any.stringValue;
           handleOtherAction(
+            action,
+            description,
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
+        if (action.startsWith("provides.income.")) {
+          const description = parts[2];
+          handleIncomeAction(
+            action,
+            description,
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
+        if (action.startsWith("provides.expenses.")) {
+          const description = parts[2];
+          handleExpensesAction(
+            action,
+            description,
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
+        if (action.startsWith("provides.savings.")) {
+          const description = parts[2];
+          handleSavingsAction(
+            action,
+            description,
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
+        if (action.startsWith("provides.investments.")) {
+          const description = parameters.fields.any.stringValue;
+          handleInvestmentsAction(
             action,
             description,
             socketIo,

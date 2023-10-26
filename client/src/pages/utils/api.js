@@ -87,3 +87,33 @@ export const fetchExpenses = async (user, expensesDispatch) => {
     }
   }
 };
+
+export const fetchSavings = async (user, savingsDispatch) => {
+  if (user) {
+    const response = await fetch("/api/financial/saving", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      savingsDispatch({ type: "SET_SAVINGS", payload: json });
+    }
+  }
+};
+
+export const fetchInvestments = async (user, investmentsDispatch) => {
+  if (user) {
+    const response = await fetch("/api/financial/investment", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      investmentsDispatch({ type: "SET_INVESTMENTS", payload: json });
+    }
+  }
+};

@@ -29,13 +29,14 @@ const getIncome = async (req, res) => {
 
 // create new income
 const createIncome = async (req, res) => {
-  const { description, amount } = req.body;
+  const { description, type, amount } = req.body;
 
   // add doc to db
   try {
     const user_id = req.user.user_id;
     const income = await Income.create({
       description,
+      type,
       amount,
       user_id,
     });

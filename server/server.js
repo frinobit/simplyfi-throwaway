@@ -12,6 +12,8 @@ const assetRoute = require("./routes/financial//assetRoute");
 const liabilityRoute = require("./routes/financial//liabilityRoute");
 const incomeRoute = require("./routes/financial//incomeRoute");
 const expenseRoute = require("./routes/financial//expenseRoute");
+const savingRoute = require("./routes/financial//savingRoute");
+const investmentRoute = require("./routes/financial//investmentRoute");
 
 const dialogflowRoutes = require("./routes/dialogflow");
 
@@ -36,6 +38,8 @@ app.use("/api/financial/asset", assetRoute);
 app.use("/api/financial/liability", liabilityRoute);
 app.use("/api/financial/income", incomeRoute);
 app.use("/api/financial/expense", expenseRoute);
+app.use("/api/financial/saving", savingRoute);
+app.use("/api/financial/investment", investmentRoute);
 
 // routes- dialogflow
 app.use("/dialogflow", dialogflowRoutes);

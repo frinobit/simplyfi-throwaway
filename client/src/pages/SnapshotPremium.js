@@ -408,9 +408,9 @@ const SnapshotPremium = () => {
                 <Liabilities liabilities={liabilities} />
               </div>
             </div>
-            <div className={SnapshotCSS.investment_details}>
+            <div className={SnapshotCSS.investments_details}>
               <div className={SnapshotCSS.button_div}>
-                <h5>Investment</h5>
+                <h5>Investments</h5>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

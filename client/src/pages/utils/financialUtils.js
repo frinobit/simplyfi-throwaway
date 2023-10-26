@@ -1,4 +1,4 @@
-import { AssetsBox, LiabilitiesBox } from "./financialBox";
+import { AssetsBox, LiabilitiesBox, InvestmentsBox } from "./financialBox";
 
 const Assets = ({ assets, income, expenses }) => {
   try {
@@ -40,7 +40,26 @@ const Liabilities = ({ liabilities }) => {
   }
 };
 
-export { Assets, Liabilities };
+const Investments = ({ investments }) => {
+  try {
+    if (investments.length > 0) {
+      return investments.map((item, index) => (
+        <InvestmentsBox
+          key={index}
+          description={item.description}
+          amount={item.amount}
+        />
+      ));
+    } else {
+      return <InvestmentsBox description="---" amount="---" />;
+    }
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return <InvestmentsBox description="---" amount="---" />;
+  }
+};
+
+export { Assets, Liabilities, Investments };
 
 export const getIncome = (income, type) => {
   try {
@@ -106,6 +125,31 @@ export const getNet = (income, expenses) => {
     }
     netResult = (totalIncome - totalExpenses) * 12;
     return `$${netResult.toLocaleString()}/yr`;
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return "$---";
+  }
+};
+
+export const getSavings = (savings, type) => {
+  try {
+    let filteredSavings;
+
+    if (type === "total") {
+      filteredSavings = savings;
+    } else {
+      filteredSavings = savings?.filter((item) => item.type === type);
+    }
+
+    if (filteredSavings.length > 0) {
+      const totalSavings = filteredSavings.reduce(
+        (total, item) => total + item.amount,
+        0
+      );
+      return `$${totalSavings.toLocaleString()}`;
+    } else {
+      return "$---";
+    }
   } catch (error) {
     console.log("An error occurred:", error.message);
     return "$---";

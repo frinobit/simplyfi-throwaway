@@ -124,4 +124,73 @@ const addExpense = async (
   }
 };
 
-module.exports = { addAsset, addLiability, addIncome, addExpense };
+const addSaving = async (
+  description,
+  type,
+  socketIo,
+  parameters,
+  user_id,
+  authorization
+) => {
+  try {
+    const amount = parameters.fields.number.numberValue;
+
+    const requestData = {
+      description: description,
+      type: type,
+      amount: amount,
+      user_id: user_id,
+    };
+    const headers = { Authorization: authorization };
+    const apiUrl = `${process.env.BACKEND_URL}/api/financial/saving`;
+    await axios.post(apiUrl, requestData, { headers }).catch((error) => {
+      console.log("API Error:", error.message);
+    });
+
+    socketIo.emit("post_request_done", {
+      type: "saving_done",
+      message: "addSaving was done!",
+    });
+  } catch (error) {
+    console.log("Error processing message (addSaving):", error.message);
+  }
+};
+
+const addInvestment = async (
+  description,
+  socketIo,
+  parameters,
+  user_id,
+  authorization
+) => {
+  try {
+    const amount = parameters.fields.number.numberValue;
+
+    const requestData = {
+      description: description,
+      amount: amount,
+      user_id: user_id,
+    };
+    const headers = { Authorization: authorization };
+    const apiUrl = `${process.env.BACKEND_URL}/api/financial/investment`;
+    await axios.post(apiUrl, requestData, { headers }).catch((error) => {
+      console.log("API Error:", error.message);
+    });
+
+    socketIo.emit("post_request_done", {
+      type: "investment_done",
+      message: "addInvestment was done!",
+    });
+  } catch (error) {
+    console.log("Error processing message (addInvestment):", error.message);
+  }
+};
+
+module.exports = {
+  addAsset,
+  addLiability,
+  addIncome,
+  addExpense,
+  addSaving,
+  addInvestment,
+};

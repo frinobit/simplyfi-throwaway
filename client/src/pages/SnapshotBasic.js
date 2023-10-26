@@ -9,6 +9,8 @@ import { useAssetsContext } from "../hooks/financial/useAssetsContext";
 import { useLiabilitiesContext } from "../hooks/financial/useLiabilitiesContext";
 import { useIncomeContext } from "../hooks/financial/useIncomeContext";
 import { useExpensesContext } from "../hooks/financial/useExpensesContext";
+import { useSavingsContext } from "../hooks/financial/useSavingsContext";
+import { useInvestmentsContext } from "../hooks/financial/useInvestmentsContext";
 
 // components
 import Login from "../components/loginSignup/Login";
@@ -17,8 +19,13 @@ import Chatbot from "../components/Chatbot";
 import ProgressBar from "../components/ProgressBar";
 
 // utils
-import { Assets, Liabilities } from "./utils/financialUtils";
-import { getIncome, getExpenses, getNet } from "./utils/financialUtils";
+import { Assets, Liabilities, Investments } from "./utils/financialUtils";
+import {
+  getIncome,
+  getExpenses,
+  getNet,
+  getSavings,
+} from "./utils/financialUtils";
 import { getName } from "./utils/personalUtils";
 
 // api
@@ -29,6 +36,8 @@ import {
   fetchLiabilities,
   fetchIncome,
   fetchExpenses,
+  fetchSavings,
+  fetchInvestments,
 } from "./utils/api";
 
 // socket
@@ -45,6 +54,9 @@ const SnapshotBasic = () => {
     useLiabilitiesContext();
   const { income, dispatch: incomeDispatch } = useIncomeContext();
   const { expenses, dispatch: expensesDispatch } = useExpensesContext();
+  const { savings, dispatch: savingsDispatch } = useSavingsContext();
+  const { investments, dispatch: investmentsDispatch } =
+    useInvestmentsContext();
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
@@ -60,6 +72,8 @@ const SnapshotBasic = () => {
       fetchLiabilities(user, liabilitiesDispatch);
       fetchIncome(user, incomeDispatch);
       fetchExpenses(user, expensesDispatch);
+      fetchSavings(user, savingsDispatch);
+      fetchInvestments(user, investmentsDispatch);
       console.log("socket on");
       socket = io.connect("http://localhost:3001");
       socket.on("post_request_done", (data) => {
@@ -81,6 +95,12 @@ const SnapshotBasic = () => {
             break;
           case "expense_done":
             fetchExpenses(user, expensesDispatch);
+            break;
+          case "saving_done":
+            fetchSavings(user, savingsDispatch);
+            break;
+          case "investment_done":
+            fetchInvestments(user, investmentsDispatch);
             break;
           default:
             console.error("Unknown message type: " + type);
@@ -106,6 +126,8 @@ const SnapshotBasic = () => {
     liabilitiesDispatch,
     incomeDispatch,
     expensesDispatch,
+    savingsDispatch,
+    investmentsDispatch,
     user,
   ]);
 
@@ -124,7 +146,7 @@ const SnapshotBasic = () => {
               >
                 <p>Long-Term</p>
                 <div className={SnapshotCSS.arrow}>
-                  <p>$---</p>
+                  <p>{getSavings(savings, "Long-Term")}</p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -146,14 +168,14 @@ const SnapshotBasic = () => {
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_hori}`}
               >
                 <p>Emergency Fund</p>
-                <p>$---</p>
+                <p>{getSavings(savings, "Emergency Fund")}</p>
               </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert2}`}
               >
                 <p>Short-Term</p>
                 <div className={SnapshotCSS.arrow}>
-                  <p>$---</p>
+                  <p>{getSavings(savings, "Short-Term")}</p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -412,9 +434,9 @@ const SnapshotBasic = () => {
                 <Liabilities liabilities={liabilities} />
               </div>
             </div>
-            <div className={SnapshotCSS.investment_details}>
+            <div className={SnapshotCSS.investments_details}>
               <div className={SnapshotCSS.button_div}>
-                <h5>Investment</h5>
+                <h5>Investments</h5>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -427,11 +449,8 @@ const SnapshotBasic = () => {
                   />
                 </svg>
               </div>
-              <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-              >
-                <p>---</p>
-                <p>$---</p>
+              <div>
+                <Investments investments={investments} />
               </div>
             </div>
             <div className={SnapshotCSS.protection_details}>

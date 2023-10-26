@@ -10,6 +10,8 @@ import { AssetsContextProvider } from "./context/financial/AssetsContext";
 import { LiabilitiesContextProvider } from "./context/financial/LiabilitiesContext";
 import { IncomeContextProvider } from "./context/financial/IncomeContext";
 import { ExpensesContextProvider } from "./context/financial/ExpensesContext";
+import { SavingsContextProvider } from "./context/financial/SavingsContext";
+import { InvestmentsContextProvider } from "./context/financial/InvestmentsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,9 +22,13 @@ root.render(
           <LiabilitiesContextProvider>
             <IncomeContextProvider>
               <ExpensesContextProvider>
-                <AuthContextProvider>
-                  <App />
-                </AuthContextProvider>
+                <SavingsContextProvider>
+                  <InvestmentsContextProvider>
+                    <AuthContextProvider>
+                      <App />
+                    </AuthContextProvider>
+                  </InvestmentsContextProvider>
+                </SavingsContextProvider>
               </ExpensesContextProvider>
             </IncomeContextProvider>
           </LiabilitiesContextProvider>
