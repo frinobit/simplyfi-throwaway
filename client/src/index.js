@@ -12,6 +12,7 @@ import { IncomeContextProvider } from "./context/financial/IncomeContext";
 import { ExpensesContextProvider } from "./context/financial/ExpensesContext";
 import { SavingsContextProvider } from "./context/financial/SavingsContext";
 import { InvestmentsContextProvider } from "./context/financial/InvestmentsContext";
+import { InsuranceContextProvider } from "./context/financial/InsuranceContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,9 +25,11 @@ root.render(
               <ExpensesContextProvider>
                 <SavingsContextProvider>
                   <InvestmentsContextProvider>
-                    <AuthContextProvider>
-                      <App />
-                    </AuthContextProvider>
+                    <InsuranceContextProvider>
+                      <AuthContextProvider>
+                        <App />
+                      </AuthContextProvider>
+                    </InsuranceContextProvider>
                   </InvestmentsContextProvider>
                 </SavingsContextProvider>
               </ExpensesContextProvider>

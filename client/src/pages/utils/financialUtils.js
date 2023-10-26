@@ -1,4 +1,9 @@
-import { AssetsBox, LiabilitiesBox, InvestmentsBox } from "./financialBox";
+import {
+  AssetsBox,
+  LiabilitiesBox,
+  InvestmentsBox,
+  InsuranceBox,
+} from "./financialBox";
 
 const Assets = ({ assets, income, expenses }) => {
   try {
@@ -59,7 +64,34 @@ const Investments = ({ investments }) => {
   }
 };
 
-export { Assets, Liabilities, Investments };
+const Insurance = ({ insurance }) => {
+  try {
+    if (insurance.length > 0) {
+      return insurance.map((item, index) =>
+        item.plan ? (
+          item.sumassured ? (
+            <InsuranceBox
+              key={index}
+              description={item.plan}
+              amount={item.sumassured}
+            />
+          ) : (
+            <InsuranceBox key={index} description={item.plan} amount="---" />
+          )
+        ) : (
+          <InsuranceBox description="---" amount="---" />
+        )
+      );
+    } else {
+      return <InsuranceBox description="---" amount="---" />;
+    }
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return <InsuranceBox description="---" amount="---" />;
+  }
+};
+
+export { Assets, Liabilities, Investments, Insurance };
 
 export const getIncome = (income, type) => {
   try {

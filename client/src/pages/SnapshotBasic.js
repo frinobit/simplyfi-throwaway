@@ -11,6 +11,7 @@ import { useIncomeContext } from "../hooks/financial/useIncomeContext";
 import { useExpensesContext } from "../hooks/financial/useExpensesContext";
 import { useSavingsContext } from "../hooks/financial/useSavingsContext";
 import { useInvestmentsContext } from "../hooks/financial/useInvestmentsContext";
+import { useInsuranceContext } from "../hooks/financial/useInsuranceContext";
 
 // components
 import Login from "../components/loginSignup/Login";
@@ -19,7 +20,12 @@ import Chatbot from "../components/Chatbot";
 import ProgressBar from "../components/ProgressBar";
 
 // utils
-import { Assets, Liabilities, Investments } from "./utils/financialUtils";
+import {
+  Assets,
+  Liabilities,
+  Investments,
+  Insurance,
+} from "./utils/financialUtils";
 import {
   getIncome,
   getExpenses,
@@ -38,6 +44,7 @@ import {
   fetchExpenses,
   fetchSavings,
   fetchInvestments,
+  fetchInsurance,
 } from "./utils/api";
 
 // socket
@@ -57,6 +64,7 @@ const SnapshotBasic = () => {
   const { savings, dispatch: savingsDispatch } = useSavingsContext();
   const { investments, dispatch: investmentsDispatch } =
     useInvestmentsContext();
+  const { insurance, dispatch: insuranceDispatch } = useInsuranceContext();
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
@@ -74,6 +82,7 @@ const SnapshotBasic = () => {
       fetchExpenses(user, expensesDispatch);
       fetchSavings(user, savingsDispatch);
       fetchInvestments(user, investmentsDispatch);
+      fetchInsurance(user, insuranceDispatch);
       console.log("socket on");
       socket = io.connect("http://localhost:3001");
       socket.on("post_request_done", (data) => {
@@ -102,6 +111,9 @@ const SnapshotBasic = () => {
           case "investment_done":
             fetchInvestments(user, investmentsDispatch);
             break;
+          case "insurance_done":
+            fetchInsurance(user, insuranceDispatch);
+            break;
           default:
             console.error("Unknown message type: " + type);
         }
@@ -128,6 +140,7 @@ const SnapshotBasic = () => {
     expensesDispatch,
     savingsDispatch,
     investmentsDispatch,
+    insuranceDispatch,
     user,
   ]);
 
@@ -468,11 +481,8 @@ const SnapshotBasic = () => {
                   />
                 </svg>
               </div>
-              <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-              >
-                <p>---</p>
-                <p>$---</p>
+              <div>
+                <Insurance insurance={insurance} />
               </div>
             </div>
           </div>

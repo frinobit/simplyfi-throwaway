@@ -82,24 +82,16 @@ export const InvestmentsBox = ({ description, amount }) => {
   return (
     <div className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}>
       <p>{description}</p>
-      <div className={SnapshotCSS.arrow}>
-        <p>${amount.toLocaleString()}</p>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="none"
-            stroke="#1faf38"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.5"
-            d="M12 20V4m0 0l6 6m-6-6l-6 6"
-          />
-        </svg>
-      </div>
+      <p>${amount.toLocaleString()}</p>
+    </div>
+  );
+};
+
+export const InsuranceBox = ({ description, amount }) => {
+  return (
+    <div className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}>
+      <p>{description}</p>
+      <p>${amount.toLocaleString()}</p>
     </div>
   );
 };

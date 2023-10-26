@@ -17,7 +17,7 @@ const handleInvestmentsAction = (
       authorization
     );
   }
-  if (action === "provides.property.expense") {
+  if (action === "provides.investments.expense") {
     result = addExpense(
       description,
       "Annual",

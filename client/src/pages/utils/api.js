@@ -117,3 +117,18 @@ export const fetchInvestments = async (user, investmentsDispatch) => {
     }
   }
 };
+
+export const fetchInsurance = async (user, insuranceDispatch) => {
+  if (user) {
+    const response = await fetch("/api/financial/insurance", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      insuranceDispatch({ type: "SET_INSURANCES", payload: json });
+    }
+  }
+};

@@ -13,6 +13,9 @@ const { handleSavingsAction } = require("./chatbotUtils/handleSavingsAction");
 const {
   handleInvestmentsAction,
 } = require("./chatbotUtils/handleInvestmentsAction");
+const {
+  handleInsuranceAction,
+} = require("./chatbotUtils/handleInsuranceAction");
 
 // socket
 const http = require("http");
@@ -41,6 +44,7 @@ const sessionClient = new dialogflow.SessionsClient();
 
 const propertyCounts = {};
 const vehicleCounts = {};
+const insuranceCounts = {};
 
 const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
@@ -62,6 +66,9 @@ const processMessage = async (queries, user_id, authorization) => {
   }
   if (!vehicleCounts[user_id]) {
     vehicleCounts[user_id] = 0;
+  }
+  if (!insuranceCounts[user_id]) {
+    insuranceCounts[user_id] = 0;
   }
 
   for (const userMessage of queries) {
@@ -156,6 +163,18 @@ const processMessage = async (queries, user_id, authorization) => {
           handleInvestmentsAction(
             action,
             description,
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
+        if (action.startsWith("provides.insurance.")) {
+          const update = parts[2];
+          handleInsuranceAction(
+            action,
+            update,
+            insuranceCounts,
             socketIo,
             parameters,
             user_id,
