@@ -29,6 +29,6 @@ router.post("/", createProgressBar);
 router.delete("/:id", deleteProgressBar);
 
 // UPDATE a progressbar
-router.patch("/:id", updateProgressBar);
+router.patch("/", updateProgressBar);
 
 module.exports = router;

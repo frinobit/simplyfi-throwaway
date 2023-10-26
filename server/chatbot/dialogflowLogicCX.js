@@ -4,6 +4,7 @@ const dialogflow = require("@google-cloud/dialogflow-cx");
 
 // utils
 const { updateName } = require("./chatbotUtils/updateName");
+const { updateProgressBar } = require("./chatbotUtils/updateProgressBar");
 const { handlePropertyAction } = require("./chatbotUtils/handlePropertyAction");
 const { handleVehicleAction } = require("./chatbotUtils/handleVehicleAction");
 const { handleOtherAction } = require("./chatbotUtils/handleOtherAction");
@@ -45,6 +46,21 @@ const sessionClient = new dialogflow.SessionsClient();
 const propertyCounts = {};
 const vehicleCounts = {};
 const insuranceCounts = {};
+
+const intentToCheck = [
+  "provides.personal.name",
+  "AskYesNoQuestionProperty",
+  "AskYesNoQuestionVehicle",
+  "AskYesNoQuestionVehicle",
+  "provides.vehicle.expense",
+  "AskYesNoQuestionOther",
+  "provides.other.expense",
+  "AskYesNoQuestionIncome",
+  "AskYesNoQuestionExpenses",
+  "provides.savings.shortterm",
+  "AskYesNoQuestionInvestments",
+  "AskYesNoQuestionInsurance",
+];
 
 const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
@@ -91,8 +107,17 @@ const processMessage = async (queries, user_id, authorization) => {
         parts = intent.split(".");
         action = parts[0] + "." + parts[1] + "." + parts[2];
 
+        if (intentToCheck.includes(intent)) {
+          updateProgressBar(
+            intent,
+            socketIo,
+            parameters,
+            user_id,
+            authorization
+          );
+        }
         if (action === "provides.personal.name") {
-          result = updateName(socketIo, parameters, user_id, authorization);
+          updateName(socketIo, parameters, user_id, authorization);
         }
         if (action.startsWith("provides.property.")) {
           handlePropertyAction(

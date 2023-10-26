@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import ProgressBarCSS from "../styles/components/ProgressBar.module.css";
 
-const ProgressBar = (financials) => {
+const ProgressBar = ({ progressBar }) => {
+  console.log(progressBar?.["0"]);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentPercentage, setCurrentPercentage] = useState(0);
 
@@ -31,13 +32,13 @@ const ProgressBar = (financials) => {
 
   useEffect(() => {
     try {
-      const step1 = financials.financials[0].income.length;
+      const step1 = progressBar.financials[0].income.length;
       setCurrentStep(1 + Math.floor(step1 / 9));
       setCurrentPercentage(((step1 / 9 / 9) * 100).toFixed(2) + "%");
     } catch (error) {
       console.log(error.message);
     }
-  }, [financials]);
+  }, [progressBar]);
 
   return (
     <div className={ProgressBarCSS.container}>

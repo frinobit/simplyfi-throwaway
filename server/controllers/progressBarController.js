@@ -67,16 +67,16 @@ const deleteProgressBar = async (req, res) => {
 
 // update a progressbar
 const updateProgressBar = async (req, res) => {
-  const { id } = req.params;
+  const { step, user_id } = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such progressbar" });
+  if (!step || step < 1 || step > 9) {
+    return res.status(400).json({ error: "Invalid step" });
   }
 
-  const progressbar = await ProgressBar.findOneAndUpdate(
-    { _id: id },
-    { ...req.body }
-  );
+  const updateData = { [`step${step}`]: 1 };
+  const filter = { user_id: user_id };
+
+  const progressbar = await ProgressBar.findOneAndUpdate(filter, updateData);
 
   if (!progressbar) {
     return res.status(404).json({ error: "No such progressbar" });

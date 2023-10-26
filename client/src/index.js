@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/AuthContext";
 import { FinancialsContextProvider } from "./context/FinancialsContext";
 import { PersonalsContextProvider } from "./context/PersonalsContext";
+import { ProgressBarContextProvider } from "./context/ProgressBarContext";
+
 import { AssetsContextProvider } from "./context/financial/AssetsContext";
 import { LiabilitiesContextProvider } from "./context/financial/LiabilitiesContext";
 import { IncomeContextProvider } from "./context/financial/IncomeContext";
@@ -19,23 +21,25 @@ root.render(
   <React.StrictMode>
     <FinancialsContextProvider>
       <PersonalsContextProvider>
-        <AssetsContextProvider>
-          <LiabilitiesContextProvider>
-            <IncomeContextProvider>
-              <ExpensesContextProvider>
-                <SavingsContextProvider>
-                  <InvestmentsContextProvider>
-                    <InsuranceContextProvider>
-                      <AuthContextProvider>
-                        <App />
-                      </AuthContextProvider>
-                    </InsuranceContextProvider>
-                  </InvestmentsContextProvider>
-                </SavingsContextProvider>
-              </ExpensesContextProvider>
-            </IncomeContextProvider>
-          </LiabilitiesContextProvider>
-        </AssetsContextProvider>
+        <ProgressBarContextProvider>
+          <AssetsContextProvider>
+            <LiabilitiesContextProvider>
+              <IncomeContextProvider>
+                <ExpensesContextProvider>
+                  <SavingsContextProvider>
+                    <InvestmentsContextProvider>
+                      <InsuranceContextProvider>
+                        <AuthContextProvider>
+                          <App />
+                        </AuthContextProvider>
+                      </InsuranceContextProvider>
+                    </InvestmentsContextProvider>
+                  </SavingsContextProvider>
+                </ExpensesContextProvider>
+              </IncomeContextProvider>
+            </LiabilitiesContextProvider>
+          </AssetsContextProvider>
+        </ProgressBarContextProvider>
       </PersonalsContextProvider>
     </FinancialsContextProvider>
   </React.StrictMode>

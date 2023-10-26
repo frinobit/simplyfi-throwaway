@@ -148,7 +148,7 @@ const SnapshotPremium = () => {
 
   return (
     <div className={SnapshotCSS.snapshot}>
-      {user ? (
+      {financials ? (
         <div className={SnapshotCSS.snapshot_container}>
           <div className={SnapshotCSS.progress_bar}>
             <ProgressBar financials={financials} />

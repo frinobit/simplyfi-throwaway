@@ -132,3 +132,18 @@ export const fetchInsurance = async (user, insuranceDispatch) => {
     }
   }
 };
+
+export const fetchProgressBar = async (user, progressBarDispatch) => {
+  if (user) {
+    const response = await fetch("/api/progressbar", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      progressBarDispatch({ type: "SET_PROGRESSBAR", payload: json });
+    }
+  }
+};

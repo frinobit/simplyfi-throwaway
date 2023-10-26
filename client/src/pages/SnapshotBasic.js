@@ -5,6 +5,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 // context
 import { useFinancialsContext } from "../hooks/useFinancialsContext";
 import { usePersonalsContext } from "../hooks/usePersonalsContext";
+import { useProgressBarContext } from "../hooks/useProgressBarContext";
+
 import { useAssetsContext } from "../hooks/financial/useAssetsContext";
 import { useLiabilitiesContext } from "../hooks/financial/useLiabilitiesContext";
 import { useIncomeContext } from "../hooks/financial/useIncomeContext";
@@ -38,6 +40,7 @@ import { getName } from "./utils/personalUtils";
 import {
   fetchFinancials,
   fetchPersonals,
+  fetchProgressBar,
   fetchAssets,
   fetchLiabilities,
   fetchIncome,
@@ -55,6 +58,8 @@ const SnapshotBasic = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const { financials, dispatch: financialsDispatch } = useFinancialsContext();
   const { personals, dispatch: personalsDispatch } = usePersonalsContext();
+  const { progressBar, dispatch: progressBarDispatch } =
+    useProgressBarContext();
 
   const { assets, dispatch: assetsDispatch } = useAssetsContext();
   const { liabilities, dispatch: liabilitiesDispatch } =
@@ -76,6 +81,7 @@ const SnapshotBasic = () => {
     if (user) {
       fetchFinancials(user, financialsDispatch);
       fetchPersonals(user, personalsDispatch);
+      fetchProgressBar(user, progressBarDispatch);
       fetchAssets(user, assetsDispatch);
       fetchLiabilities(user, liabilitiesDispatch);
       fetchIncome(user, incomeDispatch);
@@ -114,6 +120,9 @@ const SnapshotBasic = () => {
           case "insurance_done":
             fetchInsurance(user, insuranceDispatch);
             break;
+          case "progressbar_done":
+            fetchProgressBar(user, progressBarDispatch);
+            break;
           default:
             console.error("Unknown message type: " + type);
         }
@@ -134,6 +143,7 @@ const SnapshotBasic = () => {
   }, [
     financialsDispatch,
     personalsDispatch,
+    progressBarDispatch,
     assetsDispatch,
     liabilitiesDispatch,
     incomeDispatch,
@@ -146,10 +156,10 @@ const SnapshotBasic = () => {
 
   return (
     <div className={SnapshotCSS.snapshot}>
-      {user ? (
+      {financials ? (
         <div className={SnapshotCSS.snapshot_container}>
           <div className={SnapshotCSS.progress_bar}>
-            <ProgressBar financials={financials} />
+            <ProgressBar progressBar={progressBar} />
           </div>
           <div className={SnapshotCSS.top_details}>
             <h5>Savings</h5>
