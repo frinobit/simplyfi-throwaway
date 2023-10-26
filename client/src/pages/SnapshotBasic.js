@@ -29,8 +29,8 @@ import {
 import {
   getIncome,
   getExpenses,
-  getNet,
   getSavings,
+  getNetAnnual,
 } from "./utils/financialUtils";
 import { getName } from "./utils/personalUtils";
 
@@ -213,7 +213,7 @@ const SnapshotBasic = () => {
             <div className={SnapshotCSS.left_details}>
               <div className={SnapshotCSS.left_container}>
                 <div className={SnapshotCSS.per_year_details}>
-                  <p>{getNet(income, expenses)}</p>
+                  <p>{getNetAnnual(income, expenses)}</p>
                 </div>
                 <div className={SnapshotCSS.income_details}>
                   <div className={SnapshotCSS.button_div}>

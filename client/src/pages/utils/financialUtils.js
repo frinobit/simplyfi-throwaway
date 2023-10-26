@@ -100,7 +100,7 @@ export const getIncome = (income, type) => {
     if (type === "total") {
       filteredIncome = income;
     } else {
-      filteredIncome = income?.["0"].filter((item) => item.type === type);
+      filteredIncome = income?.filter((item) => item.type === type);
     }
 
     if (filteredIncome.length > 0) {
@@ -125,7 +125,7 @@ export const getExpenses = (expenses, type) => {
     if (type === "total") {
       filteredExpenses = expenses;
     } else {
-      filteredExpenses = expenses?.["0"].filter((item) => item.type === type);
+      filteredExpenses = expenses?.filter((item) => item.type === type);
     }
 
     if (filteredExpenses.length > 0) {
@@ -137,26 +137,6 @@ export const getExpenses = (expenses, type) => {
     } else {
       return "$---";
     }
-  } catch (error) {
-    console.log("An error occurred:", error.message);
-    return "$---";
-  }
-};
-
-export const getNet = (income, expenses) => {
-  try {
-    let totalIncome;
-    let totalExpenses;
-    let netResult;
-
-    if (income.length > 0) {
-      totalIncome = income.reduce((total, item) => total + item.amount, 0);
-    }
-    if (expenses.length > 0) {
-      totalExpenses = expenses.reduce((total, item) => total + item.amount, 0);
-    }
-    netResult = (totalIncome - totalExpenses) * 12;
-    return `$${netResult.toLocaleString()}/yr`;
   } catch (error) {
     console.log("An error occurred:", error.message);
     return "$---";
@@ -182,6 +162,58 @@ export const getSavings = (savings, type) => {
     } else {
       return "$---";
     }
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return "$---";
+  }
+};
+
+export const getNetAnnual = (income, expenses) => {
+  try {
+    let totalIncome;
+    let totalExpenses;
+    let netResult;
+
+    if (income.length > 0) {
+      totalIncome = income.reduce((total, item) => total + item.amount, 0);
+    }
+    if (expenses.length > 0) {
+      totalExpenses = expenses.reduce((total, item) => total + item.amount, 0);
+    }
+    netResult = (totalIncome - totalExpenses) * 12;
+    return `$${netResult.toLocaleString()}/yr`;
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return "$---";
+  }
+};
+
+export const getNetIncomeAnnual = (income) => {
+  try {
+    let totalIncome;
+    let result;
+
+    if (income.length > 0) {
+      totalIncome = income.reduce((total, item) => total + item.amount, 0);
+    }
+    result = totalIncome * 12;
+    return `$${result.toLocaleString()}/yr`;
+  } catch (error) {
+    console.log("An error occurred:", error.message);
+    return "$---";
+  }
+};
+
+export const getNetExpensesAnnual = (expenses) => {
+  try {
+    let totalExpenses;
+    let result;
+
+    if (expenses.length > 0) {
+      totalExpenses = expenses.reduce((total, item) => total + item.amount, 0);
+    }
+    result = totalExpenses * 12;
+    return `$${result.toLocaleString()}/yr`;
   } catch (error) {
     console.log("An error occurred:", error.message);
     return "$---";

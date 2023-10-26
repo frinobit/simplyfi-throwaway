@@ -9,6 +9,9 @@ import { useAssetsContext } from "../hooks/financial/useAssetsContext";
 import { useLiabilitiesContext } from "../hooks/financial/useLiabilitiesContext";
 import { useIncomeContext } from "../hooks/financial/useIncomeContext";
 import { useExpensesContext } from "../hooks/financial/useExpensesContext";
+import { useSavingsContext } from "../hooks/financial/useSavingsContext";
+import { useInvestmentsContext } from "../hooks/financial/useInvestmentsContext";
+import { useInsuranceContext } from "../hooks/financial/useInsuranceContext";
 
 // components
 import Chatbot from "../components/Chatbot";
@@ -17,8 +20,20 @@ import Signup from "../components/loginSignup/Signup";
 import ProgressBar from "../components/ProgressBar";
 
 // utils
-import { Assets, Liabilities } from "./utils/financialUtils";
-import { getIncome, getExpenses } from "./utils/financialUtils";
+import {
+  Assets,
+  Liabilities,
+  Investments,
+  Insurance,
+} from "./utils/financialUtils";
+import {
+  getIncome,
+  getExpenses,
+  getSavings,
+  getNetAnnual,
+  getNetIncomeAnnual,
+  getNetExpensesAnnual,
+} from "./utils/financialUtils";
 import { getName } from "./utils/personalUtils";
 
 // api
@@ -29,6 +44,9 @@ import {
   fetchLiabilities,
   fetchIncome,
   fetchExpenses,
+  fetchSavings,
+  fetchInvestments,
+  fetchInsurance,
 } from "./utils/api";
 
 // socket
@@ -45,6 +63,10 @@ const SnapshotPremium = () => {
     useLiabilitiesContext();
   const { income, dispatch: incomeDispatch } = useIncomeContext();
   const { expenses, dispatch: expensesDispatch } = useExpensesContext();
+  const { savings, dispatch: savingsDispatch } = useSavingsContext();
+  const { investments, dispatch: investmentsDispatch } =
+    useInvestmentsContext();
+  const { insurance, dispatch: insuranceDispatch } = useInsuranceContext();
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
@@ -60,6 +82,9 @@ const SnapshotPremium = () => {
       fetchLiabilities(user, liabilitiesDispatch);
       fetchIncome(user, incomeDispatch);
       fetchExpenses(user, expensesDispatch);
+      fetchSavings(user, savingsDispatch);
+      fetchInvestments(user, investmentsDispatch);
+      fetchInsurance(user, insuranceDispatch);
       console.log("socket on");
       socket = io.connect("http://localhost:3001");
       socket.on("post_request_done", (data) => {
@@ -81,6 +106,15 @@ const SnapshotPremium = () => {
             break;
           case "expense_done":
             fetchExpenses(user, expensesDispatch);
+            break;
+          case "saving_done":
+            fetchSavings(user, savingsDispatch);
+            break;
+          case "investment_done":
+            fetchInvestments(user, investmentsDispatch);
+            break;
+          case "insurance_done":
+            fetchInsurance(user, insuranceDispatch);
             break;
           default:
             console.error("Unknown message type: " + type);
@@ -106,6 +140,9 @@ const SnapshotPremium = () => {
     liabilitiesDispatch,
     incomeDispatch,
     expensesDispatch,
+    savingsDispatch,
+    investmentsDispatch,
+    insuranceDispatch,
     user,
   ]);
 
@@ -123,19 +160,53 @@ const SnapshotPremium = () => {
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert}`}
               >
                 <p>Long-Term</p>
-                <p>$---</p>
+                <div className={SnapshotCSS.arrow}>
+                  <p>{getSavings(savings, "Long-Term")}</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="none"
+                      stroke="#1faf38"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M12 20V4m0 0l6 6m-6-6l-6 6"
+                    />
+                  </svg>
+                </div>
               </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_hori}`}
               >
                 <p>Emergency Fund</p>
-                <p>$---</p>
+                <p>{getSavings(savings, "Emergency Fund")}</p>
               </div>
               <div
                 className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox} ${SnapshotCSS.top_vert2}`}
               >
                 <p>Short-Term</p>
-                <p>$---</p>
+                <div className={SnapshotCSS.arrow}>
+                  <p>{getSavings(savings, "Short-Term")}</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="none"
+                      stroke="#1faf38"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M12 20V4m0 0l6 6m-6-6l-6 6"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
@@ -216,17 +287,17 @@ const SnapshotPremium = () => {
                 <div
                   className={`${SnapshotCSS.year_details} ${SnapshotCSS.left_vert2}`}
                 >
-                  <p>$---/yr</p>
+                  <p>{getNetIncomeAnnual(income)}</p>
                 </div>
                 <div className={SnapshotCSS.year_details}>
-                  <p>$---/yr</p>
+                  <p>{getNetExpensesAnnual(expenses)}</p>
                 </div>
               </div>
               <div className={SnapshotCSS.left_right_container}>
                 <div
                   className={`${SnapshotCSS.final_year_details} ${SnapshotCSS.left_hori2}`}
                 >
-                  <p>$---/yr</p>
+                  <p>{getNetAnnual(income, expenses)}</p>
                 </div>
               </div>
             </div>
@@ -423,11 +494,8 @@ const SnapshotPremium = () => {
                   />
                 </svg>
               </div>
-              <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-              >
-                <p>---</p>
-                <p>$---</p>
+              <div>
+                <Investments investments={investments} />
               </div>
             </div>
             <div className={SnapshotCSS.protection_details}>
@@ -445,11 +513,8 @@ const SnapshotPremium = () => {
                   />
                 </svg>
               </div>
-              <div
-                className={`${SnapshotCSS.smallbox} ${SnapshotCSS.greenbox}`}
-              >
-                <p>---</p>
-                <p>$---</p>
+              <div>
+                <Insurance insurance={insurance} />
               </div>
             </div>
           </div>
