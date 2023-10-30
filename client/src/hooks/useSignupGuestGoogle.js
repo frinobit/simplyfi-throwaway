@@ -37,12 +37,14 @@ export const useSignupGuestGoogle = () => {
         });
         const json = await response.json();
 
-        // Handle the successful signup process
+        // save the user to local storage
         localStorage.setItem("user", JSON.stringify(json));
+
+        // update the auth context
         dispatch({ type: "LOGIN", payload: json });
+
         setIsLoadingGoogle(false);
       } else {
-        // Handle fetch error for checkGoogle API
         setErrorGoogle(
           "This email is already associated with an account. Please use another Google account."
         );

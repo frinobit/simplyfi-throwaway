@@ -97,6 +97,24 @@ const signupUserGuest = async (req, res) => {
   }
 };
 
+// check if user exists (user sign up with google)
+const checkGoogle = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email: email });
+
+    // check if user already exists
+    if (user) {
+      return res.status(400).json({ exists: true });
+    } else {
+      return res.status(200).json({ exists: false });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 // login user with google
 const loginUserGoogle = async (req, res) => {
   const { uid, email, token } = req.body;
@@ -125,29 +143,11 @@ const loginUserGoogle = async (req, res) => {
   }
 };
 
-// check if user exists (user sign up with google)
-const checkGoogle = async (req, res) => {
-  const { email } = req.body;
-
-  try {
-    const user = await User.findOne({ email: email });
-
-    // check if user already exists
-    if (user) {
-      return res.status(400).json({ exists: true });
-    } else {
-      return res.status(200).json({ exists: false });
-    }
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
 module.exports = {
   signupUser,
   loginUser,
   loginUserGuest,
   signupUserGuest,
-  loginUserGoogle,
   checkGoogle,
+  loginUserGoogle,
 };
