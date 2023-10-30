@@ -20,6 +20,8 @@ const signupUser = async (req, res) => {
       console.log("signup user (email) successful.");
     } else {
       console.error("Initialization failed.");
+      res.status(400).json({ error: error.message });
+      return;
     }
 
     res.status(200).json({ email, token });
@@ -56,6 +58,8 @@ const loginUserGuest = async (req, res) => {
         console.log("login user guest successful.");
       } else {
         console.error("Initialization failed.");
+        res.status(400).json({ error: error.message });
+        return;
       }
     }
 
@@ -67,7 +71,8 @@ const loginUserGuest = async (req, res) => {
 
 // signup user guest with email / google
 const signupUserGuest = async (req, res) => {
-  const { old_uid, new_uid, email, token } = req.body;
+  const old_uid = req.old_uid;
+  const { new_uid, email, new_token } = req.body;
 
   try {
     // Update database
@@ -75,17 +80,18 @@ const signupUserGuest = async (req, res) => {
 
     if (result === true) {
       console.log("signup user guest (email / google) successful.");
+
+      // Delete user guest
+      await UserGuest.deleteOne({ user_id: old_uid });
+
+      // Delete firebase guest account
+      await admin.auth().deleteUser(old_uid);
+      res.status(200).json({ email, new_token });
     } else {
       console.error("Initialization failed.");
+      res.status(400).json({ error: error.message });
+      return;
     }
-
-    // Delete user guest
-    await UserGuest.deleteOne({ user_id: old_uid });
-
-    // Delete firebase guest account
-    admin.auth().deleteUser(old_uid);
-
-    res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -119,10 +125,29 @@ const loginUserGoogle = async (req, res) => {
   }
 };
 
+// check if user exists (user sign up with google)
+const checkGoogle = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email: email });
+
+    // check if user already exists
+    if (user) {
+      return res.status(400).json({ exists: true });
+    } else {
+      return res.status(200).json({ exists: false });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   signupUser,
   loginUser,
   loginUserGuest,
   signupUserGuest,
   loginUserGoogle,
+  checkGoogle,
 };

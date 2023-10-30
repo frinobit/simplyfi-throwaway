@@ -17,27 +17,37 @@ export const useSignupGuestGoogle = () => {
     setErrorGoogle(null);
 
     try {
-      const old_uid = auth.currentUser.uid;
+      const old_token = localStorage.getItem("user");
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
       const new_uid = user.uid;
       const email = user.email;
-      const token = await user.getIdToken();
+      const new_token = await user.getIdToken();
 
-      const response = await fetch("/api/user/signupGuest", {
+      const checkGoogleResponse = await fetch("/api/user/checkGoogle", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ old_uid, new_uid, email, token }),
+        body: JSON.stringify({ email }),
       });
-      const json = await response.json();
+      if (checkGoogleResponse.ok) {
+        const response = await fetch("/api/user/signupGuest", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ old_token, new_uid, email, new_token }),
+        });
+        const json = await response.json();
 
-      // save the user to local storage
-      localStorage.setItem("user", JSON.stringify(json));
-
-      // update the auth context
-      dispatch({ type: "LOGIN", payload: json });
-
-      setIsLoadingGoogle(false);
+        // Handle the successful signup process
+        localStorage.setItem("user", JSON.stringify(json));
+        dispatch({ type: "LOGIN", payload: json });
+        setIsLoadingGoogle(false);
+      } else {
+        // Handle fetch error for checkGoogle API
+        setErrorGoogle(
+          "This email is already associated with an account. Please use another Google account."
+        );
+        setIsLoadingGoogle(false);
+      }
     } catch (error) {
       setErrorGoogle("An error occurred. Please try again later.");
       setIsLoadingGoogle(false);

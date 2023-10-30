@@ -7,7 +7,11 @@ const {
   loginUserGuest,
   signupUserGuest,
   loginUserGoogle,
+  checkGoogle,
 } = require("../controllers/userController");
+
+// require auth for all progressbar routes
+const decodeGoogle = require("../middleware/decodeGoogle");
 
 const router = express.Router();
 
@@ -20,10 +24,13 @@ router.post("/signup", signupUser);
 // login as guest route
 router.post("/loginGuest", loginUserGuest);
 
-// signup as guest route
-router.post("/signupGuest", signupUserGuest);
-
 // login with google route
 router.post("/loginGoogle", loginUserGoogle);
+
+// check if user exists (user sign up with google)
+router.post("/checkGoogle", checkGoogle);
+
+// signup as guest route
+router.post("/signupGuest", decodeGoogle, signupUserGuest);
 
 module.exports = router;

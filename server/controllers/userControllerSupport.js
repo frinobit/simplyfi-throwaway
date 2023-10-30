@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const UserGuest = require("../models/userGuestModel");
 const Financial = require("../models/financialModel");
 const Personal = require("../models/personalModel");
+const Message = require("../models/messageModel");
 const ProgressBar = require("../models/progressBarModel");
 
 const Asset = require("../models/financial/assetModel");
@@ -45,6 +46,16 @@ const createUserAndInitializeDatabase = async (uid, email, token) => {
   }
 };
 
+const updateModel = async (Model, query, updateFields) => {
+  try {
+    await Model.updateMany(query, { $set: updateFields });
+    return true;
+  } catch (error) {
+    console.error(`Error while updating ${Model.modelName} collection:`, error);
+    return false;
+  }
+};
+
 const createUserAndUpdateDatabase = async (old_uid, new_uid, email) => {
   try {
     // create User in database
@@ -53,48 +64,23 @@ const createUserAndUpdateDatabase = async (old_uid, new_uid, email) => {
       email: email,
     });
 
-    // Update all database to new user id
-    await Financial.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
-    await Personal.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
-    await ProgressBar.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
+    const updateQueries = [
+      { model: Financial, query: { user_id: old_uid } },
+      { model: Personal, query: { user_id: old_uid } },
+      { model: Message, query: { user_id: old_uid } },
+      { model: ProgressBar, query: { user_id: old_uid } },
+      { model: Asset, query: { user_id: old_uid } },
+      { model: Liability, query: { user_id: old_uid } },
+      { model: Income, query: { user_id: old_uid } },
+      { model: Expense, query: { user_id: old_uid } },
+      { model: Saving, query: { user_id: old_uid } },
+      { model: Investment, query: { user_id: old_uid } },
+      { model: Insurance, query: { user_id: old_uid } },
+    ];
 
-    await Asset.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
-    await Liability.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
-    await Income.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
-    await Expense.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
-    await Saving.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
-    await Investment.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
-    await Insurance.updateMany(
-      { user_id: old_uid },
-      { $set: { user_id: new_uid } }
-    );
+    for (const { model, query } of updateQueries) {
+      await updateModel(model, query, { user_id: new_uid });
+    }
 
     return true;
   } catch (error) {

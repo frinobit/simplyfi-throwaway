@@ -30,13 +30,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// routes - database
+// routes - general
 app.use("/api/user", userRoute);
 app.use("/api/financials", financialRoute);
 app.use("/api/personals", personalRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/progressbar", progressBarRoute);
 
+// routes - financial
 app.use("/api/financial/asset", assetRoute);
 app.use("/api/financial/liability", liabilityRoute);
 app.use("/api/financial/income", incomeRoute);
@@ -45,7 +46,7 @@ app.use("/api/financial/saving", savingRoute);
 app.use("/api/financial/investment", investmentRoute);
 app.use("/api/financial/insurance", insuranceRoute);
 
-// routes- dialogflow
+// routes - dialogflow
 app.use("/dialogflow", dialogflowRoutes);
 
 // connect to db
