@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const userRoute = require("./routes/userRoute");
 const financialRoute = require("./routes/financialsRoute");
@@ -21,6 +22,8 @@ const dialogflowRoutes = require("./routes/dialogflowRoute");
 
 // express app
 const app = express();
+
+app.use(cors());
 
 // middleware
 app.use(express.json());
