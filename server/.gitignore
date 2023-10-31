@@ -2,14 +2,14 @@
 /node_modules
 
 # firebase config
-# /config
+/config/firebase-config.js
 
 # dialogflow config
-# /chatbot/serviceAccountKey.json
+/chatbot/serviceAccountKey.json
 
 # tests
 /test
 
 # misc
-# .env
+.env
 ngrok
