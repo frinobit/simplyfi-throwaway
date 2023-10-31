@@ -1,0 +1,19 @@
+/* snapshot basic page */
+.snapshot {
+  display: flex;
+  justify-content: center;
+  max-width: 1600px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+.snapshot_container {
+  flex: 1;
+  background: var(--text-white);
+  /* background: transparent; */
+  margin-right: 1rem;
+  position: relative;
+  border: 1px solid #aaaaaa;
+  border-radius: 15px;
+  height: 85vh;
+  overflow-y: auto;
+}
