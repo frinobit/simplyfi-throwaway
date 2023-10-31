@@ -3,6 +3,7 @@
 
 # firebase config
 /config/firebase-config.js
+/config/serviceAccountKey.json
 
 # dialogflow config
 /chatbot/serviceAccountKey.json

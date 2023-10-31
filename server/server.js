@@ -9,13 +9,13 @@ const personalRoute = require("./routes/personalsRoute");
 const messageRoute = require("./routes/messagesRoute");
 const progressBarRoute = require("./routes/progressBarRoute");
 
-const assetRoute = require("./routes/financial//assetRoute");
-const liabilityRoute = require("./routes/financial//liabilityRoute");
-const incomeRoute = require("./routes/financial//incomeRoute");
-const expenseRoute = require("./routes/financial//expenseRoute");
-const savingRoute = require("./routes/financial//savingRoute");
-const investmentRoute = require("./routes/financial//investmentRoute");
-const insuranceRoute = require("./routes/financial//insuranceRoute");
+const assetRoute = require("./routes/financial/assetRoute");
+const liabilityRoute = require("./routes/financial/liabilityRoute");
+const incomeRoute = require("./routes/financial/incomeRoute");
+const expenseRoute = require("./routes/financial/expenseRoute");
+const savingRoute = require("./routes/financial/savingRoute");
+const investmentRoute = require("./routes/financial/investmentRoute");
+const insuranceRoute = require("./routes/financial/insuranceRoute");
 
 const dialogflowRoutes = require("./routes/dialogflowRoute");
 
