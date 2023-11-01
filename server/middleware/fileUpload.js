@@ -6,7 +6,8 @@ const storage = multer.diskStorage({
     cb(null, path.resolve(__dirname, "../assets"));
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const user_id = req.user.user_id;
+    cb(null, user_id + "_" + file.originalname);
   },
 });
 

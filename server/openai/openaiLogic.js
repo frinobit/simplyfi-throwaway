@@ -1,4 +1,6 @@
+const openaiClient = require("./openai");
 const path = require("path");
+const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const { CharacterTextSplitter } = require("langchain/text_splitter");
 const { OpenAIEmbeddings } = require("langchain/embeddings/openai");
@@ -7,12 +9,24 @@ const { RetrievalQAChain } = require("langchain/chains");
 const { ChatOpenAI } = require("langchain/chat_models/openai");
 
 const processMessage = async (queryDescription, user_id, authorization) => {
-  const absolutePathToFile = path.join(__dirname, "../assets/inventories.pdf");
+  const directoryPath = path.join(__dirname, "../assets");
 
   try {
-    // extract the text
-    const data = await pdfParse(absolutePathToFile);
-    const text = data.text;
+    const files = fs.readdirSync(directoryPath);
+    const userFiles = files.filter(
+      (file) => file.startsWith(`${user_id}`) && file.endsWith(".pdf")
+    );
+
+    let combinedText = "";
+
+    for (const userFile of userFiles) {
+      const filePath = path.join(directoryPath, userFile);
+
+      const data = await pdfParse(filePath);
+      const text = data.text;
+
+      combinedText += text + "\n";
+    }
 
     // split into chunks
     const textSplitter = new CharacterTextSplitter({
@@ -23,7 +37,7 @@ const processMessage = async (queryDescription, user_id, authorization) => {
         return text.length;
       },
     });
-    const chunks = await textSplitter.splitText(text);
+    const chunks = await textSplitter.splitText(combinedText);
     const chunksWithIDs = chunks.map((chunk, index) => ({
       id: index + 1,
       chunk,
@@ -49,7 +63,23 @@ const processMessage = async (queryDescription, user_id, authorization) => {
     });
     // console.log(response.text);
     // console.log(response.sourceDocuments[0].pageContent);
-    return response.text;
+
+    const responseGeneral = await openaiClient.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: queryDescription }],
+      max_tokens: 100,
+      temperature: 0,
+    });
+    // console.log(responseGeneral.choices[0].message.content);
+
+    const responseFinal =
+      "ChatGPT (with knowledge):\n\n" +
+      response.text +
+      "\n\n" +
+      "ChatGPT (general):\n\n" +
+      responseGeneral.choices[0].message.content;
+
+    return responseFinal;
   } catch (error) {
     console.log(error);
   }
