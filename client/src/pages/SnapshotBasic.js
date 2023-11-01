@@ -503,7 +503,7 @@ const SnapshotBasic = () => {
         </div>
       )}
 
-      <div className={SnapshotCSS.home_container}>
+      <div className={SnapshotCSS.chatbot_container}>
         <Chatbot />
       </div>
 

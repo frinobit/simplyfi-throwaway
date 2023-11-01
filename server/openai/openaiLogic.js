@@ -6,7 +6,7 @@ const { FaissStore } = require("langchain/vectorstores/faiss");
 const { RetrievalQAChain } = require("langchain/chains");
 const { ChatOpenAI } = require("langchain/chat_models/openai");
 
-const processMessage = async (userMessage, user_id, authorization) => {
+const processMessage = async (queryDescription, user_id, authorization) => {
   const absolutePathToFile = path.join(__dirname, "../assets/inventories.pdf");
 
   try {
@@ -37,7 +37,7 @@ const processMessage = async (userMessage, user_id, authorization) => {
       embeddings
     );
 
-    const docs = await vectorStore.similaritySearch(userMessage);
+    const docs = await vectorStore.similaritySearch(queryDescription);
 
     const model = new ChatOpenAI({ modelName: "gpt-3.5-turbo" });
     const chain = RetrievalQAChain.fromLLM(model, vectorStore.asRetriever(), {
@@ -45,7 +45,7 @@ const processMessage = async (userMessage, user_id, authorization) => {
     });
 
     const response = await chain.call({
-      query: userMessage,
+      query: queryDescription,
     });
     // console.log(response.text);
     // console.log(response.sourceDocuments[0].pageContent);
