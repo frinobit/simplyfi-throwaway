@@ -22,7 +22,7 @@ const insuranceRoute = require("./routes/financial/insuranceRoute");
 const dialogflowRoute = require("./routes/dialogflowRoute");
 const openaiRoute = require("./routes/openaiRoute");
 
-const uploadRoute = require("./routes/uploadRoute");
+const fileRoute = require("./routes/fileRoute");
 
 // express app
 const app = express();
@@ -41,8 +41,8 @@ app.use((req, res, next) => {
 app.use("/api/user", userRoute);
 app.use("/api/financials", financialRoute);
 app.use("/api/personals", personalRoute);
-app.use("/api/messages", messageRoute);
-app.use("/api/deepdives", deepdiveRoute);
+app.use("/api/message", messageRoute);
+app.use("/api/deepdive", deepdiveRoute);
 app.use("/api/progressbar", progressBarRoute);
 
 // routes - financial
@@ -59,7 +59,7 @@ app.use("/dialogflow", dialogflowRoute);
 app.use("/openai", openaiRoute);
 
 // routes - upload
-app.use("/upload", uploadRoute);
+app.use("/file", fileRoute);
 
 // connect to db
 mongoose

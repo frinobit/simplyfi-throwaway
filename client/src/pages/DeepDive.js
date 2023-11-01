@@ -25,7 +25,7 @@ const DeepDive = () => {
     formData.append("pdf", file);
 
     try {
-      const response = await fetch("/upload", {
+      const response = await fetch("/file/upload", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${user.token}`,

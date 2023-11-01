@@ -4,7 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 const loadOldMessages = async (user, setMessages) => {
   try {
-    const response = await fetch("/api/messages", {
+    const response = await fetch("/api/message", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${user.token}`,
