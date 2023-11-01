@@ -11,6 +11,7 @@ const DeepDive = () => {
   const [showSignUp, setShowSignUp] = useState(false);
 
   const [queryDescription, setQueryDescription] = useState("");
+  const [query, setQuery] = useState("");
   //   const [pdf, setPdf] = useState(null);
 
   const handleBackToLogin = () => {
@@ -21,9 +22,24 @@ const DeepDive = () => {
   //     setPdf(event.target.files[0]);
   //   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submitted:", queryDescription);
+
+    const generatedQuery = await generateQuery();
+    setQuery(generatedQuery);
+  };
+
+  const generateQuery = async () => {
+    const response = await fetch("/openai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ queryDescription: queryDescription }),
+    });
+
+    const data = await response.json();
+    return data.response;
   };
 
   return (
@@ -39,6 +55,14 @@ const DeepDive = () => {
         />
         <input type="submit" value="Generate query" />
       </form>
+      {/* <p>{query}</p> */}
+      <div>
+        {query ? (
+          query.map((queryLine, index) => <p key={index}>{queryLine}</p>)
+        ) : (
+          <p>Loading</p>
+        )}
+      </div>
 
       {!user && !showSignUp && (
         <Login onSignUpClick={() => setShowSignUp(true)} />
