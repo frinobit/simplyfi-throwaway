@@ -27,6 +27,9 @@ const DeepDive = () => {
     try {
       const response = await fetch("/upload", {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
         body: formData,
       });
 

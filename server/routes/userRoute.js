@@ -10,7 +10,7 @@ const {
   checkGoogle,
 } = require("../controllers/userController");
 
-// require auth for all progressbar routes
+// decode middleware
 const decodeGoogle = require("../middleware/decodeGoogle");
 
 const router = express.Router();

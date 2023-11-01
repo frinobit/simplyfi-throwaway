@@ -8,6 +8,9 @@
 # dialogflow config
 /chatbot/serviceAccountKey.json
 
+# assets
+/assets
+
 # tests
 /test
 
