@@ -25,6 +25,7 @@
     "jest": "^29.7.0",
     "langchain": "^0.0.177",
     "mongoose": "^7.5.2",
+    "multer": "^1.4.5-lts.1",
     "openai": "^4.14.2",
     "pdf-parse": "^1.1.1",
     "socket.io": "^4.7.2",
