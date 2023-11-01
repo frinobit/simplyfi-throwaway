@@ -22,6 +22,8 @@ const insuranceRoute = require("./routes/financial/insuranceRoute");
 const dialogflowRoute = require("./routes/dialogflowRoute");
 const openaiRoute = require("./routes/openaiRoute");
 
+const uploadRoute = require("./routes/uploadRoute");
+
 // express app
 const app = express();
 
@@ -55,6 +57,9 @@ app.use("/api/financial/insurance", insuranceRoute);
 // routes - chatbots
 app.use("/dialogflow", dialogflowRoute);
 app.use("/openai", openaiRoute);
+
+// routes - upload
+app.use("/upload", uploadRoute);
 
 // connect to db
 mongoose
