@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 // components
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
+import ChatbotDeepDive from "../components/ChatbotDeepDive";
 
 const DeepDive = () => {
   const { user } = useAuthContext();
@@ -45,23 +46,33 @@ const DeepDive = () => {
   return (
     <div className={DeepDiveCSS.deepdive}>
       {/* <input type="file" onChange={handleFileChange} /> */}
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="query-description"
-          placeholder="Describe your query"
-          onChange={(e) => setQueryDescription(e.target.value)}
-        />
-        <input type="submit" value="Generate query" />
-      </form>
-      {/* <p>{query}</p> */}
-      <div>
-        {query ? (
-          query.map((queryLine, index) => <p key={index}>{queryLine}</p>)
-        ) : (
+      {user ? (
+        <div className={DeepDiveCSS.deepdive_container}>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="query-description"
+              placeholder="Describe your query"
+              onChange={(e) => setQueryDescription(e.target.value)}
+            />
+            <input type="submit" value="Generate query" />
+          </form>
+          <div>
+            {query ? (
+              query.map((queryLine, index) => <p key={index}>{queryLine}</p>)
+            ) : (
+              <p>Loading</p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className={DeepDiveCSS.deepdive_container}>
           <p>Loading</p>
-        )}
+        </div>
+      )}
+
+      <div className={DeepDiveCSS.home_container}>
+        <ChatbotDeepDive />
       </div>
 
       {!user && !showSignUp && (

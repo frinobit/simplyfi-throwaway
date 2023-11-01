@@ -1,12 +1,12 @@
-/* snapshot basic page */
-.snapshot {
+/* deepdive basic page */
+.deepdive {
   display: flex;
   justify-content: center;
   max-width: 1600px;
   margin: 0 auto;
   align-items: flex-start;
 }
-.snapshot_container {
+.deepdive_container {
   flex: 1;
   background: var(--text-white);
   /* background: transparent; */

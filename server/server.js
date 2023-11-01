@@ -5,9 +5,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const userRoute = require("./routes/userRoute");
-const financialRoute = require("./routes/financialsRoute");
-const personalRoute = require("./routes/personalsRoute");
-const messageRoute = require("./routes/messagesRoute");
+const financialRoute = require("./routes/financialRoute");
+const personalRoute = require("./routes/personalRoute");
+const messageRoute = require("./routes/messageRoute");
+const deepdiveRoute = require("./routes/deepdiveRoute");
 const progressBarRoute = require("./routes/progressBarRoute");
 
 const assetRoute = require("./routes/financial/assetRoute");
@@ -40,6 +41,7 @@ app.use("/api/user", userRoute);
 app.use("/api/financials", financialRoute);
 app.use("/api/personals", personalRoute);
 app.use("/api/messages", messageRoute);
+app.use("/api/deepdives", deepdiveRoute);
 app.use("/api/progressbar", progressBarRoute);
 
 // routes - financial
