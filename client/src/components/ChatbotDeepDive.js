@@ -119,7 +119,7 @@ const ChatbotDeepDive = () => {
 
     try {
       // Send the user's message to the backend API
-      const response = await fetch("/dialogflow", {
+      const response = await fetch("/openai", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${user.token}`,

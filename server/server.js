@@ -19,9 +19,8 @@ const savingRoute = require("./routes/financial/savingRoute");
 const investmentRoute = require("./routes/financial/investmentRoute");
 const insuranceRoute = require("./routes/financial/insuranceRoute");
 
-const dialogflowRoutes = require("./routes/dialogflowRoute");
-
-const generate = require("./openai/generate");
+const dialogflowRoute = require("./routes/dialogflowRoute");
+const openaiRoute = require("./routes/openaiRoute");
 
 // express app
 const app = express();
@@ -53,20 +52,9 @@ app.use("/api/financial/saving", savingRoute);
 app.use("/api/financial/investment", investmentRoute);
 app.use("/api/financial/insurance", insuranceRoute);
 
-// routes - dialogflow
-app.use("/dialogflow", dialogflowRoutes);
-
-// routes - openai
-app.post("/openai", async (req, res) => {
-  const queryDescription = req.body.queryDescription;
-  try {
-    const response = await generate(queryDescription);
-    res.status(200).json({ response: response });
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ error: error.message });
-  }
-});
+// routes - chatbots
+app.use("/dialogflow", dialogflowRoute);
+app.use("/openai", openaiRoute);
 
 // connect to db
 mongoose
