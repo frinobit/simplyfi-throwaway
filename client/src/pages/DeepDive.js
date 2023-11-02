@@ -9,6 +9,7 @@ import { useFilesContext } from "../hooks/useFilesContext";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 import ChatbotDeepDive from "../components/ChatbotDeepDive";
+import FileDetails from "../components/FileDetails";
 
 // api
 import { fetchFiles } from "./utils/api";
@@ -75,17 +76,8 @@ const DeepDive = () => {
         <div className={DeepDiveCSS.deepdive_container}>
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleFileUpload}>Upload PDF</button>
-          {files ? (
-            <ul>
-              {files.map((file, index) => (
-                <li key={index}>
-                  <p>{file.filename}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Loading</p>
-          )}
+          {files &&
+            files.map((file) => <FileDetails key={file._id} file={file} />)}
         </div>
       ) : (
         <div className={DeepDiveCSS.deepdive_container}>

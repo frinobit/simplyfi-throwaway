@@ -12,8 +12,9 @@ const {
 // require auth for all message routes
 const requireAuth = require("../middleware/requireAuth");
 
-// upload middleware
+// upload / delete middleware
 const fileUpload = require("../middleware/fileUpload");
+const fileDelete = require("../middleware/fileDelete");
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ router.get("/:id", getFile);
 router.post("/upload", fileUpload, createFile);
 
 // DELETE a file
-router.delete("/:id", deleteFile);
+router.delete("/:id", fileDelete, deleteFile);
 
 // UPDATE a file
 router.patch("/:id", updateFile);
