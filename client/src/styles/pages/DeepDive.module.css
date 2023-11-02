@@ -16,4 +16,34 @@
   border-radius: 15px;
   height: 85vh;
   overflow-y: auto;
+  padding: 0 2rem;
+}
+.deepdive_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 1.2rem;
+  border: 1px solid #ccc;
+  max-width: 20rem;
+}
+.deepdive_content input {
+  padding-left: 0;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+}
+.deepdive svg {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  background-color: var(--text-main);
+  border: 1px solid var(--text-main);
+  color: white;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+.deepdive svg:hover {
+  background-color: #df714a;
+  border: 1px solid #df714a;
 }

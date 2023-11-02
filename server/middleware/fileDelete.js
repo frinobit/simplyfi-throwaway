@@ -19,9 +19,6 @@ const deleteFile = (req, res, next) => {
           console.error("Error deleting file:", err);
           res.status(500).send("Error deleting file");
         } else {
-          console.log(
-            `File ${req.body.filename} has been deleted successfully.`
-          );
           next();
         }
       });
