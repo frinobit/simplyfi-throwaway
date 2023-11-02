@@ -39,7 +39,7 @@ const processMessage = async (queryDescription, user_id, authorization) => {
     });
     const chunks = await textSplitter.splitText(combinedText);
     const chunksWithIDs = chunks.map((chunk, index) => ({
-      id: index + 1,
+      source: "chunk " + index + 1,
       chunk,
     }));
 
@@ -62,7 +62,13 @@ const processMessage = async (queryDescription, user_id, authorization) => {
       query: queryDescription,
     });
     // console.log(response.text);
-    // console.log(response.sourceDocuments[0].pageContent);
+    const sourceDocuments = response.sourceDocuments;
+    let sourceList = "Sources:\n";
+    let sourceArray = [];
+    for (const sourceDocument of sourceDocuments) {
+      sourceList += sourceDocument.metadata.source + "\n";
+      sourceArray.push(sourceDocument.pageContent);
+    }
 
     const responseGeneral = await openaiClient.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -76,9 +82,10 @@ const processMessage = async (queryDescription, user_id, authorization) => {
       "ChatGPT (with knowledge):\n\n" +
       response.text +
       "\n\n" +
+      sourceList +
+      "\n" +
       "ChatGPT (general):\n\n" +
       responseGeneral.choices[0].message.content;
-
     return responseFinal;
   } catch (error) {
     console.log(error);

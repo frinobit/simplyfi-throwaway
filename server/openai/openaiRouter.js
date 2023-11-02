@@ -35,26 +35,26 @@ const getOpenai = async (req, res) => {
       userMessage,
       user_id,
       authorization
-    ); // Pass the user message as an array
+    );
     console.log("3. bot response:", botResponses);
 
     // Save to database
     await store_message(user_id, botResponses, false);
 
-    res.status(200).json({ message: botResponses }); // Return the first response (assuming it's a single message)
+    res.status(200).json({ message: botResponses });
   } catch (error) {
     console.log("Error processing message (getOpenai):", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-const getStartConversation = async (req, res) => {
+const getStartConversation = (req, res) => {
   try {
     const { authorization } = req.headers;
     const user_id = req.user.user_id;
 
     // Call startConversation to initiate the conversation
-    const botResponse = await startConversation(user_id, authorization);
+    const botResponse = startConversation(user_id, authorization);
 
     res.status(200).json({ message: botResponse });
   } catch (error) {

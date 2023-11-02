@@ -50,13 +50,13 @@ const getDialogflow = async (req, res) => {
   }
 };
 
-const getStartConversation = async (req, res) => {
+const getStartConversation = (req, res) => {
   try {
     const { authorization } = req.headers;
     const user_id = req.user.user_id;
 
     // Call startConversation to initiate the conversation
-    const botResponse = await startConversation(user_id, authorization);
+    const botResponse = startConversation(user_id, authorization);
 
     res.status(200).json({ message: botResponse });
   } catch (error) {
