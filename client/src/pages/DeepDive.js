@@ -16,28 +16,15 @@ import { fetchFiles } from "./utils/api";
 
 const DeepDive = () => {
   const { user } = useAuthContext();
-  const [showSignUp, setShowSignUp] = useState(false);
   const { files, dispatch: filesDispatch } = useFilesContext();
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    let socket;
-
     if (user) {
       fetchFiles(user, filesDispatch);
-    } else {
-      console.log("socket off");
-      if (socket) {
-        socket.disconnect();
-      }
     }
-
-    return () => {
-      console.log("socket off");
-      if (socket) {
-        socket.disconnect();
-      }
-    };
   }, [filesDispatch, user]);
 
   const handleBackToLogin = () => {
@@ -54,9 +41,31 @@ const DeepDive = () => {
     }
   };
 
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const findUniqueName = (name, count) => {
+    const fileExt = name.split(".").pop();
+    const fileName = name.replace(/\.[^/.]+$/, "");
+
+    const newName = count === 1 ? fileName : `${fileName}(${count})`;
+    const updatedName = fileExt ? `${newName}.${fileExt}` : newName;
+    const fileExists = files.find((file) => file.filename === updatedName);
+
+    return fileExists ? findUniqueName(name, count + 1) : updatedName;
+  };
+
   const handleFileUpload = async () => {
+    const uniqueFileName = findUniqueName(file.name, 1);
+
     const formData = new FormData();
-    formData.append("pdf", file);
+    formData.set("pdf", file, uniqueFileName);
 
     try {
       const response = await fetch("/file/upload", {
@@ -68,10 +77,10 @@ const DeepDive = () => {
       });
 
       if (response.ok) {
-        console.log("File uploaded successfully");
         fetchFiles(user, filesDispatch);
       }
       setFile(null);
+      setIsDragging(false);
       const inputElement = document.querySelector('input[type="file"]');
       if (inputElement) {
         inputElement.value = null;
@@ -84,9 +93,17 @@ const DeepDive = () => {
   return (
     <div className={DeepDiveCSS.deepdive}>
       {user ? (
-        <div className={DeepDiveCSS.deepdive_container}>
+        <div
+          className={DeepDiveCSS.deepdive_container}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+        >
           <h3>Upload a PDF and ask me a question!</h3>
-          <div className={DeepDiveCSS.deepdive_content}>
+          <div
+            className={`${DeepDiveCSS.deepdive_upload} ${
+              isDragging ? DeepDiveCSS.dragging : ""
+            }`}
+          >
             <input type="file" onChange={handleFileChange} />
             <svg
               xmlns="http://www.w3.org/2000/svg"

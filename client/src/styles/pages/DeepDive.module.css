@@ -18,15 +18,17 @@
   overflow-y: auto;
   padding: 0 2rem;
 }
-.deepdive_content {
+.deepdive_upload {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.2rem 1.2rem;
   border: 1px solid #ccc;
+  border-radius: 10px;
   max-width: 20rem;
+  transition: background-color 0.3s;
 }
-.deepdive_content input {
+.deepdive_upload input {
   padding-left: 0;
   font-size: 1rem;
   border: none;
@@ -46,4 +48,7 @@
 .deepdive svg:hover {
   background-color: #df714a;
   border: 1px solid #df714a;
+}
+.dragging {
+  background-color: #f3c2b0;
 }

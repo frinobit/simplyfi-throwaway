@@ -19,6 +19,23 @@ const processMessage = async (queryDescription, user_id, authorization) => {
 
     let combinedText = "";
 
+    if (userFiles.length === 0) {
+      // If no PDF files are found, use the general ChatGPT
+      const responseGeneral = await openaiClient.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: queryDescription }],
+        max_tokens: 100,
+        temperature: 0,
+      });
+      const responseFinal =
+        "ChatGPT (with knowledge):\n\n" +
+        "No PDF uploaded." +
+        "\n\n" +
+        "ChatGPT (general):\n\n" +
+        responseGeneral.choices[0].message.content;
+      return responseFinal;
+    }
+
     for (const userFile of userFiles) {
       const filePath = path.join(directoryPath, userFile);
 
