@@ -2,16 +2,42 @@ import DeepDiveCSS from "../styles/pages/DeepDive.module.css";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+// context
+import { useFilesContext } from "../hooks/useFilesContext";
+
 // components
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 import ChatbotDeepDive from "../components/ChatbotDeepDive";
 
+// api
+import { fetchFiles } from "./utils/api";
+
 const DeepDive = () => {
   const { user } = useAuthContext();
   const [showSignUp, setShowSignUp] = useState(false);
+  const { files, dispatch: filesDispatch } = useFilesContext();
   const [file, setFile] = useState(null);
-  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    let socket;
+
+    if (user) {
+      fetchFiles(user, filesDispatch);
+    } else {
+      console.log("socket off");
+      if (socket) {
+        socket.disconnect();
+      }
+    }
+
+    return () => {
+      console.log("socket off");
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, [filesDispatch, user]);
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
@@ -36,34 +62,12 @@ const DeepDive = () => {
 
       if (response.ok) {
         console.log("File uploaded successfully");
+        fetchFiles(user, filesDispatch);
       }
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
-
-  const fetchUserFiles = async () => {
-    try {
-      const response = await fetch("/file", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch");
-      }
-      const data = await response.json();
-      setFiles(data);
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching files:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUserFiles();
-  }, []);
 
   return (
     <div className={DeepDiveCSS.deepdive}>
@@ -71,11 +75,17 @@ const DeepDive = () => {
         <div className={DeepDiveCSS.deepdive_container}>
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleFileUpload}>Upload PDF</button>
-          <ul>
-            {files.map((file) => (
-              <li key={file._id}>{file.filename}</li>
-            ))}
-          </ul>
+          {files ? (
+            <ul>
+              {files.map((file, index) => (
+                <li key={index}>
+                  <p>{file.filename}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Loading</p>
+          )}
         </div>
       ) : (
         <div className={DeepDiveCSS.deepdive_container}>

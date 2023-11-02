@@ -7,6 +7,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { FinancialsContextProvider } from "./context/FinancialsContext";
 import { PersonalsContextProvider } from "./context/PersonalsContext";
 import { ProgressBarContextProvider } from "./context/ProgressBarContext";
+import { FilesContextProvider } from "./context/FilesContext";
 
 import { AssetsContextProvider } from "./context/financial/AssetsContext";
 import { LiabilitiesContextProvider } from "./context/financial/LiabilitiesContext";
@@ -22,23 +23,25 @@ root.render(
     <FinancialsContextProvider>
       <PersonalsContextProvider>
         <ProgressBarContextProvider>
-          <AssetsContextProvider>
-            <LiabilitiesContextProvider>
-              <IncomeContextProvider>
-                <ExpensesContextProvider>
-                  <SavingsContextProvider>
-                    <InvestmentsContextProvider>
-                      <InsuranceContextProvider>
-                        <AuthContextProvider>
-                          <App />
-                        </AuthContextProvider>
-                      </InsuranceContextProvider>
-                    </InvestmentsContextProvider>
-                  </SavingsContextProvider>
-                </ExpensesContextProvider>
-              </IncomeContextProvider>
-            </LiabilitiesContextProvider>
-          </AssetsContextProvider>
+          <FilesContextProvider>
+            <AssetsContextProvider>
+              <LiabilitiesContextProvider>
+                <IncomeContextProvider>
+                  <ExpensesContextProvider>
+                    <SavingsContextProvider>
+                      <InvestmentsContextProvider>
+                        <InsuranceContextProvider>
+                          <AuthContextProvider>
+                            <App />
+                          </AuthContextProvider>
+                        </InsuranceContextProvider>
+                      </InvestmentsContextProvider>
+                    </SavingsContextProvider>
+                  </ExpensesContextProvider>
+                </IncomeContextProvider>
+              </LiabilitiesContextProvider>
+            </AssetsContextProvider>
+          </FilesContextProvider>
         </ProgressBarContextProvider>
       </PersonalsContextProvider>
     </FinancialsContextProvider>
