@@ -1,7 +1,7 @@
 const express = require("express");
 
 // controller functions
-const { uploadFile } = require("../controllers/fileController");
+const { getFiles, uploadFile } = require("../controllers/fileController");
 
 // require auth for all message routes
 const requireAuth = require("../middleware/requireAuth");
@@ -12,6 +12,9 @@ const fileUpload = require("../middleware/fileUpload");
 const router = express.Router();
 
 router.use(requireAuth);
+
+// GET all files
+router.get("/", getFiles);
 
 // POST a new file
 router.post("/upload", fileUpload, uploadFile);

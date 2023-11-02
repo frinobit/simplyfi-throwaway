@@ -1,5 +1,5 @@
 import DeepDiveCSS from "../styles/pages/DeepDive.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 // components
@@ -11,6 +11,7 @@ const DeepDive = () => {
   const { user } = useAuthContext();
   const [showSignUp, setShowSignUp] = useState(false);
   const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
@@ -41,12 +42,40 @@ const DeepDive = () => {
     }
   };
 
+  const fetchUserFiles = async () => {
+    try {
+      const response = await fetch("/file", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch");
+      }
+      const data = await response.json();
+      setFiles(data);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserFiles();
+  }, []);
+
   return (
     <div className={DeepDiveCSS.deepdive}>
       {user ? (
         <div className={DeepDiveCSS.deepdive_container}>
           <input type="file" onChange={handleFileChange} />
           <button onClick={handleFileUpload}>Upload PDF</button>
+          <ul>
+            {files.map((file) => (
+              <li key={file._id}>{file.filename}</li>
+            ))}
+          </ul>
         </div>
       ) : (
         <div className={DeepDiveCSS.deepdive_container}>

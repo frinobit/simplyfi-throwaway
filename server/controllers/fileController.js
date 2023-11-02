@@ -1,5 +1,15 @@
 const File = require("../models/fileModel");
 
+// get all files
+const getFiles = async (req, res) => {
+  const user_id = req.user.user_id;
+
+  const files = await File.find({ user_id }).sort({ createdAt: -1 });
+
+  res.status(200).json(files);
+};
+
+// upload a file
 const uploadFile = async (req, res) => {
   try {
     const user_id = req.user.user_id;
@@ -18,5 +28,6 @@ const uploadFile = async (req, res) => {
 };
 
 module.exports = {
+  getFiles,
   uploadFile,
 };
