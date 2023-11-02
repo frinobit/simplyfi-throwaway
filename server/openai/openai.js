@@ -1,4 +1,4 @@
-const OpenAIApi = require("openai");
+const OpenAI = require("openai");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -9,6 +9,6 @@ if (!openaiAPIKey) {
   process.exit(1);
 }
 
-const openai = new OpenAIApi.OpenAI({ apiKey: openaiAPIKey });
+const openai = new OpenAI({ apiKey: openaiAPIKey });
 
 module.exports = openai;

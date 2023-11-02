@@ -1,4 +1,4 @@
-const openaiClient = require("./openai");
+const openai = require("./openai");
 const path = require("path");
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
@@ -12,6 +12,8 @@ const processMessage = async (queryDescription, user_id, authorization) => {
   const directoryPath = path.join(__dirname, "../assets");
 
   try {
+    console.time("embedding");
+
     const files = fs.readdirSync(directoryPath);
     const userFiles = files.filter(
       (file) => file.startsWith(`${user_id}`) && file.endsWith(".pdf")
@@ -21,14 +23,14 @@ const processMessage = async (queryDescription, user_id, authorization) => {
 
     if (userFiles.length === 0) {
       // If no PDF files are found, use the general ChatGPT
-      const responseGeneral = await openaiClient.chat.completions.create({
+      const responseGeneral = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: queryDescription }],
         max_tokens: 100,
         temperature: 0,
       });
       const responseFinal =
-        "ChatGPT (with knowledge):\n\n" +
+        "ChatGPT (knowledge):\n\n" +
         "No PDF uploaded." +
         "\n\n" +
         "ChatGPT (general):\n\n" +
@@ -69,6 +71,8 @@ const processMessage = async (queryDescription, user_id, authorization) => {
     );
 
     const docs = await vectorStore.similaritySearch(queryDescription);
+    console.timeEnd("embedding");
+    console.time("chatgpt (knowledge)");
 
     const model = new ChatOpenAI({ modelName: "gpt-3.5-turbo" });
     const chain = RetrievalQAChain.fromLLM(model, vectorStore.asRetriever(), {
@@ -86,8 +90,10 @@ const processMessage = async (queryDescription, user_id, authorization) => {
       sourceList += sourceDocument.metadata.source + "\n";
       sourceArray.push(sourceDocument.pageContent);
     }
+    console.timeEnd("chatgpt (knowledge)");
+    console.time("chatgpt (general)");
 
-    const responseGeneral = await openaiClient.chat.completions.create({
+    const responseGeneral = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: queryDescription }],
       max_tokens: 100,
@@ -96,13 +102,14 @@ const processMessage = async (queryDescription, user_id, authorization) => {
     // console.log(responseGeneral.choices[0].message.content);
 
     const responseFinal =
-      "ChatGPT (with knowledge):\n\n" +
+      "ChatGPT (knowledge):\n\n" +
       response.text +
       "\n\n" +
       sourceList +
       "\n" +
       "ChatGPT (general):\n\n" +
       responseGeneral.choices[0].message.content;
+    console.timeEnd("chatgpt (general)");
     return responseFinal;
   } catch (error) {
     console.log(error);
