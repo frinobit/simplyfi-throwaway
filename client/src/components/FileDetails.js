@@ -3,7 +3,7 @@ import { useFilesContext } from "../hooks/useFilesContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 // api
-import { fetchFiles } from "../pages/utils/api";
+import { fetchFiles } from "../pages/api";
 
 const FileDetails = ({ file }) => {
   const { dispatch } = useFilesContext();

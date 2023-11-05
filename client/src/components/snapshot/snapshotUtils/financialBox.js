@@ -1,4 +1,4 @@
-import SnapshotCSS from "../../styles/pages/SnapshotBasic.module.css";
+import SnapshotCSS from "../../../styles/pages/SnapshotBasic.module.css";
 
 export const AssetsBox = ({ description, amount, income, expenses }) => {
   const foundIncome = income?.find((item) => item.description === description);

@@ -4,6 +4,7 @@ import "./styles/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/AuthContext";
+
 import { FinancialsContextProvider } from "./context/FinancialsContext";
 import { PersonalsContextProvider } from "./context/PersonalsContext";
 import { ProgressBarContextProvider } from "./context/ProgressBarContext";

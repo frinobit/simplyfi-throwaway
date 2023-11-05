@@ -12,7 +12,7 @@ import ChatbotDeepDive from "../components/ChatbotDeepDive";
 import FileDetails from "../components/FileDetails";
 
 // api
-import { fetchFiles } from "./utils/api";
+import { fetchFiles } from "./api";
 
 const DeepDive = () => {
   const { user } = useAuthContext();
