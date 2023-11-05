@@ -69,7 +69,6 @@ const processMessage = async (queryDescription, user_id, authorization) => {
       chunksWithIDs,
       embeddings
     );
-
     const docs = await vectorStore.similaritySearch(queryDescription);
     console.timeEnd("embedding");
     console.time("chatgpt (knowledge)");
