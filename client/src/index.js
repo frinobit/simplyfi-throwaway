@@ -20,7 +20,9 @@ import { InsuranceContextProvider } from "./context/financial/InsuranceContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <>
+    {/* react strict mode render twice */}
+    {/* <React.StrictMode> */}
     <FinancialsContextProvider>
       <PersonalsContextProvider>
         <ProgressBarContextProvider>
@@ -46,7 +48,8 @@ root.render(
         </ProgressBarContextProvider>
       </PersonalsContextProvider>
     </FinancialsContextProvider>
-  </React.StrictMode>
+    {/* </React.StrictMode> */}
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
