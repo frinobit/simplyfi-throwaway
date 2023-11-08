@@ -1,6 +1,5 @@
 const File = require("../models/fileModel");
 const mongoose = require("mongoose");
-const { readDocs, countToken, splitText } = require("./fileControllerUtils");
 
 // get all files
 const getFiles = async (req, res) => {
@@ -28,6 +27,7 @@ const getFile = async (req, res) => {
   res.status(200).json(file);
 };
 
+const { readDocs, countToken, splitText } = require("./fileControllerUtils");
 // create new file
 const createFile = async (req, res) => {
   try {
