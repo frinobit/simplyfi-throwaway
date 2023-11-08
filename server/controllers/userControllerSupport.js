@@ -1,8 +1,10 @@
 const User = require("../models/userModel");
 const UserGuest = require("../models/userGuestModel");
+
 const Financial = require("../models/financialModel");
 const Personal = require("../models/personalModel");
 const Message = require("../models/messageModel");
+const Deepdive = require("../models/deepdiveModel");
 const ProgressBar = require("../models/progressBarModel");
 
 const Asset = require("../models/financial/assetModel");
@@ -12,6 +14,8 @@ const Expense = require("../models/financial/expenseModel");
 const Saving = require("../models/financial/savingModel");
 const Investment = require("../models/financial/investmentModel");
 const Insurance = require("../models/financial/insuranceModel");
+
+const File = require("../models/fileModel");
 
 const axios = require("axios");
 
@@ -68,6 +72,7 @@ const createUserAndUpdateDatabase = async (old_uid, new_uid, email) => {
       { model: Financial, query: { user_id: old_uid } },
       { model: Personal, query: { user_id: old_uid } },
       { model: Message, query: { user_id: old_uid } },
+      { model: Deepdive, query: { user_id: old_uid } },
       { model: ProgressBar, query: { user_id: old_uid } },
       { model: Asset, query: { user_id: old_uid } },
       { model: Liability, query: { user_id: old_uid } },
@@ -76,6 +81,7 @@ const createUserAndUpdateDatabase = async (old_uid, new_uid, email) => {
       { model: Saving, query: { user_id: old_uid } },
       { model: Investment, query: { user_id: old_uid } },
       { model: Insurance, query: { user_id: old_uid } },
+      { model: File, query: { user_id: old_uid } },
     ];
 
     for (const { model, query } of updateQueries) {

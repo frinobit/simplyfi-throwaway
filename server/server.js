@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const userRoute = require("./routes/userRoute");
+
 const financialRoute = require("./routes/financialRoute");
 const personalRoute = require("./routes/personalRoute");
 const messageRoute = require("./routes/messageRoute");
