@@ -27,7 +27,13 @@ const getFile = async (req, res) => {
   res.status(200).json(file);
 };
 
-const { readDocs, countToken, splitText } = require("./fileControllerUtils");
+const {
+  readDocs,
+  countToken,
+  splitText,
+  storeInQdrant,
+  deleteInQdrant,
+} = require("./fileControllerUtils");
 // create new file
 const createFile = async (req, res) => {
   try {
@@ -42,7 +48,9 @@ const createFile = async (req, res) => {
 
     const docs = await readDocs(path);
     const tokenCounts = countToken(docs);
-    const chunks = splitText(docs);
+    const chunks = await splitText(docs);
+    const fullName = user_id + "_" + originalname;
+    await storeInQdrant(fullName, tokenCounts, chunks);
 
     res.status(200).json(file);
   } catch (error) {
@@ -52,19 +60,21 @@ const createFile = async (req, res) => {
 
 // delete a file
 const deleteFile = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
+    const file = await File.findOneAndDelete({ _id: id });
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such file" });
+    const user_id = req.user.user_id;
+    const { filename } = req.body;
+
+    const fullName = user_id + "_" + filename;
+    await deleteInQdrant(fullName);
+
+    res.status(200).json(file);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
   }
-
-  const file = await File.findOneAndDelete({ _id: id });
-
-  if (!file) {
-    return res.status(404).json({ error: "No such file" });
-  }
-
-  res.status(200).json(file);
 };
 
 // update a file
