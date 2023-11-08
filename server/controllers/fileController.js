@@ -27,17 +27,33 @@ const getFile = async (req, res) => {
   res.status(200).json(file);
 };
 
+const { PDFLoader } = require("langchain/document_loaders/fs/pdf");
+// store file in qdrant
+const storeFile = async (path) => {
+  const loader = new PDFLoader(path);
+  const docs = await loader.load();
+  const uniqueSources = new Set(docs.map((doc) => doc.metadata.source));
+  console.log("Total number of PDF documents:", uniqueSources.size);
+
+  console.log("Total pages (excluding blank page):", docs.length);
+  console.log("Source:", docs[50].metadata.source);
+  console.log("Location:", docs[50].metadata.loc);
+};
+
 // create new file
 const createFile = async (req, res) => {
   try {
     const user_id = req.user.user_id;
     const { originalname, path } = req.file;
+    console.log(path);
 
     const file = await File.create({
       user_id: user_id,
       filename: originalname,
       path: path,
     });
+
+    storeFile(path);
 
     res.status(200).json(file);
   } catch (error) {
