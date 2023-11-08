@@ -36,8 +36,8 @@ const storeFile = async (path) => {
   console.log("Total number of PDF documents:", uniqueSources.size);
 
   console.log("Total pages (excluding blank page):", docs.length);
-  console.log("Source:", docs[50].metadata.source);
-  console.log("Location:", docs[50].metadata.loc);
+  console.log("Source:", docs[0].metadata.source);
+  console.log("Location:", docs[0].metadata.loc);
 };
 
 // create new file
