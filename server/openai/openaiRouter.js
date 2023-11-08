@@ -36,7 +36,7 @@ const getOpenai = async (req, res) => {
       user_id,
       authorization
     );
-    // console.log("3. bot response:", botResponses);
+    console.log("3. bot response:", botResponses);
 
     // Save to database
     await store_message(user_id, botResponses, false);
