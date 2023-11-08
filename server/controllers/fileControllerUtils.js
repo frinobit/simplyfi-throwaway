@@ -4,12 +4,14 @@ const readDocs = async (path) => {
   try {
     const loader = new PDFLoader(path);
     const docs = await loader.load();
+
     const uniqueSources = new Set(docs.map((doc) => doc.metadata.source));
     console.log("Total number of PDF documents:", uniqueSources.size);
 
     console.log("Total pages (excluding blank page):", docs.length);
     console.log("Source:", docs[0].metadata.source);
     console.log("Location:", docs[0].metadata.loc);
+
     return docs;
   } catch (error) {
     console.log(error.message);
@@ -36,6 +38,7 @@ const countToken = (docs) => {
     console.log("Min:", minCount);
     console.log("Avg:", avgCount);
     console.log("Max:", maxCount);
+
     return tokenCounts;
   } catch (error) {
     console.log(error.message);
@@ -57,6 +60,7 @@ const splitText = async (docs) => {
     console.log("Total chunks:", chunks.length);
     console.log("Source:", chunks[0].metadata.source);
     console.log("Location:", chunks[0].metadata.loc);
+
     return chunks;
   } catch (error) {
     console.log(error.message);
