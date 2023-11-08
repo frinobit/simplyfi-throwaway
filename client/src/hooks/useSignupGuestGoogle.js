@@ -30,7 +30,7 @@ export const useSignupGuestGoogle = () => {
         body: JSON.stringify({ email }),
       });
       if (checkGoogleResponse.ok) {
-        const response = await fetch("/api/user/signupGuest", {
+        const response = await fetch("/api/user/signupGuestGoogle", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ old_token, new_uid, email, new_token }),

@@ -69,8 +69,35 @@ const loginUserGuest = async (req, res) => {
   }
 };
 
-// signup user guest with email / google
+// signup user guest with email
 const signupUserGuest = async (req, res) => {
+  const { old_uid, new_uid, email, token } = req.body;
+
+  try {
+    // Update database
+    const result = await createUserAndUpdateDatabase(old_uid, new_uid, email);
+
+    if (result === true) {
+      console.log("signup user guest (email / google) successful.");
+
+      // Delete user guest
+      await UserGuest.deleteOne({ user_id: old_uid });
+
+      // Delete firebase guest account
+      await admin.auth().deleteUser(old_uid);
+      res.status(200).json({ email, token });
+    } else {
+      console.error("Initialization failed.");
+      res.status(400).json({ error: error.message });
+      return;
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// signup user guest with google
+const signupUserGuestGoogle = async (req, res) => {
   const old_uid = req.old_uid;
   const { new_uid, email, new_token } = req.body;
 
@@ -86,7 +113,7 @@ const signupUserGuest = async (req, res) => {
 
       // Delete firebase guest account
       await admin.auth().deleteUser(old_uid);
-      res.status(200).json({ email, new_token });
+      res.status(200).json({ email, token: new_token });
     } else {
       console.error("Initialization failed.");
       res.status(400).json({ error: error.message });
@@ -148,6 +175,7 @@ module.exports = {
   loginUser,
   loginUserGuest,
   signupUserGuest,
+  signupUserGuestGoogle,
   checkGoogle,
   loginUserGoogle,
 };

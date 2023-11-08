@@ -6,6 +6,7 @@ const {
   signupUser,
   loginUserGuest,
   signupUserGuest,
+  signupUserGuestGoogle,
   loginUserGoogle,
   checkGoogle,
 } = require("../controllers/userController");
@@ -30,7 +31,10 @@ router.post("/loginGoogle", loginUserGoogle);
 // check if user exists (user sign up with google)
 router.post("/checkGoogle", checkGoogle);
 
-// signup as guest route
-router.post("/signupGuest", decodeGoogle, signupUserGuest);
+// signup user guest with email route
+router.post("/signupGuest", signupUserGuest);
+
+// signup user guest with google
+router.post("/signupGuestGoogle", decodeGoogle, signupUserGuestGoogle);
 
 module.exports = router;
