@@ -14,14 +14,14 @@ const FileDetailsDelete = ({ file }) => {
       return;
     }
 
-    const response = await fetch("/file/" + file._id, {
+    const response = await fetch("/file/policy/" + file._id, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        filename: file.filename,
+        fileName: file.fileName,
       }),
     });
     const json = await response.json();
@@ -34,7 +34,7 @@ const FileDetailsDelete = ({ file }) => {
 
   return (
     <div className={FileDetailsCSS.file_details}>
-      <p>{file.filename}</p>
+      <p>{file.fileName}</p>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

@@ -9,14 +9,14 @@ const FileDetailsDownload = ({ file }) => {
       return;
     }
 
-    const response = await fetch("/file/" + file._id, {
+    const response = await fetch("/file/summary/" + file._id, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${user.token}`,
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`, // Pass user token if needed
       },
       body: JSON.stringify({
-        filename: file.filename,
+        fileName: file.fileName,
       }),
     });
 
@@ -25,7 +25,7 @@ const FileDetailsDownload = ({ file }) => {
       const url = window.URL.createObjectURL(new Blob([blob]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", file.filename);
+      link.setAttribute("download", file.fileName);
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
@@ -36,7 +36,7 @@ const FileDetailsDownload = ({ file }) => {
 
   return (
     <div className={FileDetailsCSS.file_details}>
-      <p>{file.filename}</p>
+      <p>{file.fileName}</p>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

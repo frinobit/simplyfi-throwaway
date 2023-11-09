@@ -77,7 +77,7 @@ const DeepDive = () => {
 
     const newName = count === 1 ? fileName : `${fileName}(${count})`;
     const updatedName = fileExt ? `${newName}.${fileExt}` : newName;
-    const fileExists = files.find((file) => file.filename === updatedName);
+    const fileExists = files.find((file) => file.fileName === updatedName);
 
     return fileExists ? findUniqueName(name, count + 1) : updatedName;
   };
@@ -94,7 +94,7 @@ const DeepDive = () => {
     formData.set("pdf", file, uniqueFileName);
 
     try {
-      const response = await fetch("/file/upload", {
+      const response = await fetch("/file/policy/upload", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${user.token}`,

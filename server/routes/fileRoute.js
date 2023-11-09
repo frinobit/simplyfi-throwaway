@@ -27,16 +27,16 @@ router.get("/", getFiles);
 // GET a single file
 router.get("/:id", getFile);
 
-// POST a new file
-router.post("/upload", fileUpload, createFile);
-
-// DELETE a file
-router.delete("/:id", fileDelete, deleteFile);
-
 // UPDATE a file
 router.patch("/:id", updateFile);
 
-// DOWNLOAD a file
-router.post("/:id", downloadFile);
+// user uploads a policy
+router.post("/policy/upload", fileUpload, createFile);
+
+// user deletes a policy
+router.delete("/policy/:id", fileDelete, deleteFile);
+
+// user downloads a summary
+router.post("/summary/:id", downloadFile);
 
 module.exports = router;

@@ -42,8 +42,9 @@ const createFile = async (req, res) => {
 
     const file = await File.create({
       user_id: user_id,
-      filename: originalname,
+      fileName: originalname,
       path: path,
+      type: "policy",
     });
 
     const docs = await readDocs(path);
@@ -65,9 +66,9 @@ const deleteFile = async (req, res) => {
     const file = await File.findOneAndDelete({ _id: id });
 
     const user_id = req.user.user_id;
-    const { filename } = req.body;
+    const { fileName } = req.body;
 
-    const fullName = user_id + "_" + filename;
+    const fullName = user_id + "_" + fileName;
     await deleteInQdrant(fullName);
 
     res.status(200).json(file);
@@ -99,9 +100,9 @@ const fs = require("fs");
 // download a single file
 const downloadFile = async (req, res) => {
   const user_id = req.user.user_id;
-  const { filename } = req.body;
-  const fullName = user_id + "_" + filename;
-  const filePath = path.join(__dirname, "../assets", fullName);
+  const { fileName } = req.body;
+  const fullName = user_id + "_" + fileName;
+  const filePath = path.join(__dirname, "../assets_policy", fullName);
 
   const file = fs.createReadStream(filePath);
   file.pipe(res);

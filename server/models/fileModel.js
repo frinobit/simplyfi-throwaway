@@ -8,13 +8,18 @@ const fileSchema = new Schema(
       type: String,
       required: true,
     },
-    filename: {
+    fileName: {
       type: String,
       required: true,
     },
     path: {
       type: String,
       required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+      enum: ["policy", "summary"],
     },
   },
   { timestamps: true }

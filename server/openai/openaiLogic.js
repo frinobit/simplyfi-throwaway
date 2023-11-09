@@ -14,7 +14,7 @@ const fs = require("fs");
 const { searchInQdrant, answerWithOpenAI } = require("./openaiUtils");
 
 const processMessage = async (queryDescription, user_id) => {
-  const directoryPath = path.join(__dirname, "../assets");
+  const directoryPath = path.join(__dirname, "../assets_policy");
 
   try {
     const files = fs.readdirSync(directoryPath);

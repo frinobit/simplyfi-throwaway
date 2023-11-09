@@ -1,9 +1,13 @@
 const deleteFile = (req, res, next) => {
-  const { filename } = req.body;
+  const { fileName } = req.body;
   const fs = require("fs");
   const path = require("path");
   const user_id = req.user.user_id;
-  const filePath = path.join(__dirname, "../assets", `${user_id}_${filename}`);
+  const filePath = path.join(
+    __dirname,
+    "../assets_policy",
+    `${user_id}_${fileName}`
+  );
 
   // Check if the file exists
   fs.stat(filePath, (err, stats) => {
