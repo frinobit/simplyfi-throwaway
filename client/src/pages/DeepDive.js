@@ -9,7 +9,8 @@ import { useFilesContext } from "../hooks/useFilesContext";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 import ChatbotDeepDive from "../components/ChatbotDeepDive";
-import FileDetails from "../components/FileDetails";
+import FileDetailsDelete from "../components/FileDetailsDelete";
+import FileDetailsDownload from "../components/FileDetailsDownload";
 
 // api
 import { fetchFiles } from "./api";
@@ -143,16 +144,24 @@ const DeepDive = () => {
               />
             </svg>
           </div>
-          <p>Lists of files uploaded:</p>
+          <p>Files uploaded:</p>
           {files && (
             <div>
               {files.map((file) => (
-                <FileDetails key={file._id} file={file} />
+                <FileDetailsDelete key={file._id} file={file} />
               ))}
             </div>
           )}
           <div>
             <button onClick={handleSummaryClick}>Generate summary</button>
+            <p>Summary generated:</p>
+            {files && (
+              <div>
+                {files.map((file) => (
+                  <FileDetailsDownload key={file._id} file={file} />
+                ))}
+              </div>
+            )}
             <p>{summary}</p>
           </div>
         </div>

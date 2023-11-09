@@ -5,7 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 // api
 import { fetchFiles } from "../pages/api";
 
-const FileDetails = ({ file }) => {
+const FileDetailsDelete = ({ file }) => {
   const { dispatch } = useFilesContext();
   const { user } = useAuthContext();
 
@@ -51,4 +51,4 @@ const FileDetails = ({ file }) => {
   );
 };
 
-export default FileDetails;
+export default FileDetailsDelete;

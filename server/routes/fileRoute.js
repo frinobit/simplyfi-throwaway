@@ -7,6 +7,7 @@ const {
   createFile,
   deleteFile,
   updateFile,
+  downloadFile,
 } = require("../controllers/fileController");
 
 // require auth for all message routes
@@ -34,5 +35,8 @@ router.delete("/:id", fileDelete, deleteFile);
 
 // UPDATE a file
 router.patch("/:id", updateFile);
+
+// DOWNLOAD a file
+router.post("/:id", downloadFile);
 
 module.exports = router;

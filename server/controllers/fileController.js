@@ -94,10 +94,24 @@ const updateFile = async (req, res) => {
   res.status(200).json(file);
 };
 
+const path = require("path");
+const fs = require("fs");
+// download a single file
+const downloadFile = async (req, res) => {
+  const user_id = req.user.user_id;
+  const { filename } = req.body;
+  const fullName = user_id + "_" + filename;
+  const filePath = path.join(__dirname, "../assets", fullName);
+
+  const file = fs.createReadStream(filePath);
+  file.pipe(res);
+};
+
 module.exports = {
   getFiles,
   getFile,
   createFile,
   deleteFile,
   updateFile,
+  downloadFile,
 };
