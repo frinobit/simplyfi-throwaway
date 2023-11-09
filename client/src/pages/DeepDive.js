@@ -38,8 +38,8 @@ const DeepDive = () => {
       },
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to start the conversation");
+    if (response.ok) {
+      fetchFiles(user, filesDispatch);
     }
 
     const data = await response.json();

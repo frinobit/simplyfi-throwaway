@@ -68,6 +68,7 @@ const createFile = async (req, res) => {
     const tokenCounts = countToken(docs);
     const chunks = await splitText(docs);
     const fullName = user_id + "_" + originalname;
+    console.log("storing in qdrant database...");
     await storeInQdrant(fullName, tokenCounts, chunks);
 
     res.status(200).json(file);

@@ -1,13 +1,8 @@
 import FileDetailsCSS from "../styles/components/FileDetails.module.css";
-import { useFilesContext } from "../hooks/useFilesContext";
 import { useAuthContext } from "../hooks/useAuthContext";
-
-// api
-import { fetchFiles } from "../pages/api";
 
 const FileDetailsDownload = ({ file }) => {
   const { user } = useAuthContext();
-  const { dispatch } = useFilesContext();
 
   const handleClick = async () => {
     if (!user) {
@@ -34,7 +29,6 @@ const FileDetailsDownload = ({ file }) => {
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
-      fetchFiles(user, dispatch);
     } else {
       console.error("Failed to download the file");
     }
