@@ -20,12 +20,32 @@ const DeepDive = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState(null);
+  const [summary, setSummary] = useState(null);
 
   useEffect(() => {
     if (user) {
       fetchFiles(user, filesDispatch);
     }
   }, [filesDispatch, user]);
+
+  const handleSummaryClick = async () => {
+    const response = await fetch("/openai/generate_summary", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to start the conversation");
+    }
+
+    const data = await response.json();
+    console.log(data.message);
+    // const chatbotResponse = { text: data.message, isUser: false };
+    setSummary(data.message);
+  };
 
   const handleBackToLogin = () => {
     setShowSignUp(false);
@@ -62,6 +82,11 @@ const DeepDive = () => {
   };
 
   const handleFileUpload = async () => {
+    if (!file) {
+      alert("Please select a file to upload.");
+      return;
+    }
+
     const uniqueFileName = findUniqueName(file.name, 1);
 
     const formData = new FormData();
@@ -126,6 +151,10 @@ const DeepDive = () => {
               ))}
             </div>
           )}
+          <div>
+            <button onClick={handleSummaryClick}>Generate summary</button>
+            <p>{summary}</p>
+          </div>
         </div>
       ) : (
         <div className={DeepDiveCSS.deepdive_container}>

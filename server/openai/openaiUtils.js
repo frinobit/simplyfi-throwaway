@@ -52,9 +52,42 @@ const answerWithOpenAI = async (relevantDocs, queryDescription) => {
       input_documents: relevantDocs,
       question: queryDescription,
     });
+    console.log("Total relevant docs:", relevantDocs.length);
+    console.log("Source:", relevantDocs[3].metadata.source);
+    console.log("Page number:", relevantDocs[3].metadata.loc.pageNumber);
+    console.log("Lines from:", relevantDocs[3].metadata.loc.lines.from);
+    console.log("Lines to:", relevantDocs[3].metadata.loc.lines.to);
+
+    const response =
+      result.text +
+      "\n\nSource:" +
+      "\n1. Page: " +
+      relevantDocs[0].metadata.loc.pageNumber +
+      ", Lines from " +
+      relevantDocs[0].metadata.loc.lines.from +
+      " to " +
+      relevantDocs[0].metadata.loc.lines.to +
+      "\n2. Page: " +
+      relevantDocs[1].metadata.loc.pageNumber +
+      ", Lines from " +
+      relevantDocs[1].metadata.loc.lines.from +
+      " to " +
+      relevantDocs[1].metadata.loc.lines.to +
+      "\n3. Page: " +
+      relevantDocs[2].metadata.loc.pageNumber +
+      ", Lines from " +
+      relevantDocs[2].metadata.loc.lines.from +
+      " to " +
+      relevantDocs[2].metadata.loc.lines.to +
+      "\n4. Page: " +
+      relevantDocs[3].metadata.loc.pageNumber +
+      ", Lines from " +
+      relevantDocs[3].metadata.loc.lines.from +
+      " to " +
+      relevantDocs[3].metadata.loc.lines.to;
 
     console.timeEnd("ANSWER WITH OPENAI");
-    return result.text;
+    return response;
   } catch (error) {
     console.log(error.message);
   }

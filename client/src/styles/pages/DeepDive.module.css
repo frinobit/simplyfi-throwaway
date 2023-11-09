@@ -52,3 +52,6 @@
 .dragging {
   background-color: #f3c2b0;
 }
+p {
+  white-space: pre-line;
+}
