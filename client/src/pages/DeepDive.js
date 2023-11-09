@@ -21,7 +21,6 @@ const DeepDive = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState(null);
-  const [summary, setSummary] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -41,11 +40,6 @@ const DeepDive = () => {
     if (response.ok) {
       fetchFiles(user, filesDispatch);
     }
-
-    const data = await response.json();
-    console.log(data.message);
-    // const chatbotResponse = { text: data.message, isUser: false };
-    setSummary(data.message);
   };
 
   const handleBackToLogin = () => {
@@ -166,7 +160,6 @@ const DeepDive = () => {
                   ))}
               </div>
             ) : null}
-            <p>{summary}</p>
           </div>
         </div>
       ) : (
