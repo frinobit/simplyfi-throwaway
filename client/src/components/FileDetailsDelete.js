@@ -6,8 +6,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { fetchFiles } from "../pages/api";
 
 const FileDetailsDelete = ({ file }) => {
-  const { dispatch } = useFilesContext();
   const { user } = useAuthContext();
+  const { dispatch } = useFilesContext();
 
   const handleClick = async () => {
     if (!user) {

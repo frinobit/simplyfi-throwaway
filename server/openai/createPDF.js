@@ -1,6 +1,7 @@
-const { PDFDocument, StandardFonts, rgb } = require("pdf-lib");
 const path = require("path");
 const fs = require("fs");
+const { PDFDocument, StandardFonts, rgb } = require("pdf-lib");
+const File = require("../models/fileModel");
 
 // LATEST
 const createPDF = async (user_id, response) => {
@@ -65,12 +66,19 @@ const createPDF = async (user_id, response) => {
 
   const pdfBytes = await pdfDoc.save();
 
-  const directoryPath = path.join(
+  const filePath = path.join(
     __dirname,
     "../assets_summary",
     `${user_id}_summary.pdf`
   );
-  fs.writeFileSync(directoryPath, pdfBytes);
+
+  const file = await File.create({
+    user_id: user_id,
+    fileName: "summary.pdf",
+    path: filePath,
+    type: "summary",
+  });
+  fs.writeFileSync(filePath, pdfBytes);
 };
 
 module.exports = { createPDF };

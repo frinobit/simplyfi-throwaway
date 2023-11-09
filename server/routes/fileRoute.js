@@ -4,9 +4,9 @@ const express = require("express");
 const {
   getFiles,
   getFile,
+  updateFile,
   createFile,
   deleteFile,
-  updateFile,
   downloadFile,
 } = require("../controllers/fileController");
 

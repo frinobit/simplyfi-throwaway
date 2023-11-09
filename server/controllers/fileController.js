@@ -27,6 +27,23 @@ const getFile = async (req, res) => {
   res.status(200).json(file);
 };
 
+// update a file
+const updateFile = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such file" });
+  }
+
+  const file = await File.findOneAndUpdate({ _id: id }, { ...req.body });
+
+  if (!file) {
+    return res.status(404).json({ error: "No such file" });
+  }
+
+  res.status(200).json(file);
+};
+
 const {
   readDocs,
   countToken,
@@ -78,23 +95,6 @@ const deleteFile = async (req, res) => {
   }
 };
 
-// update a file
-const updateFile = async (req, res) => {
-  const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such file" });
-  }
-
-  const file = await File.findOneAndUpdate({ _id: id }, { ...req.body });
-
-  if (!file) {
-    return res.status(404).json({ error: "No such file" });
-  }
-
-  res.status(200).json(file);
-};
-
 const path = require("path");
 const fs = require("fs");
 // download a single file
@@ -102,7 +102,7 @@ const downloadFile = async (req, res) => {
   const user_id = req.user.user_id;
   const { fileName } = req.body;
   const fullName = user_id + "_" + fileName;
-  const filePath = path.join(__dirname, "../assets_policy", fullName);
+  const filePath = path.join(__dirname, "../assets_summary", fullName);
 
   const file = fs.createReadStream(filePath);
   file.pipe(res);
@@ -111,8 +111,8 @@ const downloadFile = async (req, res) => {
 module.exports = {
   getFiles,
   getFile,
+  updateFile,
   createFile,
   deleteFile,
-  updateFile,
   downloadFile,
 };

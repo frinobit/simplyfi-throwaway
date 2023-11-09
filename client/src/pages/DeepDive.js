@@ -145,23 +145,27 @@ const DeepDive = () => {
             </svg>
           </div>
           <p>Files uploaded:</p>
-          {files && (
+          {files && files.length > 0 ? (
             <div>
-              {files.map((file) => (
-                <FileDetailsDelete key={file._id} file={file} />
-              ))}
+              {files
+                .filter((file) => file.type === "policy")
+                .map((file) => (
+                  <FileDetailsDelete key={file._id} file={file} />
+                ))}
             </div>
-          )}
+          ) : null}
           <div>
             <button onClick={handleSummaryClick}>Generate summary</button>
             <p>Summary generated:</p>
-            {files && (
+            {files && files.length > 0 ? (
               <div>
-                {files.map((file) => (
-                  <FileDetailsDownload key={file._id} file={file} />
-                ))}
+                {files
+                  .filter((file) => file.type === "summary")
+                  .map((file) => (
+                    <FileDetailsDownload key={file._id} file={file} />
+                  ))}
               </div>
-            )}
+            ) : null}
             <p>{summary}</p>
           </div>
         </div>
