@@ -1,7 +1,12 @@
+import fs from "fs";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 export const fileDelete = (req, res, next) => {
   const { fileName } = req.body;
-  const fs = require("fs");
-  const path = require("path");
   const user_id = req.user.user_id;
   const filePath = path.join(
     __dirname,

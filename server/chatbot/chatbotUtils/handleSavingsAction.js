@@ -9,7 +9,7 @@ export const handleSavingsAction = (
   authorization
 ) => {
   if (action === "provides.savings.longterm") {
-    result = addSaving(
+    addSaving(
       description,
       "Long-Term",
       socketIo,
@@ -19,7 +19,7 @@ export const handleSavingsAction = (
     );
   }
   if (action === "provides.savings.emergencyfund") {
-    result = addSaving(
+    addSaving(
       description,
       "Emergency Fund",
       socketIo,
@@ -29,7 +29,7 @@ export const handleSavingsAction = (
     );
   }
   if (action === "provides.savings.shortterm") {
-    result = addSaving(
+    addSaving(
       description,
       "Short-Term",
       socketIo,

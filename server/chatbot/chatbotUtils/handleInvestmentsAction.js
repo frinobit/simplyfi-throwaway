@@ -9,16 +9,10 @@ export const handleInvestmentsAction = (
   authorization
 ) => {
   if (action === "provides.investments.other") {
-    result = addInvestment(
-      description,
-      socketIo,
-      parameters,
-      user_id,
-      authorization
-    );
+    addInvestment(description, socketIo, parameters, user_id, authorization);
   }
   if (action === "provides.investments.expense") {
-    result = addExpense(
+    addExpense(
       description,
       "Annual",
       socketIo,

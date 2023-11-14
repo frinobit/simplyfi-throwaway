@@ -18,8 +18,8 @@ export const handleInsuranceAction = async (
     insuranceCounts[user_id]++;
     const description = `insurance${insuranceCounts[user_id]}`;
 
-    result = await addInsurance(description, socketIo, user_id, authorization);
-    result = await updateInsuranceString(
+    await addInsurance(description, socketIo, user_id, authorization);
+    await updateInsuranceString(
       update,
       description,
       socketIo,
@@ -30,7 +30,7 @@ export const handleInsuranceAction = async (
   }
   if (action === "provides.insurance.plan") {
     const description = `insurance${insuranceCounts[user_id]}`;
-    result = updateInsuranceString(
+    updateInsuranceString(
       update,
       description,
       socketIo,
@@ -41,7 +41,7 @@ export const handleInsuranceAction = async (
   }
   if (action === "provides.insurance.type") {
     const description = `insurance${insuranceCounts[user_id]}`;
-    result = updateInsuranceString(
+    updateInsuranceString(
       update,
       description,
       socketIo,
@@ -52,7 +52,7 @@ export const handleInsuranceAction = async (
   }
   if (action === "provides.insurance.sumassured") {
     const description = `insurance${insuranceCounts[user_id]}`;
-    result = updateInsuranceNumber(
+    updateInsuranceNumber(
       update,
       description,
       socketIo,
@@ -63,7 +63,7 @@ export const handleInsuranceAction = async (
   }
   if (action === "provides.insurance.premium") {
     const description = `insurance${insuranceCounts[user_id]}`;
-    result = await updateInsuranceNumber(
+    await updateInsuranceNumber(
       update,
       description,
       socketIo,
@@ -71,7 +71,7 @@ export const handleInsuranceAction = async (
       user_id,
       authorization
     );
-    result = await addExpense(
+    await addExpense(
       description,
       "Annual",
       socketIo,

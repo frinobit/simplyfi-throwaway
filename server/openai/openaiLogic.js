@@ -9,9 +9,13 @@ export const store_message = async (user_id, content, is_user_message) => {
   await messageDocument.save();
 };
 
-import path from "path";
+import path, { dirname } from "path";
 import fs from "fs";
 import { searchInQdrant, answerWithOpenAI } from "./openaiUtils.js";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const processMessage = async (queryDescription, user_id) => {
   const directoryPath = path.join(__dirname, "../assets_policy");

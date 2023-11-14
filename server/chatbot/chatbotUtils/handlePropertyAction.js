@@ -16,27 +16,15 @@ export const handlePropertyAction = (
   if (action === "provides.property.asset") {
     propertyCounts[user_id]++;
     const description = `property${propertyCounts[user_id]}`;
-    result = addAsset(
-      description,
-      socketIo,
-      parameters,
-      user_id,
-      authorization
-    );
+    addAsset(description, socketIo, parameters, user_id, authorization);
   }
   if (action === "provides.property.liability") {
     const description = `property${propertyCounts[user_id]}`;
-    result = addLiability(
-      description,
-      socketIo,
-      parameters,
-      user_id,
-      authorization
-    );
+    addLiability(description, socketIo, parameters, user_id, authorization);
   }
   if (action === "provides.property.income") {
     const description = `property${propertyCounts[user_id]}`;
-    result = addIncome(
+    addIncome(
       description,
       "Others",
       socketIo,
@@ -47,7 +35,7 @@ export const handlePropertyAction = (
   }
   if (action === "provides.property.expense") {
     const description = `property${propertyCounts[user_id]}`;
-    result = addExpense(
+    addExpense(
       description,
       "Fixed",
       socketIo,

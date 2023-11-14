@@ -9,7 +9,7 @@ export const handleIncomeAction = (
   authorization
 ) => {
   if (action === "provides.income.salary") {
-    result = addIncome(
+    addIncome(
       description,
       "Salary",
       socketIo,
@@ -19,7 +19,7 @@ export const handleIncomeAction = (
     );
   }
   if (action === "provides.income.freelance") {
-    result = addIncome(
+    addIncome(
       description,
       "Salary",
       socketIo,
@@ -29,7 +29,7 @@ export const handleIncomeAction = (
     );
   }
   if (action === "provides.income.bonuses") {
-    result = addIncome(
+    addIncome(
       description,
       "Bonuses",
       socketIo,
@@ -39,7 +39,7 @@ export const handleIncomeAction = (
     );
   }
   if (action === "provides.income.rental") {
-    result = addIncome(
+    addIncome(
       description,
       "Others",
       socketIo,
@@ -49,7 +49,7 @@ export const handleIncomeAction = (
     );
   }
   if (action === "provides.income.dividend") {
-    result = addIncome(
+    addIncome(
       description,
       "Others",
       socketIo,
@@ -60,7 +60,7 @@ export const handleIncomeAction = (
   }
   if (action === "provides.income.other") {
     const updatedDescription = parameters.fields.any.stringValue;
-    result = addIncome(
+    addIncome(
       updatedDescription,
       "Others",
       socketIo,

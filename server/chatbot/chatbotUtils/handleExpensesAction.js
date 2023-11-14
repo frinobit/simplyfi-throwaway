@@ -9,7 +9,7 @@ export const handleExpensesAction = (
   authorization
 ) => {
   if (action === "provides.expenses.rental") {
-    result = addExpense(
+    addExpense(
       description,
       "Fixed",
       socketIo,
@@ -19,7 +19,7 @@ export const handleExpensesAction = (
     );
   }
   if (action === "provides.expenses.utilities") {
-    result = addExpense(
+    addExpense(
       description,
       "Variables",
       socketIo,
@@ -29,7 +29,7 @@ export const handleExpensesAction = (
     );
   }
   if (action === "provides.expenses.food") {
-    result = addExpense(
+    addExpense(
       description,
       "Variables",
       socketIo,
@@ -39,7 +39,7 @@ export const handleExpensesAction = (
     );
   }
   if (action === "provides.expenses.commute") {
-    result = addExpense(
+    addExpense(
       description,
       "Variables",
       socketIo,
@@ -49,7 +49,7 @@ export const handleExpensesAction = (
     );
   }
   if (action === "provides.expenses.insurance") {
-    result = addExpense(
+    addExpense(
       description,
       "Annual",
       socketIo,
@@ -59,7 +59,7 @@ export const handleExpensesAction = (
     );
   }
   if (action === "provides.expenses.entertainment") {
-    result = addExpense(
+    addExpense(
       description,
       "Variables",
       socketIo,
@@ -69,7 +69,7 @@ export const handleExpensesAction = (
     );
   }
   if (action === "provides.expenses.education") {
-    result = addExpense(
+    addExpense(
       description,
       "Fixed",
       socketIo,
@@ -79,7 +79,7 @@ export const handleExpensesAction = (
     );
   }
   if (action === "provides.expenses.loan") {
-    result = addExpense(
+    addExpense(
       description,
       "Fixed",
       socketIo,
@@ -90,7 +90,7 @@ export const handleExpensesAction = (
   }
   if (action === "provides.expenses.other") {
     const updatedDescription = parameters.fields.any.stringValue;
-    result = addExpense(
+    addExpense(
       updatedDescription,
       "Annual",
       socketIo,

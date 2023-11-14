@@ -1,7 +1,11 @@
-import path from "path";
+import path, { dirname } from "path";
 import fs from "fs";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { File } from "../models/fileModel.js";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const createPDF = async (user_id, response) => {
   const pdfDoc = await PDFDocument.create();

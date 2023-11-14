@@ -8,9 +8,9 @@ import {
 const Assets = ({ assets, income, expenses }) => {
   try {
     if (assets.length > 0) {
-      return assets.map((item, index) => (
+      return assets.map((item) => (
         <AssetsBox
-          key={index}
+          key={item._id}
           description={item.description}
           amount={item.amount}
           income={income}
@@ -29,9 +29,9 @@ const Assets = ({ assets, income, expenses }) => {
 const Liabilities = ({ liabilities }) => {
   try {
     if (liabilities.length > 0) {
-      return liabilities.map((item, index) => (
+      return liabilities.map((item) => (
         <LiabilitiesBox
-          key={index}
+          key={item._id}
           description={item.description}
           amount={item.amount}
         />
@@ -48,9 +48,9 @@ const Liabilities = ({ liabilities }) => {
 const Investments = ({ investments }) => {
   try {
     if (investments.length > 0) {
-      return investments.map((item, index) => (
+      return investments.map((item) => (
         <InvestmentsBox
-          key={index}
+          key={item._id}
           description={item.description}
           amount={item.amount}
         />
@@ -67,16 +67,16 @@ const Investments = ({ investments }) => {
 const Insurance = ({ insurance }) => {
   try {
     if (insurance.length > 0) {
-      return insurance.map((item, index) =>
+      return insurance.map((item) =>
         item.plan ? (
           item.sumassured ? (
             <InsuranceBox
-              key={index}
+              key={item._id}
               description={item.plan}
               amount={item.sumassured}
             />
           ) : (
-            <InsuranceBox key={index} description={item.plan} amount="---" />
+            <InsuranceBox description={item.plan} amount="---" />
           )
         ) : (
           <InsuranceBox description="---" amount="---" />

@@ -96,8 +96,13 @@ export const deleteFile = async (req, res) => {
   }
 };
 
-import path from "path";
 import fs from "fs";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // download a single file
 export const downloadFile = async (req, res) => {
   const user_id = req.user.user_id;

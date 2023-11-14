@@ -16,27 +16,15 @@ export const handleVehicleAction = (
   if (action === "provides.vehicle.asset") {
     vehicleCounts[user_id]++;
     const description = `vehicle${vehicleCounts[user_id]}`;
-    result = addAsset(
-      description,
-      socketIo,
-      parameters,
-      user_id,
-      authorization
-    );
+    addAsset(description, socketIo, parameters, user_id, authorization);
   }
   if (action === "provides.vehicle.liability") {
     const description = `vehicle${vehicleCounts[user_id]}`;
-    result = addLiability(
-      description,
-      socketIo,
-      parameters,
-      user_id,
-      authorization
-    );
+    addLiability(description, socketIo, parameters, user_id, authorization);
   }
   if (action === "provides.vehicle.income") {
     const description = `vehicle${vehicleCounts[user_id]}`;
-    result = addIncome(
+    addIncome(
       description,
       "Others",
       socketIo,
@@ -47,7 +35,7 @@ export const handleVehicleAction = (
   }
   if (action === "provides.vehicle.expense") {
     const description = `vehicle${vehicleCounts[user_id]}`;
-    result = addExpense(
+    addExpense(
       description,
       "Fixed",
       socketIo,

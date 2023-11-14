@@ -14,25 +14,13 @@ export const handleOtherAction = (
   authorization
 ) => {
   if (action === "provides.other.asset") {
-    result = addAsset(
-      description,
-      socketIo,
-      parameters,
-      user_id,
-      authorization
-    );
+    addAsset(description, socketIo, parameters, user_id, authorization);
   }
   if (action === "provides.other.liability") {
-    result = addLiability(
-      description,
-      socketIo,
-      parameters,
-      user_id,
-      authorization
-    );
+    addLiability(description, socketIo, parameters, user_id, authorization);
   }
   if (action === "provides.other.income") {
-    result = addIncome(
+    addIncome(
       description,
       "Others",
       socketIo,
@@ -42,7 +30,7 @@ export const handleOtherAction = (
     );
   }
   if (action === "provides.other.expense") {
-    result = addExpense(
+    addExpense(
       description,
       "Fixed",
       socketIo,

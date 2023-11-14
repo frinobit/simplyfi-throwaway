@@ -1,5 +1,8 @@
 import express from "express";
 const app = express();
+import dotenv from "dotenv";
+dotenv.config();
+
 import dialogflow from "@google-cloud/dialogflow-cx";
 
 // utils
@@ -100,8 +103,8 @@ export const processMessage = async (queries, user_id, authorization) => {
         const intent = response[0].queryResult.match.intent.displayName;
         const parameters = response[0].queryResult.parameters;
 
-        parts = intent.split(".");
-        action = parts[0] + "." + parts[1] + "." + parts[2];
+        const parts = intent.split(".");
+        const action = parts[0] + "." + parts[1] + "." + parts[2];
 
         if (intentToCheck.includes(intent)) {
           updateProgressBar(
