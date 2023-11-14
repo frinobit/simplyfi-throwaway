@@ -1,13 +1,13 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const dialogflow = require("@google-cloud/dialogflow");
+import dialogflow from "@google-cloud/dialogflow";
 
-const axios = require("axios");
-const Personal = require("../models/personalModel");
+import axios from "axios";
+import { Personal } from "../models/personalModel.js";
 
 // socket
-const http = require("http");
-const { Server } = require("socket.io");
+import http from "http";
+import { Server } from "socket.io";
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -34,7 +34,7 @@ const sessionClient = new dialogflow.SessionsClient();
 // Keeping the context across queries to simulate an ongoing conversation
 let context = [];
 
-const processMessage = async (queries, user_id, authorization) => {
+export const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
   const sessionId = user_id;
   const languageCode = "en";
@@ -106,4 +106,17 @@ const processMessage = async (queries, user_id, authorization) => {
   return botResponses;
 };
 
-module.exports = { processMessage };
+export const getStartConversation = (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const user_id = req.user.user_id;
+
+    // Call startConversation to initiate the conversation
+    const botResponse = startConversation(user_id, authorization);
+
+    res.status(200).json({ message: botResponse });
+  } catch (error) {
+    console.log("Error starting conversation:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

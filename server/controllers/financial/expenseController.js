@@ -1,8 +1,8 @@
-const Expense = require("../../models/financial/expenseModel");
-const mongoose = require("mongoose");
+import { Expense } from "../../models/financial/expenseModel.js";
+import mongoose from "mongoose";
 
 // get all expenses
-const getExpenses = async (req, res) => {
+export const getExpenses = async (req, res) => {
   const user_id = req.user.user_id;
 
   const expenses = await Expense.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getExpenses = async (req, res) => {
 };
 
 // get a single expense
-const getExpense = async (req, res) => {
+export const getExpense = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getExpense = async (req, res) => {
 };
 
 // create new expense
-const createExpense = async (req, res) => {
+export const createExpense = async (req, res) => {
   const { description, type, amount } = req.body;
 
   // add doc to db
@@ -48,7 +48,7 @@ const createExpense = async (req, res) => {
 };
 
 // delete a expense
-const deleteExpense = async (req, res) => {
+export const deleteExpense = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -65,7 +65,7 @@ const deleteExpense = async (req, res) => {
 };
 
 // update a expense
-const updateExpense = async (req, res) => {
+export const updateExpense = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -79,12 +79,4 @@ const updateExpense = async (req, res) => {
   }
 
   res.status(200).json(expense);
-};
-
-module.exports = {
-  getExpenses,
-  getExpense,
-  createExpense,
-  deleteExpense,
-  updateExpense,
 };

@@ -1,18 +1,18 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 // Check authorization first
-const requireAuth = require("../middleware/requireAuth");
+import { requireAuth } from "../middleware/requireAuth.js";
 router.use(requireAuth);
 
 // Import methods from openai module
-const {
+import {
   store_message,
   processMessage,
   startConversation,
-} = require("./openaiLogic");
+} from "./openaiLogic.js";
 
-const getOpenai = async (req, res) => {
+export const getOpenai = async (req, res) => {
   try {
     const { authorization } = req.headers;
     const user_id = req.user.user_id;
@@ -37,7 +37,7 @@ const getOpenai = async (req, res) => {
   }
 };
 
-const getStartConversation = (req, res) => {
+export const getStartConversation = (req, res) => {
   try {
     const { authorization } = req.headers;
     const user_id = req.user.user_id;
@@ -52,8 +52,8 @@ const getStartConversation = (req, res) => {
   }
 };
 
-const { createPDF } = require("./createPDF");
-const getGenerateSummary = async (req, res) => {
+import { createPDF } from "./createPDF.js";
+export const getGenerateSummary = async (req, res) => {
   try {
     const { authorization } = req.headers;
     const user_id = req.user.user_id;
@@ -90,5 +90,3 @@ const getGenerateSummary = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
-module.exports = { getOpenai, getStartConversation, getGenerateSummary };

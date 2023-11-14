@@ -1,26 +1,22 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const dialogflow = require("@google-cloud/dialogflow-cx");
+import dialogflow from "@google-cloud/dialogflow-cx";
 
 // utils
-const { updateName } = require("./chatbotUtils/updateName");
-const { updateProgressBar } = require("./chatbotUtils/updateProgressBar");
-const { handlePropertyAction } = require("./chatbotUtils/handlePropertyAction");
-const { handleVehicleAction } = require("./chatbotUtils/handleVehicleAction");
-const { handleOtherAction } = require("./chatbotUtils/handleOtherAction");
-const { handleIncomeAction } = require("./chatbotUtils/handleIncomeAction");
-const { handleExpensesAction } = require("./chatbotUtils/handleExpensesAction");
-const { handleSavingsAction } = require("./chatbotUtils/handleSavingsAction");
-const {
-  handleInvestmentsAction,
-} = require("./chatbotUtils/handleInvestmentsAction");
-const {
-  handleInsuranceAction,
-} = require("./chatbotUtils/handleInsuranceAction");
+import { updateName } from "./chatbotUtils/updateName.js";
+import { updateProgressBar } from "./chatbotUtils/updateProgressBar.js";
+import { handlePropertyAction } from "./chatbotUtils/handlePropertyAction.js";
+import { handleVehicleAction } from "./chatbotUtils/handleVehicleAction.js";
+import { handleOtherAction } from "./chatbotUtils/handleOtherAction.js";
+import { handleIncomeAction } from "./chatbotUtils/handleIncomeAction.js";
+import { handleExpensesAction } from "./chatbotUtils/handleExpensesAction.js";
+import { handleSavingsAction } from "./chatbotUtils/handleSavingsAction.js";
+import { handleInvestmentsAction } from "./chatbotUtils/handleInvestmentsAction.js";
+import { handleInsuranceAction } from "./chatbotUtils/handleInsuranceAction.js";
 
 // socket
-const http = require("http");
-const { Server } = require("socket.io");
+import http from "http";
+import { Server } from "socket.io";
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -62,7 +58,7 @@ const intentToCheck = [
   "AskYesNoQuestionInsurance",
 ];
 
-const processMessage = async (queries, user_id, authorization) => {
+export const processMessage = async (queries, user_id, authorization) => {
   const projectId = "testing-simplyask-npfp";
   const location = "global";
   const agentId = "526625c3-d9c8-4201-a6f9-c9fd3e204864";
@@ -228,9 +224,7 @@ const processMessage = async (queries, user_id, authorization) => {
 };
 
 // Function to initiate a conversation
-const startConversation = () => {
+export const startConversation = () => {
   // return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!\n\nType 'ready' to get started!\n\nOther services:\n- update name";
   return "Hello there, financial explorer! 🍓 Ready to whip up a delicious blend of your finances? Grab your favorite smoothie, and let's dive in! And remember, if you ever get stuck, just give me a shout. Let's make this berry smooth!\n\nType 'ready' to get started!";
 };
-
-module.exports = { processMessage, startConversation };

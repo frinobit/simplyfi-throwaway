@@ -1,15 +1,15 @@
-const admin = require("../config/firebaseAdmin");
+import { admin } from "../config/firebaseAdmin.js";
 
-const User = require("../models/userModel");
-const UserGuest = require("../models/userGuestModel");
+import { User } from "../models/userModel.js";
+import { UserGuest } from "../models/userGuestModel.js";
 
-const {
+import {
   createUserAndInitializeDatabase,
   createUserAndUpdateDatabase,
-} = require("./userControllerSupport");
+} from "./userControllerSupport.js";
 
 // signup user with email
-const signupUser = async (req, res) => {
+export const signupUser = async (req, res) => {
   const { uid, email, token } = req.body;
 
   try {
@@ -31,7 +31,7 @@ const signupUser = async (req, res) => {
 };
 
 // login user with email
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   const { email, token } = req.body;
 
   try {
@@ -43,7 +43,7 @@ const loginUser = async (req, res) => {
 };
 
 // login user as guest
-const loginUserGuest = async (req, res) => {
+export const loginUserGuest = async (req, res) => {
   const { uid, email, token } = req.body;
 
   try {
@@ -70,7 +70,7 @@ const loginUserGuest = async (req, res) => {
 };
 
 // signup user guest with email
-const signupUserGuest = async (req, res) => {
+export const signupUserGuest = async (req, res) => {
   const { old_uid, new_uid, email, token } = req.body;
 
   try {
@@ -97,7 +97,7 @@ const signupUserGuest = async (req, res) => {
 };
 
 // signup user guest with google
-const signupUserGuestGoogle = async (req, res) => {
+export const signupUserGuestGoogle = async (req, res) => {
   const old_uid = req.old_uid;
   const { new_uid, email, new_token } = req.body;
 
@@ -125,7 +125,7 @@ const signupUserGuestGoogle = async (req, res) => {
 };
 
 // check if user exists (user sign up with google)
-const checkGoogle = async (req, res) => {
+export const checkGoogle = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -143,7 +143,7 @@ const checkGoogle = async (req, res) => {
 };
 
 // login user with google
-const loginUserGoogle = async (req, res) => {
+export const loginUserGoogle = async (req, res) => {
   const { uid, email, token } = req.body;
 
   try {
@@ -168,14 +168,4 @@ const loginUserGoogle = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-};
-
-module.exports = {
-  signupUser,
-  loginUser,
-  loginUserGuest,
-  signupUserGuest,
-  signupUserGuestGoogle,
-  checkGoogle,
-  loginUserGoogle,
 };

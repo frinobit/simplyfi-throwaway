@@ -1,8 +1,8 @@
-const File = require("../models/fileModel");
-const mongoose = require("mongoose");
+import { File } from "../models/fileModel.js";
+import mongoose from "mongoose";
 
 // get all files
-const getFiles = async (req, res) => {
+export const getFiles = async (req, res) => {
   const user_id = req.user.user_id;
 
   const files = await File.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getFiles = async (req, res) => {
 };
 
 // get a single file
-const getFile = async (req, res) => {
+export const getFile = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getFile = async (req, res) => {
 };
 
 // update a file
-const updateFile = async (req, res) => {
+export const updateFile = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -44,15 +44,15 @@ const updateFile = async (req, res) => {
   res.status(200).json(file);
 };
 
-const {
+import {
   readDocs,
   countToken,
   splitText,
   storeInQdrant,
   deleteInQdrant,
-} = require("./fileControllerUtils");
+} from "./fileControllerUtils.js";
 // create new file
-const createFile = async (req, res) => {
+export const createFile = async (req, res) => {
   try {
     const user_id = req.user.user_id;
     const { originalname, path } = req.file;
@@ -78,7 +78,7 @@ const createFile = async (req, res) => {
 };
 
 // delete a file
-const deleteFile = async (req, res) => {
+export const deleteFile = async (req, res) => {
   try {
     const { id } = req.params;
     const file = await File.findOneAndDelete({ _id: id });
@@ -96,10 +96,10 @@ const deleteFile = async (req, res) => {
   }
 };
 
-const path = require("path");
-const fs = require("fs");
+import path from "path";
+import fs from "fs";
 // download a single file
-const downloadFile = async (req, res) => {
+export const downloadFile = async (req, res) => {
   const user_id = req.user.user_id;
   const { fileName } = req.body;
   const fullName = user_id + "_" + fileName;
@@ -107,13 +107,4 @@ const downloadFile = async (req, res) => {
 
   const file = fs.createReadStream(filePath);
   file.pipe(res);
-};
-
-module.exports = {
-  getFiles,
-  getFile,
-  updateFile,
-  createFile,
-  deleteFile,
-  downloadFile,
 };

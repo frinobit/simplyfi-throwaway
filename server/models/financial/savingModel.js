@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const savingSchema = new Schema({
   user_id: {
@@ -15,4 +15,4 @@ const savingSchema = new Schema({
   amount: Number,
 });
 
-module.exports = mongoose.model("Saving", savingSchema);
+export const Saving = mongoose.model("Saving", savingSchema);

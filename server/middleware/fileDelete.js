@@ -1,4 +1,4 @@
-const deleteFile = (req, res, next) => {
+export const fileDelete = (req, res, next) => {
   const { fileName } = req.body;
   const fs = require("fs");
   const path = require("path");
@@ -29,5 +29,3 @@ const deleteFile = (req, res, next) => {
     }
   });
 };
-
-module.exports = deleteFile;

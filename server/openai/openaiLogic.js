@@ -1,6 +1,6 @@
-const Deepdive = require("../models/deepdiveModel");
+import { Deepdive } from "../models/deepdiveModel.js";
 
-const store_message = async (user_id, content, is_user_message) => {
+export const store_message = async (user_id, content, is_user_message) => {
   const messageDocument = new Deepdive({
     user_id: user_id,
     content: content,
@@ -9,11 +9,11 @@ const store_message = async (user_id, content, is_user_message) => {
   await messageDocument.save();
 };
 
-const path = require("path");
-const fs = require("fs");
-const { searchInQdrant, answerWithOpenAI } = require("./openaiUtils");
+import path from "path";
+import fs from "fs";
+import { searchInQdrant, answerWithOpenAI } from "./openaiUtils.js";
 
-const processMessage = async (queryDescription, user_id) => {
+export const processMessage = async (queryDescription, user_id) => {
   const directoryPath = path.join(__dirname, "../assets_policy");
 
   try {
@@ -32,8 +32,6 @@ const processMessage = async (queryDescription, user_id) => {
 };
 
 // Function to initiate a conversation
-const startConversation = () => {
+export const startConversation = () => {
   return "Upload a PDF and ask me a question!";
 };
-
-module.exports = { store_message, processMessage, startConversation };

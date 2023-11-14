@@ -1,18 +1,18 @@
-const express = require("express");
+import express from "express";
 
 // controller functions
-const {
+import {
   getPersonals,
   getPersonal,
   createPersonal,
   deletePersonal,
   updatePersonal,
-} = require("../controllers/personalController");
+} from "../controllers/personalController.js";
 
 // require auth for all personal routes
-const requireAuth = require("../middleware/requireAuth");
+import { requireAuth } from "../middleware/requireAuth.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use(requireAuth);
 
@@ -30,5 +30,3 @@ router.delete("/:id", deletePersonal);
 
 // UPDATE a personal
 router.patch("/:id", updatePersonal);
-
-module.exports = router;

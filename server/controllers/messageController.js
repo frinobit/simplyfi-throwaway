@@ -1,8 +1,8 @@
-const Message = require("../models/messageModel");
-const mongoose = require("mongoose");
+import { Message } from "../models/messageModel.js";
+import mongoose from "mongoose";
 
 // get all messages
-const getMessages = async (req, res) => {
+export const getMessages = async (req, res) => {
   const user_id = req.user.user_id;
 
   const messages = await Message.find({ user_id }).sort({ createdAt: 1 });
@@ -11,7 +11,7 @@ const getMessages = async (req, res) => {
 };
 
 // get a single message
-const getMessage = async (req, res) => {
+export const getMessage = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getMessage = async (req, res) => {
 };
 
 // create new message
-const createMessage = async (req, res) => {
+export const createMessage = async (req, res) => {
   const { content, is_user_message } = req.body;
 
   // add doc to db
@@ -47,7 +47,7 @@ const createMessage = async (req, res) => {
 };
 
 // delete a message
-const deleteMessage = async (req, res) => {
+export const deleteMessage = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -64,7 +64,7 @@ const deleteMessage = async (req, res) => {
 };
 
 // update a message
-const updateMessage = async (req, res) => {
+export const updateMessage = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -78,12 +78,4 @@ const updateMessage = async (req, res) => {
   }
 
   res.status(200).json(message);
-};
-
-module.exports = {
-  getMessages,
-  getMessage,
-  createMessage,
-  deleteMessage,
-  updateMessage,
 };

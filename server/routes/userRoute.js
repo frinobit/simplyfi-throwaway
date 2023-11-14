@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
 
 // controller functions
-const {
+import {
   loginUser,
   signupUser,
   loginUserGuest,
@@ -9,12 +9,12 @@ const {
   signupUserGuestGoogle,
   loginUserGoogle,
   checkGoogle,
-} = require("../controllers/userController");
+} from "../controllers/userController.js";
 
 // decode middleware
-const decodeGoogle = require("../middleware/decodeGoogle");
+import { decodeGoogle } from "../middleware/decodeGoogle.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 // login route
 router.post("/login", loginUser);
@@ -36,5 +36,3 @@ router.post("/signupGuest", signupUserGuest);
 
 // signup user guest with google
 router.post("/signupGuestGoogle", decodeGoogle, signupUserGuestGoogle);
-
-module.exports = router;

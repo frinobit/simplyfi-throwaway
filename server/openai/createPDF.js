@@ -1,10 +1,9 @@
-const path = require("path");
-const fs = require("fs");
-const { PDFDocument, StandardFonts, rgb } = require("pdf-lib");
-const File = require("../models/fileModel");
+import path from "path";
+import fs from "fs";
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { File } from "../models/fileModel.js";
 
-// LATEST
-const createPDF = async (user_id, response) => {
+export const createPDF = async (user_id, response) => {
   const pdfDoc = await PDFDocument.create();
   const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
   let currentPage = pdfDoc.addPage();
@@ -80,5 +79,3 @@ const createPDF = async (user_id, response) => {
   });
   fs.writeFileSync(filePath, pdfBytes);
 };
-
-module.exports = { createPDF };

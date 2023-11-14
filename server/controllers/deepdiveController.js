@@ -1,8 +1,8 @@
-const Deepdive = require("../models/deepdiveModel");
-const mongoose = require("mongoose");
+import { Deepdive } from "../models/deepdiveModel.js";
+import mongoose from "mongoose";
 
 // get all deepdives
-const getDeepdives = async (req, res) => {
+export const getDeepdives = async (req, res) => {
   const user_id = req.user.user_id;
 
   const deepdives = await Deepdive.find({ user_id }).sort({ createdAt: 1 });
@@ -11,7 +11,7 @@ const getDeepdives = async (req, res) => {
 };
 
 // get a single deepdive
-const getDeepdive = async (req, res) => {
+export const getDeepdive = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getDeepdive = async (req, res) => {
 };
 
 // create new deepdive
-const createDeepdive = async (req, res) => {
+export const createDeepdive = async (req, res) => {
   const { content, is_user_deepdive } = req.body;
 
   // add doc to db
@@ -47,7 +47,7 @@ const createDeepdive = async (req, res) => {
 };
 
 // delete a deepdive
-const deleteDeepdive = async (req, res) => {
+export const deleteDeepdive = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -64,7 +64,7 @@ const deleteDeepdive = async (req, res) => {
 };
 
 // update a deepdive
-const updateDeepdive = async (req, res) => {
+export const updateDeepdive = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -81,12 +81,4 @@ const updateDeepdive = async (req, res) => {
   }
 
   res.status(200).json(deepdive);
-};
-
-module.exports = {
-  getDeepdives,
-  getDeepdive,
-  createDeepdive,
-  deleteDeepdive,
-  updateDeepdive,
 };

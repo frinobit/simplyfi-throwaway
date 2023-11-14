@@ -1,11 +1,11 @@
-const {
+import {
   addAsset,
   addLiability,
   addIncome,
   addExpense,
-} = require("./addFinancial");
+} from "./addFinancial.js";
 
-const handleVehicleAction = (
+export const handleVehicleAction = (
   action,
   vehicleCounts,
   socketIo,
@@ -57,5 +57,3 @@ const handleVehicleAction = (
     );
   }
 };
-
-module.exports = { handleVehicleAction };

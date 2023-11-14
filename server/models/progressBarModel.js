@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const progressBarSchema = new Schema({
   user_id: {
@@ -18,4 +18,4 @@ const progressBarSchema = new Schema({
   step9: { type: Number, default: 0 },
 });
 
-module.exports = mongoose.model("ProgressBar", progressBarSchema);
+export const ProgressBar = mongoose.model("ProgressBar", progressBarSchema);

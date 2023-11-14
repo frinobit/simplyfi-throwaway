@@ -1,18 +1,18 @@
-const express = require("express");
+import express from "express";
 
 // controller functions
-const {
+import {
   getDeepdives,
   getDeepdive,
   createDeepdive,
   deleteDeepdive,
   updateDeepdive,
-} = require("../controllers/deepdiveController");
+} from "../controllers/deepdiveController.js";
 
 // require auth for all deepdive routes
-const requireAuth = require("../middleware/requireAuth");
+import { requireAuth } from "../middleware/requireAuth.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use(requireAuth);
 
@@ -30,5 +30,3 @@ router.delete("/:id", deleteDeepdive);
 
 // UPDATE a deepdive
 router.patch("/:id", updateDeepdive);
-
-module.exports = router;

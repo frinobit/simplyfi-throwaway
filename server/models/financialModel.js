@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const incomeSchema = new Schema({
   description: String,
@@ -54,4 +54,4 @@ const financialSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Financial", financialSchema);
+export const Financial = mongoose.model("Financial", financialSchema);

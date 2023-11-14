@@ -1,8 +1,8 @@
-const Personal = require("../models/personalModel");
-const mongoose = require("mongoose");
+import { Personal } from "../models/personalModel.js";
+import mongoose from "mongoose";
 
 // get all personals
-const getPersonals = async (req, res) => {
+export const getPersonals = async (req, res) => {
   const user_id = req.user.user_id;
 
   const personals = await Personal.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getPersonals = async (req, res) => {
 };
 
 // get a single personal
-const getPersonal = async (req, res) => {
+export const getPersonal = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getPersonal = async (req, res) => {
 };
 
 // create new personal
-const createPersonal = async (req, res) => {
+export const createPersonal = async (req, res) => {
   const { name, contact, date_of_birth, ic_number, marital_status } = req.body;
 
   // add doc to db
@@ -50,7 +50,7 @@ const createPersonal = async (req, res) => {
 };
 
 // delete a personal
-const deletePersonal = async (req, res) => {
+export const deletePersonal = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -67,7 +67,7 @@ const deletePersonal = async (req, res) => {
 };
 
 // update a personal
-const updatePersonal = async (req, res) => {
+export const updatePersonal = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -84,12 +84,4 @@ const updatePersonal = async (req, res) => {
   }
 
   res.status(200).json(personal);
-};
-
-module.exports = {
-  getPersonals,
-  getPersonal,
-  createPersonal,
-  deletePersonal,
-  updatePersonal,
 };

@@ -1,18 +1,18 @@
-const express = require("express");
+import express from "express";
 
 // controller functions
-const {
+import {
   getAssets,
   getAsset,
   createAsset,
   deleteAsset,
   updateAsset,
-} = require("../../controllers/financial/assetController");
+} from "../../controllers/financial/assetController.js";
 
 // require auth for all asset routes
-const requireAuth = require("../../middleware/requireAuth");
+import { requireAuth } from "../../middleware/requireAuth.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use(requireAuth);
 
@@ -30,5 +30,3 @@ router.delete("/:id", deleteAsset);
 
 // UPDATE a asset
 router.patch("/:id", updateAsset);
-
-module.exports = router;

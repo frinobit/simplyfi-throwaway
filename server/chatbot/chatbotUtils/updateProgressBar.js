@@ -1,6 +1,6 @@
-const axios = require("axios");
+import axios from "axios";
 
-const updateProgressBar = async (
+export const updateProgressBar = async (
   intent,
   socketIo,
   parameters,
@@ -74,5 +74,3 @@ const updateProgressBar = async (
     console.log("Error processing message (updateProgressBar):", error.message);
   }
 };
-
-module.exports = { updateProgressBar };

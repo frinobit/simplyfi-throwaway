@@ -1,15 +1,15 @@
-const express = require("express");
+import express from "express";
 
 // chatbot functions
-const {
+import {
   getDialogflow,
   getStartConversation,
-} = require("../chatbot/dialogflowRouter");
+} from "../chatbot/dialogflowRouter.js";
 
 // require auth for all personal routes
-const requireAuth = require("../middleware/requireAuth");
+import { requireAuth } from "../middleware/requireAuth.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use(requireAuth);
 
@@ -18,5 +18,3 @@ router.post("/", getDialogflow);
 
 // normal route
 router.post("/start_conversation", getStartConversation);
-
-module.exports = router;

@@ -1,8 +1,8 @@
-const Investment = require("../../models/financial/investmentModel");
-const mongoose = require("mongoose");
+import { Investment } from "../../models/financial/investmentModel.js";
+import mongoose from "mongoose";
 
 // get all investments
-const getInvestments = async (req, res) => {
+export const getInvestments = async (req, res) => {
   const user_id = req.user.user_id;
 
   const investments = await Investment.find({ user_id }).sort({
@@ -13,7 +13,7 @@ const getInvestments = async (req, res) => {
 };
 
 // get a single investment
-const getInvestment = async (req, res) => {
+export const getInvestment = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -30,7 +30,7 @@ const getInvestment = async (req, res) => {
 };
 
 // create new investment
-const createInvestment = async (req, res) => {
+export const createInvestment = async (req, res) => {
   const { description, amount } = req.body;
 
   // add doc to db
@@ -49,7 +49,7 @@ const createInvestment = async (req, res) => {
 };
 
 // delete a investment
-const deleteInvestment = async (req, res) => {
+export const deleteInvestment = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -66,7 +66,7 @@ const deleteInvestment = async (req, res) => {
 };
 
 // update a investment
-const updateInvestment = async (req, res) => {
+export const updateInvestment = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -83,12 +83,4 @@ const updateInvestment = async (req, res) => {
   }
 
   res.status(200).json(investment);
-};
-
-module.exports = {
-  getInvestments,
-  getInvestment,
-  createInvestment,
-  deleteInvestment,
-  updateInvestment,
 };

@@ -1,6 +1,6 @@
-const admin = require("../config/firebaseAdmin");
+import { admin } from "../config/firebaseAdmin.js";
 
-const decodeGoogle = async (req, res, next) => {
+export const decodeGoogle = async (req, res, next) => {
   const oldTokenObject = JSON.parse(req.body.old_token);
   const old_token = oldTokenObject.token;
 
@@ -19,5 +19,3 @@ const decodeGoogle = async (req, res, next) => {
     res.status(401).json({ error: "Request is not authorized" });
   }
 };
-
-module.exports = decodeGoogle;

@@ -1,8 +1,8 @@
-const Asset = require("../../models/financial/assetModel");
-const mongoose = require("mongoose");
+import { Asset } from "../../models/financial/assetModel.js";
+import mongoose from "mongoose";
 
 // get all assets
-const getAssets = async (req, res) => {
+export const getAssets = async (req, res) => {
   const user_id = req.user.user_id;
 
   const assets = await Asset.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getAssets = async (req, res) => {
 };
 
 // get a single asset
-const getAsset = async (req, res) => {
+export const getAsset = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getAsset = async (req, res) => {
 };
 
 // create new asset
-const createAsset = async (req, res) => {
+export const createAsset = async (req, res) => {
   const { description, amount } = req.body;
 
   // add doc to db
@@ -47,7 +47,7 @@ const createAsset = async (req, res) => {
 };
 
 // delete a asset
-const deleteAsset = async (req, res) => {
+export const deleteAsset = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -64,7 +64,7 @@ const deleteAsset = async (req, res) => {
 };
 
 // update a asset
-const updateAsset = async (req, res) => {
+export const updateAsset = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -78,12 +78,4 @@ const updateAsset = async (req, res) => {
   }
 
   res.status(200).json(asset);
-};
-
-module.exports = {
-  getAssets,
-  getAsset,
-  createAsset,
-  deleteAsset,
-  updateAsset,
 };

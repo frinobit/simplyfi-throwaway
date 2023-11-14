@@ -1,16 +1,16 @@
-const express = require("express");
+import express from "express";
 
 // chatbot functions
-const {
+import {
   getOpenai,
   getStartConversation,
   getGenerateSummary,
-} = require("../openai/openaiRouter");
+} from "../openai/openaiRouter.js";
 
 // require auth for all personal routes
-const requireAuth = require("../middleware/requireAuth");
+import { requireAuth } from "../middleware/requireAuth.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use(requireAuth);
 
@@ -22,5 +22,3 @@ router.post("/start_conversation", getStartConversation);
 
 // normal route
 router.post("/generate_summary", getGenerateSummary);
-
-module.exports = router;

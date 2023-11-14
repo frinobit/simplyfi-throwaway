@@ -1,18 +1,18 @@
-const express = require("express");
+import express from "express";
 
 // controller functions
-const {
+import {
   getFinancials,
   getFinancial,
   createFinancial,
   deleteFinancial,
   updateFinancial,
-} = require("../controllers/financialController");
+} from "../controllers/financialController.js";
 
 // require auth for all financial routes
-const requireAuth = require("../middleware/requireAuth");
+import { requireAuth } from "../middleware/requireAuth.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use(requireAuth);
 
@@ -30,5 +30,3 @@ router.delete("/:id", deleteFinancial);
 
 // UPDATE a financial
 router.patch("/:id", updateFinancial);
-
-module.exports = router;

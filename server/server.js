@@ -1,29 +1,30 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
 
-const userRoute = require("./routes/userRoute");
+import { router as userRoute } from "./routes/userRoute.js";
 
-const financialRoute = require("./routes/financialRoute");
-const personalRoute = require("./routes/personalRoute");
-const messageRoute = require("./routes/messageRoute");
-const deepdiveRoute = require("./routes/deepdiveRoute");
-const progressBarRoute = require("./routes/progressBarRoute");
+import { router as financialRoute } from "./routes/financialRoute.js";
+import { router as personalRoute } from "./routes/personalRoute.js";
+import { router as messageRoute } from "./routes/messageRoute.js";
+import { router as deepdiveRoute } from "./routes/deepdiveRoute.js";
+import { router as progressBarRoute } from "./routes/progressBarRoute.js";
 
-const assetRoute = require("./routes/financial/assetRoute");
-const liabilityRoute = require("./routes/financial/liabilityRoute");
-const incomeRoute = require("./routes/financial/incomeRoute");
-const expenseRoute = require("./routes/financial/expenseRoute");
-const savingRoute = require("./routes/financial/savingRoute");
-const investmentRoute = require("./routes/financial/investmentRoute");
-const insuranceRoute = require("./routes/financial/insuranceRoute");
+import { router as assetRoute } from "./routes/financial/assetRoute.js";
+import { router as liabilityRoute } from "./routes/financial/liabilityRoute.js";
+import { router as incomeRoute } from "./routes/financial/incomeRoute.js";
+import { router as expenseRoute } from "./routes/financial/expenseRoute.js";
+import { router as savingRoute } from "./routes/financial/savingRoute.js";
+import { router as investmentRoute } from "./routes/financial/investmentRoute.js";
+import { router as insuranceRoute } from "./routes/financial/insuranceRoute.js";
 
-const dialogflowRoute = require("./routes/dialogflowRoute");
-const openaiRoute = require("./routes/openaiRoute");
+import { router as dialogflowRoute } from "./routes/dialogflowRoute.js";
+import { router as openaiRoute } from "./routes/openaiRoute.js";
 
-const fileRoute = require("./routes/fileRoute");
+import { router as fileRoute } from "./routes/fileRoute.js";
 
 // express app
 const app = express();

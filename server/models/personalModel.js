@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const dependantSchema = new Schema({
   name: String,
@@ -82,4 +82,4 @@ const personalSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Personal", personalSchema);
+export const Personal = mongoose.model("Personal", personalSchema);

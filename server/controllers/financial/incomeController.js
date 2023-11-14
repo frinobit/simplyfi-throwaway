@@ -1,8 +1,8 @@
-const Income = require("../../models/financial/incomeModel");
-const mongoose = require("mongoose");
+import { Income } from "../../models/financial/incomeModel.js";
+import mongoose from "mongoose";
 
 // get all incomes
-const getIncomes = async (req, res) => {
+export const getIncomes = async (req, res) => {
   const user_id = req.user.user_id;
 
   const incomes = await Income.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getIncomes = async (req, res) => {
 };
 
 // get a single income
-const getIncome = async (req, res) => {
+export const getIncome = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getIncome = async (req, res) => {
 };
 
 // create new income
-const createIncome = async (req, res) => {
+export const createIncome = async (req, res) => {
   const { description, type, amount } = req.body;
 
   // add doc to db
@@ -48,7 +48,7 @@ const createIncome = async (req, res) => {
 };
 
 // delete a income
-const deleteIncome = async (req, res) => {
+export const deleteIncome = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -65,7 +65,7 @@ const deleteIncome = async (req, res) => {
 };
 
 // update a income
-const updateIncome = async (req, res) => {
+export const updateIncome = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -79,12 +79,4 @@ const updateIncome = async (req, res) => {
   }
 
   res.status(200).json(income);
-};
-
-module.exports = {
-  getIncomes,
-  getIncome,
-  createIncome,
-  deleteIncome,
-  updateIncome,
 };

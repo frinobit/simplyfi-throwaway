@@ -1,7 +1,12 @@
-const axios = require("axios");
-const Personal = require("../../models/personalModel");
+import axios from "axios";
+import { Personal } from "../../models/personalModel.js";
 
-const updateName = async (socketIo, parameters, user_id, authorization) => {
+export const updateName = async (
+  socketIo,
+  parameters,
+  user_id,
+  authorization
+) => {
   try {
     const name =
       parameters.fields.person.structValue.fields.original.stringValue;
@@ -32,5 +37,3 @@ const updateName = async (socketIo, parameters, user_id, authorization) => {
     console.log("Error processing message (updateName):", error.message);
   }
 };
-
-module.exports = { updateName };

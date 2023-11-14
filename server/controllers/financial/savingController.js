@@ -1,8 +1,8 @@
-const Saving = require("../../models/financial/savingModel");
-const mongoose = require("mongoose");
+import { Saving } from "../../models/financial/savingModel.js";
+import mongoose from "mongoose";
 
 // get all savings
-const getSavings = async (req, res) => {
+export const getSavings = async (req, res) => {
   const user_id = req.user.user_id;
 
   const savings = await Saving.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getSavings = async (req, res) => {
 };
 
 // get a single saving
-const getSaving = async (req, res) => {
+export const getSaving = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getSaving = async (req, res) => {
 };
 
 // create new saving
-const createSaving = async (req, res) => {
+export const createSaving = async (req, res) => {
   const { description, type, amount } = req.body;
 
   // add doc to db
@@ -48,7 +48,7 @@ const createSaving = async (req, res) => {
 };
 
 // delete a saving
-const deleteSaving = async (req, res) => {
+export const deleteSaving = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -65,7 +65,7 @@ const deleteSaving = async (req, res) => {
 };
 
 // update a saving
-const updateSaving = async (req, res) => {
+export const updateSaving = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -79,12 +79,4 @@ const updateSaving = async (req, res) => {
   }
 
   res.status(200).json(saving);
-};
-
-module.exports = {
-  getSavings,
-  getSaving,
-  createSaving,
-  deleteSaving,
-  updateSaving,
 };

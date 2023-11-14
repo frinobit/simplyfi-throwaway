@@ -1,8 +1,8 @@
-const ProgressBar = require("../models/progressBarModel");
-const mongoose = require("mongoose");
+import { ProgressBar } from "../models/progressBarModel.js";
+import mongoose from "mongoose";
 
 // get all progressbars
-const getProgressBars = async (req, res) => {
+export const getProgressBars = async (req, res) => {
   const user_id = req.user.user_id;
 
   const progressbars = await ProgressBar.find({ user_id }).sort({
@@ -13,7 +13,7 @@ const getProgressBars = async (req, res) => {
 };
 
 // get a single progressbar
-const getProgressBar = async (req, res) => {
+export const getProgressBar = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -30,7 +30,7 @@ const getProgressBar = async (req, res) => {
 };
 
 // create new progressbar
-const createProgressBar = async (req, res) => {
+export const createProgressBar = async (req, res) => {
   const { description, amount } = req.body;
 
   // add doc to db
@@ -49,7 +49,7 @@ const createProgressBar = async (req, res) => {
 };
 
 // delete a progressbar
-const deleteProgressBar = async (req, res) => {
+export const deleteProgressBar = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -66,7 +66,7 @@ const deleteProgressBar = async (req, res) => {
 };
 
 // update a progressbar
-const updateProgressBar = async (req, res) => {
+export const updateProgressBar = async (req, res) => {
   const { step, user_id } = req.body;
 
   if (!step || step < 1 || step > 9) {
@@ -83,12 +83,4 @@ const updateProgressBar = async (req, res) => {
   }
 
   res.status(200).json(progressbar);
-};
-
-module.exports = {
-  getProgressBars,
-  getProgressBar,
-  createProgressBar,
-  deleteProgressBar,
-  updateProgressBar,
 };

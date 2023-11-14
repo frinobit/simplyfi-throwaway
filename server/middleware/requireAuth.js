@@ -1,8 +1,8 @@
-const admin = require("../config/firebaseAdmin");
-const User = require("../models/userModel");
-const UserGuest = require("../models/userGuestModel");
+import { admin } from "../config/firebaseAdmin.js";
+import { User } from "../models/userModel.js";
+import { UserGuest } from "../models/userGuestModel.js";
 
-const requireAuth = async (req, res, next) => {
+export const requireAuth = async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -26,5 +26,3 @@ const requireAuth = async (req, res, next) => {
     res.status(401).json({ error: "Request is not authorized" });
   }
 };
-
-module.exports = requireAuth;

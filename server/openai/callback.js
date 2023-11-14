@@ -1,6 +1,6 @@
-const { ConsoleCallbackHandler } = require("langchain/callbacks");
+import { ConsoleCallbackHandler } from "langchain/callbacks";
 
-class CustomHandler extends ConsoleCallbackHandler {
+export class CustomHandler extends ConsoleCallbackHandler {
   handleLLMNewToken(token) {
     console.log("token", { token });
   }
@@ -25,5 +25,3 @@ class CustomHandler extends ConsoleCallbackHandler {
     );
   }
 }
-
-module.exports = CustomHandler;

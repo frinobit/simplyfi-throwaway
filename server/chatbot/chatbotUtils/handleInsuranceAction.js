@@ -1,11 +1,11 @@
-const {
+import {
   addExpense,
   addInsurance,
   updateInsuranceString,
   updateInsuranceNumber,
-} = require("./addFinancial");
+} from "./addFinancial.js";
 
-const handleInsuranceAction = async (
+export const handleInsuranceAction = async (
   action,
   update,
   insuranceCounts,
@@ -81,5 +81,3 @@ const handleInsuranceAction = async (
     );
   }
 };
-
-module.exports = { handleInsuranceAction };

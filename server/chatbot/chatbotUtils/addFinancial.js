@@ -1,6 +1,6 @@
-const axios = require("axios");
+import axios from "axios";
 
-const addAsset = async (
+export const addAsset = async (
   description,
   socketIo,
   parameters,
@@ -30,7 +30,7 @@ const addAsset = async (
   }
 };
 
-const addLiability = async (
+export const addLiability = async (
   description,
   socketIo,
   parameters,
@@ -60,7 +60,7 @@ const addLiability = async (
   }
 };
 
-const addIncome = async (
+export const addIncome = async (
   description,
   type,
   socketIo,
@@ -92,7 +92,7 @@ const addIncome = async (
   }
 };
 
-const addExpense = async (
+export const addExpense = async (
   description,
   type,
   socketIo,
@@ -124,7 +124,7 @@ const addExpense = async (
   }
 };
 
-const addSaving = async (
+export const addSaving = async (
   description,
   type,
   socketIo,
@@ -156,7 +156,7 @@ const addSaving = async (
   }
 };
 
-const addInvestment = async (
+export const addInvestment = async (
   description,
   socketIo,
   parameters,
@@ -186,7 +186,12 @@ const addInvestment = async (
   }
 };
 
-const addInsurance = async (description, socketIo, user_id, authorization) => {
+export const addInsurance = async (
+  description,
+  socketIo,
+  user_id,
+  authorization
+) => {
   try {
     const requestData = {
       description: description,
@@ -207,7 +212,7 @@ const addInsurance = async (description, socketIo, user_id, authorization) => {
   }
 };
 
-const updateInsuranceString = async (
+export const updateInsuranceString = async (
   update,
   description,
   socketIo,
@@ -255,7 +260,7 @@ const updateInsuranceString = async (
   }
 };
 
-const updateInsuranceNumber = async (
+export const updateInsuranceNumber = async (
   update,
   description,
   socketIo,
@@ -294,16 +299,4 @@ const updateInsuranceNumber = async (
   } catch (error) {
     console.log("Error processing message (updateInsurance):", error.message);
   }
-};
-
-module.exports = {
-  addAsset,
-  addLiability,
-  addIncome,
-  addExpense,
-  addSaving,
-  addInvestment,
-  addInsurance,
-  updateInsuranceString,
-  updateInsuranceNumber,
 };

@@ -1,6 +1,6 @@
-const { addIncome } = require("./addFinancial");
+import { addIncome } from "./addFinancial.js";
 
-const handleIncomeAction = (
+export const handleIncomeAction = (
   action,
   description,
   socketIo,
@@ -70,5 +70,3 @@ const handleIncomeAction = (
     );
   }
 };
-
-module.exports = { handleIncomeAction };

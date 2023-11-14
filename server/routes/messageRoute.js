@@ -1,18 +1,18 @@
-const express = require("express");
+import express from "express";
 
 // controller functions
-const {
+import {
   getMessages,
   getMessage,
   createMessage,
   deleteMessage,
   updateMessage,
-} = require("../controllers/messageController");
+} from "../controllers/messageController.js";
 
 // require auth for all message routes
-const requireAuth = require("../middleware/requireAuth");
+import { requireAuth } from "../middleware/requireAuth.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use(requireAuth);
 
@@ -30,5 +30,3 @@ router.delete("/:id", deleteMessage);
 
 // UPDATE a message
 router.patch("/:id", updateMessage);
-
-module.exports = router;

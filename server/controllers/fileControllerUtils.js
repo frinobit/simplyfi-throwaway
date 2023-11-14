@@ -1,6 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 // READ DOCS
-const { PDFLoader } = require("langchain/document_loaders/fs/pdf");
-const readDocs = async (path) => {
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+export const readDocs = async (path) => {
   try {
     console.time("READ DOCS");
     const loader = new PDFLoader(path);
@@ -21,7 +24,7 @@ const readDocs = async (path) => {
   }
 };
 
-const { getEncoding } = require("js-tiktoken");
+import { getEncoding } from "js-tiktoken";
 const tokenizer = getEncoding("cl100k_base");
 function tiktokenLen(text) {
   const tokens = tokenizer.encode(text);
@@ -29,7 +32,7 @@ function tiktokenLen(text) {
 }
 
 // COUNT TOKEN
-const countToken = (docs) => {
+export const countToken = (docs) => {
   try {
     console.time("COUNT TOKEN");
     const tokenCounts = docs.map((doc) => tiktokenLen(doc.pageContent));
@@ -52,8 +55,8 @@ const countToken = (docs) => {
 };
 
 // SPLIT TEXT
-const { RecursiveCharacterTextSplitter } = require("langchain/text_splitter");
-const splitText = async (docs) => {
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+export const splitText = async (docs) => {
   try {
     console.time("SPLIT TEXT");
     const text_splitter = new RecursiveCharacterTextSplitter({
@@ -77,13 +80,11 @@ const splitText = async (docs) => {
 };
 
 // STORE IN QDRANT
-const dotenv = require("dotenv");
-const { OpenAIEmbeddings } = require("langchain/embeddings/openai");
-const { QdrantVectorStore } = require("langchain/vectorstores/qdrant");
-const storeInQdrant = async (fullName, tokenCounts, chunks) => {
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { QdrantVectorStore } from "langchain/vectorstores/qdrant";
+export const storeInQdrant = async (fullName, tokenCounts, chunks) => {
   try {
     console.time("STORE IN QDRANT");
-    dotenv.config();
     const embeddings = new OpenAIEmbeddings();
     const collectionName = fullName;
     await QdrantVectorStore.fromDocuments(chunks, embeddings, {
@@ -102,8 +103,8 @@ const storeInQdrant = async (fullName, tokenCounts, chunks) => {
 };
 
 // DELETE IN QDRANT
-const { QdrantClient } = require("@qdrant/js-client-rest");
-const deleteInQdrant = async (fullName) => {
+import { QdrantClient } from "@qdrant/js-client-rest";
+export const deleteInQdrant = async (fullName) => {
   try {
     console.time("DELETE IN QDRANT");
     dotenv.config();
@@ -116,12 +117,4 @@ const deleteInQdrant = async (fullName) => {
   } catch (error) {
     console.log(error.message);
   }
-};
-
-module.exports = {
-  readDocs,
-  countToken,
-  splitText,
-  storeInQdrant,
-  deleteInQdrant,
 };

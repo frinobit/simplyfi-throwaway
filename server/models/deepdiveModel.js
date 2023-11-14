@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const deepdiveSchema = new Schema(
   {
@@ -20,4 +20,4 @@ const deepdiveSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Deepdive", deepdiveSchema);
+export const Deepdive = mongoose.model("Deepdive", deepdiveSchema);

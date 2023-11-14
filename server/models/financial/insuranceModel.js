@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const insuranceSchema = new Schema({
   user_id: {
@@ -15,4 +15,4 @@ const insuranceSchema = new Schema({
   premium: Number,
 });
 
-module.exports = mongoose.model("Insurance", insuranceSchema);
+export const Insurance = mongoose.model("Insurance", insuranceSchema);

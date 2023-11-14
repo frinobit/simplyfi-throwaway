@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const liabilitySchema = new Schema({
   user_id: {
@@ -11,4 +11,4 @@ const liabilitySchema = new Schema({
   amount: Number,
 });
 
-module.exports = mongoose.model("Liability", liabilitySchema);
+export const Liability = mongoose.model("Liability", liabilitySchema);

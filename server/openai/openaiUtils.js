@@ -1,8 +1,9 @@
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
-const { QdrantVectorStore } = require("langchain/vectorstores/qdrant");
-const { OpenAIEmbeddings } = require("langchain/embeddings/openai");
-const searchInQdrant = async (queryDescription, userFile) => {
+
+import { QdrantVectorStore } from "langchain/vectorstores/qdrant";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+export const searchInQdrant = async (queryDescription, userFile) => {
   try {
     console.time("SEARCH IN QDRANT");
     const embeddings = new OpenAIEmbeddings();
@@ -30,10 +31,10 @@ const searchInQdrant = async (queryDescription, userFile) => {
   }
 };
 
-const CustomHandler = require("./callback");
-const { ChatOpenAI } = require("langchain/chat_models/openai");
-const { loadQAStuffChain } = require("langchain/chains");
-const answerWithOpenAI = async (relevantDocs, queryDescription) => {
+import { CustomHandler } from "./callback.js";
+import { ChatOpenAI } from "langchain/chat_models/openai";
+import { loadQAStuffChain } from "langchain/chains";
+export const answerWithOpenAI = async (relevantDocs, queryDescription) => {
   try {
     console.time("ANSWER WITH OPENAI");
 
@@ -92,5 +93,3 @@ const answerWithOpenAI = async (relevantDocs, queryDescription) => {
     console.log(error.message);
   }
 };
-
-module.exports = { searchInQdrant, answerWithOpenAI };

@@ -1,11 +1,11 @@
-const {
+import {
   addAsset,
   addLiability,
   addIncome,
   addExpense,
-} = require("./addFinancial");
+} from "./addFinancial.js";
 
-const handlePropertyAction = (
+export const handlePropertyAction = (
   action,
   propertyCounts,
   socketIo,
@@ -57,5 +57,3 @@ const handlePropertyAction = (
     );
   }
 };
-
-module.exports = { handlePropertyAction };

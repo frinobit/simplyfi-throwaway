@@ -1,8 +1,8 @@
-const Insurance = require("../../models/financial/insuranceModel");
-const mongoose = require("mongoose");
+import { Insurance } from "../../models/financial/insuranceModel.js";
+import mongoose from "mongoose";
 
 // get all insurances
-const getInsurances = async (req, res) => {
+export const getInsurances = async (req, res) => {
   const user_id = req.user.user_id;
 
   const insurances = await Insurance.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getInsurances = async (req, res) => {
 };
 
 // get a single insurance
-const getInsurance = async (req, res) => {
+export const getInsurance = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getInsurance = async (req, res) => {
 };
 
 // create new insurance
-const createInsurance = async (req, res) => {
+export const createInsurance = async (req, res) => {
   const { description, company, plan, type, sumassured, premium } = req.body;
 
   // add doc to db
@@ -51,7 +51,7 @@ const createInsurance = async (req, res) => {
 };
 
 // delete a insurance
-const deleteInsurance = async (req, res) => {
+export const deleteInsurance = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -67,7 +67,7 @@ const deleteInsurance = async (req, res) => {
   res.status(200).json(insurance);
 };
 
-const updateInsurance = async (req, res) => {
+export const updateInsurance = async (req, res) => {
   const { description, company, plan, type, sumassured, premium, user_id } =
     req.body;
 
@@ -102,12 +102,4 @@ const updateInsurance = async (req, res) => {
   }
 
   res.status(200).json(insurance);
-};
-
-module.exports = {
-  getInsurances,
-  getInsurance,
-  createInsurance,
-  deleteInsurance,
-  updateInsurance,
 };

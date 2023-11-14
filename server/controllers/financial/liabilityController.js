@@ -1,8 +1,8 @@
-const Liability = require("../../models/financial/liabilityModel");
-const mongoose = require("mongoose");
+import { Liability } from "../../models/financial/liabilityModel.js";
+import mongoose from "mongoose";
 
 // get all liabilities
-const getLiabilities = async (req, res) => {
+export const getLiabilities = async (req, res) => {
   const user_id = req.user.user_id;
 
   const liabilities = await Liability.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getLiabilities = async (req, res) => {
 };
 
 // get a single liability
-const getLiability = async (req, res) => {
+export const getLiability = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getLiability = async (req, res) => {
 };
 
 // create new liability
-const createLiability = async (req, res) => {
+export const createLiability = async (req, res) => {
   const { description, amount } = req.body;
 
   // add doc to db
@@ -47,7 +47,7 @@ const createLiability = async (req, res) => {
 };
 
 // delete a liability
-const deleteLiability = async (req, res) => {
+export const deleteLiability = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -64,7 +64,7 @@ const deleteLiability = async (req, res) => {
 };
 
 // update a liability
-const updateLiability = async (req, res) => {
+export const updateLiability = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -81,12 +81,4 @@ const updateLiability = async (req, res) => {
   }
 
   res.status(200).json(liability);
-};
-
-module.exports = {
-  getLiabilities,
-  getLiability,
-  createLiability,
-  deleteLiability,
-  updateLiability,
 };

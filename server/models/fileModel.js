@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const fileSchema = new Schema(
   {
@@ -25,4 +25,4 @@ const fileSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("File", fileSchema);
+export const File = mongoose.model("File", fileSchema);

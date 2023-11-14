@@ -1,16 +1,15 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const Message = require("../models/messageModel");
+import { Message } from "../models/messageModel.js";
 
 // Check authorization first
-const requireAuth = require("../middleware/requireAuth");
+import { requireAuth } from "../middleware/requireAuth.js";
 router.use(requireAuth);
 
 // Import methods from dialogflow module
-// const dialogflow = require("./dialogflowLogicES");
-const dialogflow = require("./dialogflowLogicCX");
-const { processMessage, startConversation } = dialogflow;
+// import { processMessage, startConversation } from "./dialogflowLogicES.js";
+import { processMessage, startConversation } from "./dialogflowLogicCX.js";
 
 const store_message = async (user_id, content, is_user_message) => {
   const messageDocument = new Message({
@@ -21,7 +20,7 @@ const store_message = async (user_id, content, is_user_message) => {
   await messageDocument.save();
 };
 
-const getDialogflow = async (req, res) => {
+export const getDialogflow = async (req, res) => {
   try {
     const { authorization } = req.headers;
     const user_id = req.user.user_id;
@@ -50,7 +49,7 @@ const getDialogflow = async (req, res) => {
   }
 };
 
-const getStartConversation = (req, res) => {
+export const getStartConversation = (req, res) => {
   try {
     const { authorization } = req.headers;
     const user_id = req.user.user_id;
@@ -64,5 +63,3 @@ const getStartConversation = (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
-module.exports = { getDialogflow, getStartConversation };

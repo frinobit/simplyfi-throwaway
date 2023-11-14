@@ -1,8 +1,8 @@
-const Financial = require("../models/financialModel");
-const mongoose = require("mongoose");
+import { Financial } from "../models/financialModel.js";
+import mongoose from "mongoose";
 
 // get all financials
-const getFinancials = async (req, res) => {
+export const getFinancials = async (req, res) => {
   const user_id = req.user.user_id;
 
   const financials = await Financial.find({ user_id }).sort({ createdAt: -1 });
@@ -11,7 +11,7 @@ const getFinancials = async (req, res) => {
 };
 
 // get a single financial
-const getFinancial = async (req, res) => {
+export const getFinancial = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -28,7 +28,7 @@ const getFinancial = async (req, res) => {
 };
 
 // create new financial
-const createFinancial = async (req, res) => {
+export const createFinancial = async (req, res) => {
   const { name, income, expenses, assets, liabilities, savings } = req.body;
 
   // add doc to db
@@ -50,7 +50,7 @@ const createFinancial = async (req, res) => {
 };
 
 // delete a financial
-const deleteFinancial = async (req, res) => {
+export const deleteFinancial = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -67,7 +67,7 @@ const deleteFinancial = async (req, res) => {
 };
 
 // update a financial
-const updateFinancial = async (req, res) => {
+export const updateFinancial = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -106,12 +106,4 @@ const updateFinancial = async (req, res) => {
   await financial.save();
 
   res.status(200).json(financial);
-};
-
-module.exports = {
-  getFinancials,
-  getFinancial,
-  createFinancial,
-  deleteFinancial,
-  updateFinancial,
 };

@@ -1,6 +1,6 @@
-const { addSaving } = require("./addFinancial");
+import { addSaving } from "./addFinancial.js";
 
-const handleSavingsAction = (
+export const handleSavingsAction = (
   action,
   description,
   socketIo,
@@ -39,5 +39,3 @@ const handleSavingsAction = (
     );
   }
 };
-
-module.exports = { handleSavingsAction };

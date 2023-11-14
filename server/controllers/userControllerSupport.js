@@ -1,25 +1,25 @@
-const User = require("../models/userModel");
-const UserGuest = require("../models/userGuestModel");
+import axios from "axios";
 
-const Financial = require("../models/financialModel");
-const Personal = require("../models/personalModel");
-const Message = require("../models/messageModel");
-const Deepdive = require("../models/deepdiveModel");
-const ProgressBar = require("../models/progressBarModel");
+import { User } from "../models/userModel.js";
+import { UserGuest } from "../models/userGuestModel.js";
 
-const Asset = require("../models/financial/assetModel");
-const Liability = require("../models/financial/liabilityModel");
-const Income = require("../models/financial/incomeModel");
-const Expense = require("../models/financial/expenseModel");
-const Saving = require("../models/financial/savingModel");
-const Investment = require("../models/financial/investmentModel");
-const Insurance = require("../models/financial/insuranceModel");
+import { Financial } from "../models/financialModel.js";
+import { Personal } from "../models/personalModel.js";
+import { Message } from "../models/messageModel.js";
+import { Deepdive } from "../models/deepdiveModel.js";
+import { ProgressBar } from "../models/progressBarModel.js";
 
-const File = require("../models/fileModel");
+import { Asset } from "../models/financial/assetModel.js";
+import { Liability } from "../models/financial/liabilityModel.js";
+import { Income } from "../models/financial/incomeModel.js";
+import { Expense } from "../models/financial/expenseModel.js";
+import { Saving } from "../models/financial/savingModel.js";
+import { Investment } from "../models/financial/investmentModel.js";
+import { Insurance } from "../models/financial/insuranceModel.js";
 
-const axios = require("axios");
+import { File } from "../models/fileModel.js";
 
-const createUserAndInitializeDatabase = async (uid, email, token) => {
+export const createUserAndInitializeDatabase = async (uid, email, token) => {
   try {
     // Create User in database
     if (email != "") {
@@ -60,7 +60,7 @@ const updateModel = async (Model, query, updateFields) => {
   }
 };
 
-const createUserAndUpdateDatabase = async (old_uid, new_uid, email) => {
+export const createUserAndUpdateDatabase = async (old_uid, new_uid, email) => {
   try {
     // create User in database
     await User.create({
@@ -94,9 +94,4 @@ const createUserAndUpdateDatabase = async (old_uid, new_uid, email) => {
 
     return false;
   }
-};
-
-module.exports = {
-  createUserAndInitializeDatabase,
-  createUserAndUpdateDatabase,
 };

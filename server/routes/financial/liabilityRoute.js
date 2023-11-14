@@ -1,18 +1,18 @@
-const express = require("express");
+import express from "express";
 
 // controller functions
-const {
+import {
   getLiabilities,
   getLiability,
   createLiability,
   deleteLiability,
   updateLiability,
-} = require("../../controllers/financial/liabilityController");
+} from "../../controllers/financial/liabilityController.js";
 
 // require auth for all liability routes
-const requireAuth = require("../../middleware/requireAuth");
+import { requireAuth } from "../../middleware/requireAuth.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use(requireAuth);
 
@@ -30,5 +30,3 @@ router.delete("/:id", deleteLiability);
 
 // UPDATE a liability
 router.patch("/:id", updateLiability);
-
-module.exports = router;
