@@ -24,7 +24,7 @@ const Myinfo = () => {
   useEffect(() => {
     const fetchAppInfo = async () => {
       try {
-        const response = await fetch("/getEnv");
+        const response = await fetch("/myinfo/getEnv");
         if (response.ok) {
           const data = await response.json();
           setClientId(data.clientId);
@@ -47,18 +47,20 @@ const Myinfo = () => {
   const handleAuthorize = async (event) => {
     event.preventDefault();
     try {
-      const codeChallengeResponse = await fetch("/generateCodeChallenge", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
+      const codeChallengeResponse = await fetch(
+        "/myinfo/generateCodeChallenge",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        }
+      );
 
       if (codeChallengeResponse.ok) {
         const codeChallengeResult = await codeChallengeResponse.json();
-
-        const authorizeUrl = `${authApiUrl}?client_id=${clientId}&scope=${scope}&purpose_id=${purposeId}&code_challenge=${codeChallengeResult.data}&code_challenge_method=${method}&redirect_uri=${redirectUrl}`;
+        const authorizeUrl = `${authApiUrl}?client_id=${clientId}&scope=${scope}&purpose_id=${purposeId}&code_challenge=${codeChallengeResult}&code_challenge_method=${method}&redirect_uri=${redirectUrl}`;
         window.location = authorizeUrl;
       } else {
         throw new Error("Failed to generate code challenge");
@@ -72,11 +74,11 @@ const Myinfo = () => {
     <div className={MyinfoCSS.myinfo}>
       <div className={MyinfoCSS.myinfo_container}>
         <h1>Myinfo</h1>
-        <form id="formAuthorize" onSubmit={handleAuthorize}>
-          <button type="submit" className="btn2">
-            Retrieve MyInfo
-          </button>
-        </form>
+        <img
+          src="/simplyfi-throwaway/assets/myinfo.svg"
+          alt="myinfo"
+          onClick={handleAuthorize}
+        />
 
         <section id="form">
           <form id="formApplication">
@@ -273,7 +275,11 @@ const Myinfo = () => {
                   </div>
                 </div>
                 <div>
-                  <a href="http://localhost:3001/mock">Submit Application</a>
+                  <form id="formAuthorize">
+                    <button type="submit" className="btn2">
+                      Submit Application
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

@@ -4,6 +4,7 @@ dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import { router as userRoute } from "./routes/userRoute.js";
 
@@ -25,11 +26,13 @@ import { router as dialogflowRoute } from "./routes/dialogflowRoute.js";
 import { router as openaiRoute } from "./routes/openaiRoute.js";
 
 import { router as fileRoute } from "./routes/fileRoute.js";
+import { router as myinfoRoute } from "./routes/myinfoRoute.js";
 
 // express app
 const app = express();
 
 app.use(cors());
+app.use(cookieParser());
 
 // middleware
 app.use(express.json());
@@ -62,6 +65,9 @@ app.use("/openai", openaiRoute);
 
 // routes - upload
 app.use("/file", fileRoute);
+
+// routes - myinfo
+app.use("/myinfo", myinfoRoute);
 
 // connect to db
 mongoose

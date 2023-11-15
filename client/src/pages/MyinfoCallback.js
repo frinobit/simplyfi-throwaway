@@ -39,7 +39,7 @@ const MyinfoCallback = () => {
   useEffect(() => {
     const fetchAppInfo = async () => {
       try {
-        const response = await fetch("/getEnv");
+        const response = await fetch("/myinfo/getEnv");
         if (response.ok) {
           const data = await response.json();
           setClientId(data.clientId);
@@ -62,7 +62,7 @@ const MyinfoCallback = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const authCode = urlParams.get("code");
 
-      fetch("/getPersonData", {
+      fetch("/myinfo/getPersonData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -178,13 +178,16 @@ const MyinfoCallback = () => {
   const handleAuthorize = async (event) => {
     event.preventDefault();
     try {
-      const codeChallengeResponse = await fetch("/generateCodeChallenge", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
+      const codeChallengeResponse = await fetch(
+        "/myinfo/generateCodeChallenge",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        }
+      );
 
       if (codeChallengeResponse.ok) {
         const codeChallengeResult = await codeChallengeResponse.json();
@@ -203,11 +206,11 @@ const MyinfoCallback = () => {
     <div className={MyinfoCSS.myinfo}>
       <div className={MyinfoCSS.myinfo_container}>
         <h1>Myinfo - Callback</h1>
-        <form id="formAuthorize" onSubmit={handleAuthorize}>
-          <button type="submit" className="btn2">
-            Retrieve MyInfo
-          </button>
-        </form>
+        <img
+          src="/simplyfi-throwaway/assets/myinfo.svg"
+          alt="myinfo"
+          onClick={handleAuthorize}
+        />
 
         <section id="form">
           <form id="formApplication">
@@ -425,7 +428,11 @@ const MyinfoCallback = () => {
                   </div>
                 </div>
                 <div>
-                  <a href="http://localhost:3001/mock">Submit Application</a>
+                  <form id="formAuthorize">
+                    <button type="submit" className="btn2">
+                      Submit Application
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

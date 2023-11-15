@@ -34,7 +34,7 @@ function App() {
             />
             <Route path="/simplyfi-throwaway/deepdive" element={<DeepDive />} />
             <Route path="/simplyfi-throwaway/myinfo" element={<Myinfo />} />
-            <Route path="/" element={<MyinfoCallback />} />
+            <Route path="/callback" element={<MyinfoCallback />} />
             {/* <Route path="/simplyfi-throwaway/snapshot" element={<Home />} /> */}
             <Route
               path="/simplyfi-throwaway/signupGuest"
