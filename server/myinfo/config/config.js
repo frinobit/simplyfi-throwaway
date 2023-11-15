@@ -32,6 +32,7 @@ const APP_CONFIG = {
   DEMO_APP_PURPOSE_ID: "demonstration",
   DEMO_APP_SCOPES:
     "uinfin name sex race nationality dob email mobileno regadd housingtype hdbtype marital edulevel noa-basic ownerprivate cpfcontributions cpfbalances",
+  // "partialuinfin, uinfin, name, aliasname, sex, race, dob, residentialstatus, nationality, birthcountry, passtype, passstatus, passexpirydate, employmentsector, mobileno, email, regadd, cpfhousingwithdrawal, noa, noahistory, ownerprivate, cpfhomeprotectionscheme, cpfdependantprotectionscheme, cpfinvestmentscheme, cpfmedishieldlife, cpfrstucurrentyeartaxrelief, cpfrstuselftopupamount, cpflife, cpfmonthlypayouts, employment, occupation, cpfemployers, marital, marriagedate, hdbownership",
   MYINFO_API_AUTHORIZE: `https://${urlEnvironmentPrefix}api.myinfo.gov.sg/com/v4/authorize`,
 };
 

@@ -5,6 +5,25 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 
+const InputField = ({ label, name }) => {
+  return (
+    <div>
+      <label>{label}</label>
+      <div className={MyinfoCSS.input_group}>
+        <input
+          type="text"
+          className="form-control"
+          name={name}
+          // value=""
+          placeholder=""
+          required=""
+          defaultValue=""
+        />
+      </div>
+    </div>
+  );
+};
+
 const Myinfo = () => {
   const { user } = useAuthContext();
   const [showSignUp, setShowSignUp] = useState(false);
@@ -72,220 +91,67 @@ const Myinfo = () => {
 
   return (
     <div className={MyinfoCSS.myinfo}>
-      <div className={MyinfoCSS.myinfo_container}>
-        <h1>Myinfo</h1>
-        <img
-          src="/simplyfi-throwaway/assets/myinfo.svg"
-          alt="myinfo"
-          onClick={handleAuthorize}
-        />
+      {user ? (
+        <div className={MyinfoCSS.myinfo_container}>
+          <h1>Myinfo</h1>
+          <img
+            src="/simplyfi-throwaway/assets/myinfo.svg"
+            alt="myinfo"
+            onClick={handleAuthorize}
+          />
 
-        <section id="form">
-          <form id="formApplication">
-            <div>
-              <div>
-                <h2>Form</h2>
-                <h4>Application pre-filled with MyInfo!</h4>
-              </div>
+          <section id="form">
+            <form id="formApplication">
               <div>
                 <div>
-                  <p>
-                    Confirm your details below and click "Submit Application".
-                  </p>
+                  <h2>Form</h2>
+                  <h4>Application pre-filled with MyInfo!</h4>
                 </div>
-              </div>
-              <div>
                 <div>
-                  <h3>Personal Information</h3>
                   <div>
-                    <label>NRIC</label>
-                    <div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="uinfin"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Full Name</label>
-                    <div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="name"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Sex</label>
-                    <div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="sex"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Race</label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="race"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Nationality</label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="nationality"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Date Of Birth</label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="dob"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Email</label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="email"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Mobile Number</label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="mobileno"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Registered Address</label>
-                    <div className="input-group">
-                      <textarea cols="50" rows="3" name="regadd"></textarea>
-                    </div>
-                  </div>
-                  <div>
-                    <label>Housing Type</label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="housingtype"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Marital Status</label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="marital"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>Highest Education Level</label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="edulevel"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label>
-                      Notice of Assessment - Latest Assessable Income (SGD)
-                    </label>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="assessableincome"
-                        //   value=""
-                        placeholder=""
-                        required=""
-                        defaultValue=""
-                      />
-                    </div>
+                    <p>
+                      Confirm your details below and click "Submit Application".
+                    </p>
                   </div>
                 </div>
                 <div>
-                  <form id="formAuthorize">
-                    <button type="submit" className="btn2">
-                      Submit Application
-                    </button>
-                  </form>
+                  <div>
+                    <h3>Personal Information</h3>
+                    <InputField label="NRIC" name="uinfin" />
+                    <InputField label="Full Name" name="name" />
+                    <InputField label="Sex" name="sex" />
+                    <InputField label="Race" name="race" />
+                    <InputField label="Nationality" name="nationality" />
+                    <InputField label="Date Of Birth" name="dob" />
+                    <InputField label="Email" name="email" />
+                    <InputField label="Mobile Number" name="mobileno" />
+                    <InputField label="Registered Address" name="regadd" />
+                    <InputField label="Housing Type" name="housingtype" />
+                    <InputField label="Marital Status" name="marital" />
+                    <InputField
+                      label="Highest Education Level"
+                      name="edulevel"
+                    />
+                    <InputField
+                      label="Notice of Assessment - Latest Assessable Income (SGD)"
+                      name="assessableincome"
+                    />
+                  </div>
+                  <div>
+                    <form id="formAuthorize">
+                      <button type="submit" className="btn2">
+                        Submit Application
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </section>
-      </div>
+            </form>
+          </section>
+        </div>
+      ) : (
+        <p>Loading</p>
+      )}
 
       {!user && !showSignUp && (
         <Login onSignUpClick={() => setShowSignUp(true)} />
