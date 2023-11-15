@@ -21,4 +21,5 @@
 
 # misc
 # .env
+# package-lock.json
 ngrok
