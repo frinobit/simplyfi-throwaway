@@ -84,7 +84,7 @@ const SnapshotPremiumContainer = () => {
       fetchInvestments(user, investmentsDispatch);
       fetchInsurance(user, insuranceDispatch);
       console.log("socket on");
-      socket = io.connect("http://localhost:3001");
+      socket = io.connect("http://localhost:3002");
       socket.on("post_request_done", (data) => {
         const type = data.type;
 
