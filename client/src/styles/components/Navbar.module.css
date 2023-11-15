@@ -113,6 +113,16 @@ header span {
   color: var(--text-white);
   border-radius: 10px;
 }
+.nav_myinfo {
+  border-top: 5px solid #ff0000;
+  border-radius: 4px;
+}
+.nav_myinfo:hover {
+  filter: grayscale(0%) opacity(1);
+  background-color: #ff0000;
+  color: var(--text-white);
+  border-radius: 10px;
+}
 header nav span {
   width: auto;
 }

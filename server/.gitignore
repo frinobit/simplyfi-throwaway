@@ -8,6 +8,10 @@
 # dialogflow config
 # /chatbot/serviceAccountKey.json
 
+# myinfo config
+# /myinfo/cert
+# /myinfo/config
+
 # assets
 # /assets_policy
 # /assets_summary

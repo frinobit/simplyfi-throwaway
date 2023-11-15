@@ -35,6 +35,9 @@ const Navbar = () => {
         <Link to="/simplyfi-throwaway">
           <span className={NavbarCSS.nav_risk}>Risk & Investment</span>
         </Link>
+        <Link to="/simplyfi-throwaway/myinfo">
+          <span className={NavbarCSS.nav_myinfo}>Myinfo</span>
+        </Link>
       </div>
       <div className={NavbarCSS.container}>
         <nav>

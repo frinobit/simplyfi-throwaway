@@ -6,6 +6,8 @@ import Welcome from "./pages/Welcome";
 import SnapshotPremium from "./pages/SnapshotPremium";
 import SnapshotBasic from "./pages/SnapshotBasic";
 import DeepDive from "./pages/DeepDive";
+import Myinfo from "./pages/Myinfo";
+import MyinfoCallback from "./pages/MyinfoCallback";
 // import Home from "./pages/Home";
 import Navbar from "./components/navbar/Navbar";
 import NavbarVertical from "./components/navbar/NavbarVertical";
@@ -31,6 +33,8 @@ function App() {
               element={<SnapshotPremium />}
             />
             <Route path="/simplyfi-throwaway/deepdive" element={<DeepDive />} />
+            <Route path="/simplyfi-throwaway/myinfo" element={<Myinfo />} />
+            <Route path="/" element={<MyinfoCallback />} />
             {/* <Route path="/simplyfi-throwaway/snapshot" element={<Home />} /> */}
             <Route
               path="/simplyfi-throwaway/signupGuest"
