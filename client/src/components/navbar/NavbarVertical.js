@@ -139,7 +139,7 @@ const NavbarVertical = () => {
         </li>
         <li className={VerticalCSS.nav_item}>
           <Link
-            to="/simplyfi-throwaway"
+            to="/simplyfi-throwaway/profile"
             className={`${VerticalCSS.nav_link} ${VerticalCSS.nav_link2}`}
           >
             <svg

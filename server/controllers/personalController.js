@@ -29,18 +29,40 @@ export const getPersonal = async (req, res) => {
 
 // create new personal
 export const createPersonal = async (req, res) => {
-  const { name, contact, date_of_birth, ic_number, marital_status } = req.body;
+  const {
+    uinfin,
+    name,
+    sex,
+    race,
+    nationality,
+    dob,
+    email,
+    mobileno,
+    regadd,
+    housingtype,
+    marital,
+    edulevel,
+    assessableincome,
+  } = req.body;
 
   // add doc to db
   try {
     const user_id = req.user.user_id;
     const personal = await Personal.create({
-      name,
-      contact,
-      date_of_birth,
-      ic_number,
-      marital_status,
       user_id,
+      uinfin,
+      name,
+      sex,
+      race,
+      nationality,
+      dob,
+      email,
+      mobileno,
+      regadd,
+      housingtype,
+      marital,
+      edulevel,
+      assessableincome,
     });
 
     res.status(200).json(personal);
@@ -68,17 +90,14 @@ export const deletePersonal = async (req, res) => {
 
 // update a personal
 export const updatePersonal = async (req, res) => {
-  const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such personal" });
-  }
-
-  const personal = await Personal.findOneAndUpdate(
-    { _id: id },
+  let personal;
+  const user_id = req.user.user_id;
+  const personal_data = await Personal.findOne({ user_id });
+  const personal_id = personal_data._id;
+  personal = await Personal.findOneAndUpdate(
+    { _id: personal_id },
     { ...req.body }
   );
-
   if (!personal) {
     return res.status(404).json({ error: "No such personal" });
   }

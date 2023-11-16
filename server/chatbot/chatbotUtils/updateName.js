@@ -1,25 +1,14 @@
 import axios from "axios";
-import { Personal } from "../../models/personalModel.js";
 
-export const updateName = async (
-  socketIo,
-  parameters,
-  user_id,
-  authorization
-) => {
+export const updateName = async (socketIo, parameters, authorization) => {
   try {
     const name =
       parameters.fields.person.structValue.fields.original.stringValue;
 
     // edit user using api
-    const requestData = {
-      user_id: user_id,
-      name: name,
-    };
+    const requestData = { name };
     const headers = { Authorization: authorization };
-    const personal_data = await Personal.findOne({ user_id });
-    const personal_id = personal_data._id;
-    const apiUrl = `${process.env.BACKEND_URL}/api/personals/${personal_id}`;
+    const apiUrl = `${process.env.BACKEND_URL}/api/personals/`;
     await axios
       .patch(apiUrl, requestData, { headers })
       // .then((response) => {

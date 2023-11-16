@@ -5,18 +5,35 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 
-const InputField = ({ label, name, value }) => (
+const InputFieldNoChange = ({ label, name, value }) => (
   <div>
     <label>{label}</label>
     <div className={MyinfoCSS.input_group_callback}>
       <input
         type="text"
-        className="form-control"
+        className={MyinfoCSS.input_field_no_change}
         name={name}
         placeholder=""
         required=""
         defaultValue={value}
         readOnly
+      />
+    </div>
+  </div>
+);
+
+const InputFieldYesChange = ({ label, name, value, onChange }) => (
+  <div>
+    <label>{label}</label>
+    <div className={MyinfoCSS.input_group_callback}>
+      <input
+        type="text"
+        className={MyinfoCSS.input_field_yes_change}
+        name={name}
+        placeholder=""
+        required=""
+        value={value}
+        onChange={onChange}
       />
     </div>
   </div>
@@ -219,6 +236,37 @@ const MyinfoCallback = () => {
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    console.log("ho");
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("/api/personals", {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        window.alert("Form data submitted successfully!");
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      console.log("error:", error.message);
+    }
+  };
+
   return (
     <div className={MyinfoCSS.myinfo}>
       {user ? (
@@ -231,7 +279,7 @@ const MyinfoCallback = () => {
           />
 
           <section id="form">
-            <form id="formApplication">
+            <form id="formApplication" onSubmit={handleSubmit}>
               <div>
                 <div>
                   <h2>Form</h2>
@@ -247,74 +295,77 @@ const MyinfoCallback = () => {
                 <div>
                   <div>
                     <h3>Personal Information</h3>
-                    <InputField
+                    <InputFieldNoChange
                       label="NRIC"
                       name="uinfin"
                       value={formData.uinfin}
                     />
-                    <InputField
+                    <InputFieldNoChange
                       label="Full Name"
                       name="name"
                       value={formData.name}
                     />
-                    <InputField label="Sex" name="sex" value={formData.sex} />
-                    <InputField
+                    <InputFieldNoChange
+                      label="Sex"
+                      name="sex"
+                      value={formData.sex}
+                    />
+                    <InputFieldNoChange
                       label="Race"
                       name="race"
                       value={formData.race}
                     />
-                    <InputField
+                    <InputFieldNoChange
                       label="Nationality"
                       name="nationality"
                       value={formData.nationality}
                     />
-                    <InputField
+                    <InputFieldNoChange
                       label="Date Of Birth"
                       name="dob"
                       value={formData.dob}
                     />
-                    <InputField
+                    <InputFieldYesChange
                       label="Email"
                       name="email"
                       value={formData.email}
+                      onChange={handleChange}
                     />
-                    <InputField
+                    <InputFieldYesChange
                       label="Mobile Number"
                       name="mobileno"
                       value={formData.mobileno}
+                      onChange={handleChange}
                     />
-                    <InputField
+                    <InputFieldYesChange
                       label="Registered Address"
                       name="regadd"
                       value={formData.regadd}
+                      onChange={handleChange}
                     />
-                    <InputField
+                    <InputFieldNoChange
                       label="Housing Type"
                       name="housingtype"
                       value={formData.housingtype}
                     />
-                    <InputField
+                    <InputFieldNoChange
                       label="Marital Status"
                       name="marital"
                       value={formData.marital}
                     />
-                    <InputField
+                    <InputFieldNoChange
                       label="Highest Education Level"
                       name="edulevel"
                       value={formData.edulevel}
                     />
-                    <InputField
+                    <InputFieldNoChange
                       label="Notice of Assessment - Latest Assessable Income (SGD)"
                       name="assessableincome"
                       value={formData.assessableincome}
                     />
                   </div>
                   <div>
-                    <form id="formAuthorize">
-                      <button type="submit" className="btn2">
-                        Submit Application
-                      </button>
-                    </form>
+                    <button type="submit">Submit Application</button>
                   </div>
                 </div>
               </div>

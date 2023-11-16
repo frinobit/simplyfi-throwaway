@@ -29,4 +29,4 @@ router.post("/", createPersonal);
 router.delete("/:id", deletePersonal);
 
 // UPDATE a personal
-router.patch("/:id", updatePersonal);
+router.patch("/", updatePersonal);

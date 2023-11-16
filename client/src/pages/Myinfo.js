@@ -14,7 +14,6 @@ const InputField = ({ label, name }) => {
           type="text"
           className="form-control"
           name={name}
-          // value=""
           placeholder=""
           required=""
           defaultValue=""
@@ -138,11 +137,9 @@ const Myinfo = () => {
                     />
                   </div>
                   <div>
-                    <form id="formAuthorize">
-                      <button type="submit" className="btn2">
-                        Submit Application
-                      </button>
-                    </form>
+                    <button type="submit" className="btn2">
+                      Submit Application
+                    </button>
                   </div>
                 </div>
               </div>

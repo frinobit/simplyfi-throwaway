@@ -20,9 +20,9 @@
 img {
   cursor: pointer;
 }
-.input_group_callback input {
+.input_field_no_change {
   background-color: #e9ecef;
 }
-.input_group_callback input:hover {
+.input_field_no_change:hover {
   cursor: not-allowed;
 }

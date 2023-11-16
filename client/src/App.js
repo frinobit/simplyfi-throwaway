@@ -8,6 +8,7 @@ import SnapshotBasic from "./pages/SnapshotBasic";
 import DeepDive from "./pages/DeepDive";
 import Myinfo from "./pages/Myinfo";
 import MyinfoCallback from "./pages/MyinfoCallback";
+import Profile from "./pages/Profile";
 // import Home from "./pages/Home";
 import Navbar from "./components/navbar/Navbar";
 import NavbarVertical from "./components/navbar/NavbarVertical";
@@ -25,7 +26,7 @@ function App() {
           <Routes>
             <Route path="/simplyfi-throwaway" element={<Welcome />} />
             <Route
-              path="/simplyfi-throwaway/snapshotBasic"
+              path="/simplyfi-throwaway/snapshotbasic"
               element={<SnapshotBasic />}
             />
             <Route
@@ -35,6 +36,7 @@ function App() {
             <Route path="/simplyfi-throwaway/deepdive" element={<DeepDive />} />
             <Route path="/simplyfi-throwaway/myinfo" element={<Myinfo />} />
             <Route path="/callback" element={<MyinfoCallback />} />
+            <Route path="/simplyfi-throwaway/profile" element={<Profile />} />
             {/* <Route path="/simplyfi-throwaway/snapshot" element={<Home />} /> */}
             <Route
               path="/simplyfi-throwaway/signupGuest"

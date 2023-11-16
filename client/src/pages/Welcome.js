@@ -42,7 +42,7 @@ const Welcome = () => {
           </li>
           <li>
             <Link
-              to="/simplyfi-throwaway/snapshotpremium"
+              to="/simplyfi-throwaway/snapshotbasic"
               className={WelcomeCSS.welcome_nav_link}
             >
               <svg

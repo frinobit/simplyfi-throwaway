@@ -116,7 +116,7 @@ export const processMessage = async (queries, user_id, authorization) => {
           );
         }
         if (action === "provides.personal.name") {
-          updateName(socketIo, parameters, user_id, authorization);
+          updateName(socketIo, parameters, authorization);
         }
         if (action.startsWith("provides.property.")) {
           handlePropertyAction(
