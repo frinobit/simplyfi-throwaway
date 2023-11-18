@@ -46,6 +46,20 @@ const DeepDive = () => {
     }
   };
 
+  const handleAddNewClick = async () => {
+    const response = await fetch("/api/coverage", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      fetchCoverages(user, coveragesDispatch);
+    }
+  };
+
   const handleBackToLogin = () => {
     setShowSignUp(false);
   };
@@ -138,23 +152,48 @@ const DeepDive = () => {
                     <th className={DeepDiveCSS.otherColumns}>Income</th>
                     <th className={DeepDiveCSS.otherColumns}>Accident</th>
                     <th className={DeepDiveCSS.otherColumns}>Care</th>
+                    <th className={DeepDiveCSS.otherColumns}>Upload</th>
                   </tr>
                 </thead>
                 <tbody>
                   {coverages && coverages.length > 0 ? (
                     coverages.map((coverage) => (
                       <tr key={coverage._id}>
-                        <td>{coverage.label}</td>
-                        <td>{coverage.premium}</td>
-                        <td>{coverage.death}</td>
-                        <td>{coverage.illness}</td>
-                        <td>{coverage.disabilityP}</td>
-                        <td>{coverage.disabilityT}</td>
-                        <td>{coverage.medical}</td>
-                        <td>{coverage.income}</td>
-                        <td>{coverage.accident}</td>
-                        <td>{coverage.care}</td>
-                        <td>
+                        <td className={DeepDiveCSS.labelColumn}>
+                          {coverage.label !== "" ? coverage.label : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.premium !== 0 ? coverage.premium : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.death !== 0 ? coverage.death : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.illness !== 0 ? coverage.illness : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.disabilityP !== 0
+                            ? coverage.disabilityP
+                            : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.disabilityT !== 0
+                            ? coverage.disabilityT
+                            : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.medical !== 0 ? coverage.medical : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.income !== 0 ? coverage.income : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.accident !== 0 ? coverage.accident : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
+                          {coverage.care !== 0 ? coverage.care : "N/A"}
+                        </td>
+                        <td className={DeepDiveCSS.otherColumns}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -177,12 +216,12 @@ const DeepDive = () => {
                   )}
                 </tbody>
               </table>
+              <button onClick={handleAddNewClick}>Add New</button>
             </div>
           </div>
           <div className={DeepDiveCSS.row_container}>
             <h3>Upload a PDF and ask me a question!</h3>
             <div
-              // className={DeepDiveCSS.deepdive_upload}
               className={`${DeepDiveCSS.deepdive_upload} ${
                 isDragging ? DeepDiveCSS.dragging : ""
               }`}
