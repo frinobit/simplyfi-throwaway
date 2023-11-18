@@ -77,8 +77,8 @@ export const createFile = async (req, res) => {
   }
 };
 
-// delete a file
-export const deleteFile = async (req, res) => {
+// delete a file (policy)
+export const deleteFilePolicy = async (req, res) => {
   try {
     const { id } = req.params;
     const file = await File.findOneAndDelete({ _id: id });
@@ -112,4 +112,17 @@ export const downloadFile = async (req, res) => {
 
   const file = fs.createReadStream(filePath);
   file.pipe(res);
+};
+
+// delete a file (summary)
+export const deleteFileSummary = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const file = await File.findOneAndDelete({ _id: id });
+
+    res.status(200).json(file);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
+  }
 };

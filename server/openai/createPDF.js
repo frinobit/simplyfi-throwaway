@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export const createPDF = async (user_id, response) => {
+export const createPDF = async (user_id, response, fileName) => {
   const pdfDoc = await PDFDocument.create();
   const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
   let currentPage = pdfDoc.addPage();
@@ -72,14 +72,20 @@ export const createPDF = async (user_id, response) => {
   const filePath = path.join(
     __dirname,
     "../assets_summary",
-    `${user_id}_summary.pdf`
+    `${user_id}_summary_${fileName}`
   );
 
-  const file = await File.create({
-    user_id: user_id,
-    fileName: "summary.pdf",
-    path: filePath,
-    type: "summary",
+  const exist = await File.findOne({
+    user_id,
+    fileName: `summary_${fileName}`,
   });
+  if (!exist) {
+    await File.create({
+      user_id: user_id,
+      fileName: `summary_${fileName}`,
+      path: filePath,
+      type: "summary",
+    });
+  }
   fs.writeFileSync(filePath, pdfBytes);
 };

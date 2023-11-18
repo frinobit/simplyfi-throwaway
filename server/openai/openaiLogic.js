@@ -17,16 +17,14 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export const processMessage = async (queryDescription, user_id) => {
+export const processMessage = async (queryDescription, user_id, fileName) => {
   const directoryPath = path.join(__dirname, "../assets_policy");
 
   try {
     const files = fs.readdirSync(directoryPath);
-    const userFiles = files
-      .filter((file) => file.startsWith(`${user_id}`) && file.endsWith(".pdf"))
-      .map((file) => path.basename(file));
-
-    const relevantDocs = await searchInQdrant(queryDescription, userFiles[0]);
+    const fullName = user_id + "_" + fileName;
+    const relevantFile = files.find((file) => file === fullName);
+    const relevantDocs = await searchInQdrant(queryDescription, relevantFile);
     const response = await answerWithOpenAI(relevantDocs, queryDescription);
 
     return response;

@@ -10,8 +10,8 @@ import { useCoveragesContext } from "../hooks/useCoveragesContext";
 import Login from "../components/loginSignup/Login";
 import Signup from "../components/loginSignup/Signup";
 import ChatbotDeepDive from "../components/ChatbotDeepDive";
-import FileDetailsDelete from "../components/FileDetailsDelete";
-import FileDetailsDownload from "../components/FileDetailsDownload";
+import FileDetailsUploaded from "../components/FileDetailsUploaded";
+import FileDetailsSummary from "../components/FileDetailsSummary";
 
 // api
 import { fetchFiles } from "./api";
@@ -31,20 +31,6 @@ const DeepDive = () => {
       fetchCoverages(user, coveragesDispatch);
     }
   }, [filesDispatch, coveragesDispatch, user]);
-
-  const handleSummaryClick = async () => {
-    const response = await fetch("/openai/generate_summary", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.ok) {
-      fetchFiles(user, filesDispatch);
-    }
-  };
 
   const handleAddNewClick = async () => {
     const response = await fetch("/api/coverage", {
@@ -220,7 +206,9 @@ const DeepDive = () => {
             </div>
           </div>
           <div className={DeepDiveCSS.row_container}>
-            <h3>Upload a PDF and ask me a question!</h3>
+            <h3>Upload a PDF!</h3>
+            <h3>Ask me a question on the right! OR</h3>
+            <h3>Generate a summary by pressing the icon!</h3>
             <div
               className={`${DeepDiveCSS.deepdive_upload} ${
                 isDragging ? DeepDiveCSS.dragging : ""
@@ -248,19 +236,18 @@ const DeepDive = () => {
                 {files
                   .filter((file) => file.type === "policy")
                   .map((file) => (
-                    <FileDetailsDelete key={file._id} file={file} />
+                    <FileDetailsUploaded key={file._id} file={file} />
                   ))}
               </div>
             ) : null}
             <div>
-              <button onClick={handleSummaryClick}>Generate summary</button>
               <p>Summary generated:</p>
               {files && files.length > 0 ? (
                 <div>
                   {files
                     .filter((file) => file.type === "summary")
                     .map((file) => (
-                      <FileDetailsDownload key={file._id} file={file} />
+                      <FileDetailsSummary key={file._id} file={file} />
                     ))}
                 </div>
               ) : null}

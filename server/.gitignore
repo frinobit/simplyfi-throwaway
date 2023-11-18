@@ -13,8 +13,8 @@
 # /myinfo/config
 
 # assets
-# /assets_policy
-# /assets_summary
+/assets_policy
+/assets_summary
 
 # tests
 /test

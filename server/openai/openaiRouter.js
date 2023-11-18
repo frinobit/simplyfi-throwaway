@@ -57,6 +57,7 @@ export const getGenerateSummary = async (req, res) => {
   try {
     const { authorization } = req.headers;
     const user_id = req.user.user_id;
+    const { fileName } = req.body;
 
     const questions = [
       "1. Inclusions & exclusions\nQuestion: What am I covered for and not covered for under this policy?\n\nAnswer:\n",
@@ -78,11 +79,11 @@ export const getGenerateSummary = async (req, res) => {
       "Insurance policy summary\nSource: https://www.commbank.com.au/articles/insurance/what-to-look-for-in-an-insurance-policy.html\n\n";
     for (let i = 0; i < questions.length; i++) {
       response += questions[i];
-      response += await processMessage(queryDescriptions[i], user_id);
+      response += await processMessage(queryDescriptions[i], user_id, fileName);
       response += "\n\n";
     }
 
-    await createPDF(user_id, response.replace(/\n/g, "%%%%%"));
+    await createPDF(user_id, response.replace(/\n/g, "%%%%%"), fileName);
 
     res.status(200).json({ message: response });
   } catch (error) {
