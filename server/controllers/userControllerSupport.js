@@ -42,8 +42,6 @@ export const createUserAndInitializeDatabase = async (uid, email, token) => {
     axios.post(apiUrlFinancials, { requestData }, { headers });
     const apiUrlProgressBar = `${process.env.BACKEND_URL}/api/progressbar`;
     axios.post(apiUrlProgressBar, { requestData }, { headers });
-    const apiUrlCoverage = `${process.env.BACKEND_URL}/api/coverage`;
-    axios.post(apiUrlCoverage, { requestData }, { headers });
 
     return true;
   } catch (error) {

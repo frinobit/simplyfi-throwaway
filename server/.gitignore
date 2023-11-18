@@ -20,6 +20,6 @@
 /test
 
 # misc
-# .env
+.env
 package-lock.json
 ngrok
