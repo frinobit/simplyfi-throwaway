@@ -13,6 +13,7 @@ import { router as personalRoute } from "./routes/personalRoute.js";
 import { router as messageRoute } from "./routes/messageRoute.js";
 import { router as deepdiveRoute } from "./routes/deepdiveRoute.js";
 import { router as progressBarRoute } from "./routes/progressBarRoute.js";
+import { router as coverageRoute } from "./routes/coverageRoute.js";
 
 import { router as assetRoute } from "./routes/financial/assetRoute.js";
 import { router as liabilityRoute } from "./routes/financial/liabilityRoute.js";
@@ -49,6 +50,7 @@ app.use("/api/personals", personalRoute);
 app.use("/api/message", messageRoute);
 app.use("/api/deepdive", deepdiveRoute);
 app.use("/api/progressbar", progressBarRoute);
+app.use("/api/coverage", coverageRoute);
 
 // routes - financial
 app.use("/api/financial/asset", assetRoute);

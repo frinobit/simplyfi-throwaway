@@ -8,8 +8,7 @@
 }
 .deepdive_container {
   flex: 1;
-  background: var(--text-white);
-  /* background: transparent; */
+  background: transparent;
   margin-right: 1rem;
   position: relative;
   border: 1px solid #aaaaaa;
@@ -17,6 +16,13 @@
   height: 85vh;
   overflow-y: auto;
   padding: 0 2rem;
+}
+.deepdive_container .row_container {
+  background: var(--text-white);
+  border: 1px solid #aaaaaa;
+  border-radius: 15px;
+  padding: 0.2rem 2rem;
+  margin: 2rem 0;
 }
 .deepdive_upload {
   display: flex;
@@ -37,7 +43,7 @@
 .deepdive svg {
   width: 2rem;
   height: 2rem;
-  padding: 0.4rem;
+  padding: 0.2rem;
   cursor: pointer;
   background-color: var(--text-main);
   border: 1px solid var(--text-main);
@@ -54,4 +60,10 @@
 }
 p {
   white-space: pre-line;
+}
+.labelColumn {
+  width: 20%;
+}
+.otherColumns {
+  width: 10%;
 }

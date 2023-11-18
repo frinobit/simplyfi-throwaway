@@ -8,6 +8,7 @@ import { Personal } from "../models/personalModel.js";
 import { Message } from "../models/messageModel.js";
 import { Deepdive } from "../models/deepdiveModel.js";
 import { ProgressBar } from "../models/progressBarModel.js";
+import { Coverage } from "../models/coverageModel.js";
 
 import { Asset } from "../models/financial/assetModel.js";
 import { Liability } from "../models/financial/liabilityModel.js";
@@ -41,6 +42,8 @@ export const createUserAndInitializeDatabase = async (uid, email, token) => {
     axios.post(apiUrlFinancials, { requestData }, { headers });
     const apiUrlProgressBar = `${process.env.BACKEND_URL}/api/progressbar`;
     axios.post(apiUrlProgressBar, { requestData }, { headers });
+    const apiUrlCoverage = `${process.env.BACKEND_URL}/api/coverage`;
+    axios.post(apiUrlCoverage, { requestData }, { headers });
 
     return true;
   } catch (error) {
@@ -74,6 +77,7 @@ export const createUserAndUpdateDatabase = async (old_uid, new_uid, email) => {
       { model: Message, query: { user_id: old_uid } },
       { model: Deepdive, query: { user_id: old_uid } },
       { model: ProgressBar, query: { user_id: old_uid } },
+      { model: Coverage, query: { user_id: old_uid } },
       { model: Asset, query: { user_id: old_uid } },
       { model: Liability, query: { user_id: old_uid } },
       { model: Income, query: { user_id: old_uid } },

@@ -12,3 +12,18 @@ export const fetchFiles = async (user, filesDispatch) => {
     }
   }
 };
+
+export const fetchCoverages = async (user, coveragesDispatch) => {
+  if (user) {
+    const response = await fetch("/api/coverage", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      coveragesDispatch({ type: "SET_COVERAGES", payload: json });
+    }
+  }
+};
