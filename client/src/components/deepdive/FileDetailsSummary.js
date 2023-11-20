@@ -1,3 +1,4 @@
+import DeepDiveCSS from "../../styles/pages/DeepDive.module.css";
 import FileDetailsCSS from "../../styles/components/FileDetails.module.css";
 import { useFilesContext } from "../../hooks/useFilesContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -61,6 +62,7 @@ const FileDetailsSummary = ({ file }) => {
           width="24"
           height="24"
           viewBox="0 0 24 24"
+          className={DeepDiveCSS.animatedSVG}
           onClick={handleDownloadClick}
         >
           <path
@@ -73,6 +75,7 @@ const FileDetailsSummary = ({ file }) => {
           width="24"
           height="24"
           viewBox="0 0 24 24"
+          className={DeepDiveCSS.animatedSVG}
           onClick={handleDeleteClick}
         >
           <path

@@ -11,15 +11,12 @@
   background: transparent;
   margin-right: 1rem;
   position: relative;
-  border: 1px solid #aaaaaa;
-  border-radius: 15px;
   height: 85vh;
   overflow-y: auto;
-  padding: 0 2rem;
 }
 .deepdive_container .row_container {
   background: var(--text-white);
-  border: 1px solid #aaaaaa;
+  border: 1px solid var(--text-white);
   border-radius: 15px;
   padding: 0.2rem 2rem;
   margin: 0 0 2rem 0;
@@ -40,7 +37,7 @@
   border: none;
   outline: none;
 }
-.deepdive svg {
+.animatedSVG {
   width: 2rem;
   height: 2rem;
   padding: 0.2rem;
@@ -49,7 +46,7 @@
   border-radius: 10px;
   transition: 0.5s;
 }
-.deepdive svg:hover {
+.animatedSVG:hover {
   background-color: var(--text-main);
   border: 1px solid var(--text-main);
   color: var(--text-white);
@@ -65,15 +62,43 @@ p {
   white-space: pre-line;
 }
 .labelColumn,
-.otherColumns {
+.otherColumns,
+.labelColumnTH,
+.otherColumnsTH {
   font-size: 14px;
   font-weight: 500;
 }
-.labelColumn {
-  width: 16%;
+.labelColumn,
+.labelColumnTH {
+  width: 4%;
   text-align: left;
 }
-.otherColumns {
-  width: 8%;
+.otherColumns,
+.otherColumnsTH {
+  width: 1%;
   text-align: center;
+}
+.table {
+  border-collapse: collapse;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
+.table thead {
+  height: 4rem;
+}
+.table tbody {
+  height: 3rem;
+}
+.table svg {
+  margin-top: 0.2rem;
+}
+.otherColumnsTH {
+  border-bottom: 2px solid var(--text-black);
+}
+.headerContainer {
+  display: flex;
+  align-items: center;
+}
+.headerContainer svg {
+  margin-right: 1rem;
 }

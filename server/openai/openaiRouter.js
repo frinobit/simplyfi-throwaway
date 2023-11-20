@@ -66,12 +66,19 @@ export const getGenerateSummary = async (req, res) => {
       "4. Waiting periods\nQuestion: Are there any waiting periods? \n\nAnswer:\n",
       "5. Premium costs & grace periods\nQuestion: How much does the premium cost? Does my insurer offer a grace period?\n\nAnswer:\n",
     ];
+    // const queryDescriptions = [
+    //   "What am I covered for and not covered for under this policy?\nFormat the answer in such manner: What you are covered for:- (then a list) What you are not covered for:- (then a list)",
+    //   "Are there any conditions that need to be met for the insurance to be valid?\nFormat the answer in such manner: The following conditions are to be met:- (then a list)",
+    //   "What are the limits or restrictions on what I can claim?\nFormat the answer in such manner: Limits:- (then a list) Restrictions:- (then a list)",
+    //   "Are there any waiting periods?\nFormat the answer in a list with bullet points",
+    //   "How much does the premium cost? Does my insurer offer a grace period?\nFormat the answer in a list with bullet points",
+    // ];
     const queryDescriptions = [
-      "What am I covered for and not covered for under this policy?\nFormat the answer in such manner: What you are covered for:- (then a list) What you are not covered for:- (then a list)",
-      "Are there any conditions that need to be met for the insurance to be valid?\nFormat the answer in such manner: The following conditions are to be met:- (then a list)",
-      "What are the limits or restrictions on what I can claim?\nFormat the answer in such manner: Limits:- (then a list) Restrictions:- (then a list)",
-      "Are there any waiting periods?\nFormat the answer in a list with bullet points",
-      "How much does the premium cost? Does my insurer offer a grace period?\nFormat the answer in a list with bullet points",
+      "Plan Name: (Do not start the answer with 'The plan name is ...', give a concise answer)",
+      'Premium Amount: (Enter premium amount as numbers only (no currency, no SGD, no $, no S$), reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Death Coverage Amount: (Enter death coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Illness Coverage Amount: (Enter illness coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Disability Coverage Amount: (Enter disability coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
     ];
 
     let response = "";

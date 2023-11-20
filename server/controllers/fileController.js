@@ -51,9 +51,11 @@ import {
   storeInQdrant,
   deleteInQdrant,
 } from "./fileControllerUtils.js";
+import { Coverage } from "../models/coverageModel.js";
 // create new file
 export const createFile = async (req, res) => {
   try {
+    // store in qdrant
     const user_id = req.user.user_id;
     const { originalname, path } = req.file;
 
@@ -70,6 +72,25 @@ export const createFile = async (req, res) => {
     const fullName = user_id + "_" + originalname;
     console.log("storing in qdrant database...");
     await storeInQdrant(fullName, tokenCounts, chunks);
+
+    // update coverage db
+    // const coverageId = req.body.coverageId;
+    // console.log("Coverage ID:", coverageId);
+    // await Coverage.findByIdAndUpdate(
+    //   { _id: coverageId },
+    //   {
+    //     label: "hi",
+    //     premium: 1000,
+    //     death: 1000,
+    //     illness: 1000,
+    //     disabilityP: 1000,
+    //     disabilityT: 1000,
+    //     medical: 1000,
+    //     income: 1000,
+    //     accident: 1000,
+    //     care: 1000,
+    //   }
+    // );
 
     res.status(200).json(file);
   } catch (error) {
