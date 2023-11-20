@@ -9,6 +9,7 @@ import {
   deleteFilePolicy,
   downloadFile,
   deleteFileSummary,
+  extractFileLife,
 } from "../controllers/fileController.js";
 
 // require auth for all message routes
@@ -41,5 +42,8 @@ router.delete("/policy/:id", fileDeletePolicy, deleteFilePolicy);
 // user downloads a summary
 router.post("/summary/:id", downloadFile);
 
-// user deletes a policy
+// user deletes a summary
 router.delete("/summary/:id", fileDeleteSummary, deleteFileSummary);
+
+// user uploads a policy (life) and extract
+router.post("/policy/life/extract", fileUpload, extractFileLife);

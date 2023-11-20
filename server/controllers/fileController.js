@@ -51,8 +51,7 @@ import {
   storeInQdrant,
   deleteInQdrant,
 } from "./fileControllerUtils.js";
-import { Coverage } from "../models/coverageModel.js";
-// create new file
+// user uploads a policy
 export const createFile = async (req, res) => {
   try {
     // store in qdrant
@@ -73,32 +72,13 @@ export const createFile = async (req, res) => {
     console.log("storing in qdrant database...");
     await storeInQdrant(fullName, tokenCounts, chunks);
 
-    // update coverage db
-    // const coverageId = req.body.coverageId;
-    // console.log("Coverage ID:", coverageId);
-    // await Coverage.findByIdAndUpdate(
-    //   { _id: coverageId },
-    //   {
-    //     label: "hi",
-    //     premium: 1000,
-    //     death: 1000,
-    //     illness: 1000,
-    //     disabilityP: 1000,
-    //     disabilityT: 1000,
-    //     medical: 1000,
-    //     income: 1000,
-    //     accident: 1000,
-    //     care: 1000,
-    //   }
-    // );
-
     res.status(200).json(file);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// delete a file (policy)
+// user deletes a policy
 export const deleteFilePolicy = async (req, res) => {
   try {
     const { id } = req.params;
@@ -124,7 +104,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// download a single file
+// user downloads a summary
 export const downloadFile = async (req, res) => {
   const user_id = req.user.user_id;
   const { fileName } = req.body;
@@ -135,7 +115,7 @@ export const downloadFile = async (req, res) => {
   file.pipe(res);
 };
 
-// delete a file (summary)
+// user deletes a summary
 export const deleteFileSummary = async (req, res) => {
   try {
     const { id } = req.params;
@@ -144,6 +124,91 @@ export const deleteFileSummary = async (req, res) => {
     res.status(200).json(file);
   } catch (error) {
     console.log(error.message);
+    res.status(400).json({ error: error.message });
+  }
+};
+
+import { processMessage } from "../openai/openaiLogic.js";
+import { Coverage } from "../models/coverageModel.js";
+// user uploads a policy (life) and extract
+export const extractFileLife = async (req, res) => {
+  try {
+    // store in qdrant
+    const user_id = req.user.user_id;
+    const { originalname, path } = req.file;
+
+    const file = await File.create({
+      user_id: user_id,
+      fileName: originalname,
+      path: path,
+      type: "policy",
+    });
+
+    const docs = await readDocs(path);
+    const tokenCounts = countToken(docs);
+    const chunks = await splitText(docs);
+    const fullName = user_id + "_" + originalname;
+    console.log("storing in qdrant database...");
+    await storeInQdrant(fullName, tokenCounts, chunks);
+
+    // openai
+    const questions = [
+      "1. Label: ",
+      "2. Premium: ",
+      "3. Death: ",
+      "4. Illness: ",
+      "5. Disability (P): ",
+      "6. Disability (T): ",
+      "7. Medical: ",
+      "8. Income: ",
+      "9. Accident: ",
+      "10. Care: ",
+    ];
+    const queryDescriptions = [
+      "Plan Name: (Do not start the answer with 'The plan name is ...', give a concise answer)",
+      'Premium Amount: (Enter premium amount as numbers only (no currency, no SGD, no $, no S$), reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Death Coverage Amount: (Enter death coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Illness Coverage Amount: (Enter illness coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Disability (P) Coverage Amount: (Enter disability (P) coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Disability (T) Coverage Amount: (Enter disability (T) coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Medical Coverage Amount: (Enter medical coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Income Coverage Amount: (Enter income coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Accident Coverage Amount: (Enter accident coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+      'Care Coverage Amount: (Enter care coverage amount as numbers only, reply "0" if not available). PLEASE REPLY with "0", NOT SOMETHING ELSE, I WANT "0" if you don\'t have this specific information available or not in given context!',
+    ];
+    let responses = [];
+    for (let i = 0; i < questions.length; i++) {
+      let response = await processMessage(
+        queryDescriptions[i],
+        user_id,
+        originalname
+      );
+      responses.push(response);
+    }
+    console.log(responses);
+
+    // update coverage db
+    const coverageId = req.body.coverageId;
+    console.log("Coverage ID:", coverageId);
+    await Coverage.findByIdAndUpdate(
+      { _id: coverageId },
+      {
+        type: "life",
+        label: responses[0],
+        premium: parseInt(responses[1]),
+        death: parseInt(responses[2]),
+        illness: parseInt(responses[3]),
+        disabilityP: parseInt(responses[4]),
+        disabilityT: parseInt(responses[5]),
+        medical: parseInt(responses[6]),
+        income: parseInt(responses[7]),
+        accident: parseInt(responses[8]),
+        care: parseInt(responses[9]),
+      }
+    );
+
+    res.status(200).json(file);
+  } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };

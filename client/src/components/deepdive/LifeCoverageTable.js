@@ -58,7 +58,7 @@ const LifeCoverageTable = ({ coverages }) => {
     formData.set("coverageId", coverageId);
 
     try {
-      const response = await fetch("/file/policy/upload", {
+      const response = await fetch("/file/policy/life/extract", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${user.token}`,
