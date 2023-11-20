@@ -8,7 +8,6 @@ import { requireAuth } from "../middleware/requireAuth.js";
 router.use(requireAuth);
 
 // Import methods from dialogflow module
-// import { processMessage, startConversation } from "./dialogflowLogicES.js";
 import { processMessage, startConversation } from "./dialogflowLogicCX.js";
 
 const store_message = async (user_id, content, is_user_message) => {
