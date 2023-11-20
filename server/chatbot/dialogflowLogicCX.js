@@ -1,9 +1,7 @@
-import express from "express";
-const app = express();
-import dotenv from "dotenv";
-dotenv.config();
-
 import dialogflow from "@google-cloud/dialogflow-cx";
+
+// socket
+import { getSocketIo } from "../socketManager.js";
 
 // utils
 import { updateName } from "./chatbotUtils/updateName.js";
@@ -16,29 +14,6 @@ import { handleExpensesAction } from "./chatbotUtils/handleExpensesAction.js";
 import { handleSavingsAction } from "./chatbotUtils/handleSavingsAction.js";
 import { handleInvestmentsAction } from "./chatbotUtils/handleInvestmentsAction.js";
 import { handleInsuranceAction } from "./chatbotUtils/handleInsuranceAction.js";
-
-// socket
-import http from "http";
-import { Server } from "socket.io";
-const server = http.createServer(app);
-
-const io = new Server(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL,
-    methods: ["GET", "POST"],
-  },
-});
-
-let socketIo;
-
-io.on("connection", (socket) => {
-  console.log(`User connected: ${socket.id}`);
-  socketIo = io;
-});
-
-server.listen(process.env.WS_PORT, () => {
-  console.log("WS server started on port", process.env.WS_PORT);
-});
 
 const sessionClient = new dialogflow.SessionsClient();
 
@@ -62,6 +37,8 @@ const intentToCheck = [
 ];
 
 export const processMessage = async (queries, user_id, authorization) => {
+  const socketIo = getSocketIo();
+
   const projectId = "testing-simplyask-npfp";
   const location = "global";
   const agentId = "526625c3-d9c8-4201-a6f9-c9fd3e204864";

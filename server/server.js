@@ -43,6 +43,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// socket
+import http from "http";
+import { initSocket } from "./socketManager.js";
+
+const server = http.createServer(app);
+initSocket(server);
+
 // routes - general
 app.use("/api/user", userRoute);
 app.use("/api/financials", financialRoute);
