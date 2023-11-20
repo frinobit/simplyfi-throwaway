@@ -7,6 +7,7 @@ const coverageSchema = new Schema({
     type: String,
     required: true,
   },
+  type: { type: String, enum: ["life", "general"], default: "life" },
   label: { type: String, default: "" },
   premium: { type: Number, default: 0 },
   death: { type: Number, default: 0 },

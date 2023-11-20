@@ -1,16 +1,16 @@
-import FileDetailsCSS from "../styles/components/FileDetails.module.css";
-import { useFilesContext } from "../hooks/useFilesContext";
-import { useAuthContext } from "../hooks/useAuthContext";
+import FileDetailsCSS from "../../styles/components/FileDetails.module.css";
+import { useFilesContext } from "../../hooks/useFilesContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 // api
-import { fetchFiles } from "../pages/api";
+import { fetchFiles } from "../../pages/api";
 
-const FileDetailsUploaded = ({ file }) => {
+const FileDetailsSummary = ({ file }) => {
   const { user } = useAuthContext();
   const { dispatch: filesDispatch } = useFilesContext();
 
-  const handleSummaryClick = async () => {
-    const response = await fetch("/openai/generate_summary", {
+  const handleDownloadClick = async () => {
+    const response = await fetch("/file/summary/" + file._id, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -22,12 +22,21 @@ const FileDetailsUploaded = ({ file }) => {
     });
 
     if (response.ok) {
-      fetchFiles(user, filesDispatch);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", file.fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } else {
+      console.error("Failed to download the file");
     }
   };
 
   const handleDeleteClick = async () => {
-    const response = await fetch("/file/policy/" + file._id, {
+    const response = await fetch("/file/summary/" + file._id, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -52,11 +61,11 @@ const FileDetailsUploaded = ({ file }) => {
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          onClick={handleSummaryClick}
+          onClick={handleDownloadClick}
         >
           <path
             fill="currentColor"
-            d="M7 17h2v-5H7v5Zm8 0h2V7h-2v10Zm-4 0h2v-3h-2v3Zm0-5h2v-2h-2v2Zm-6 9q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.588 1.413T19 21H5Zm0-2h14V5H5v14ZM5 5v14V5Z"
+            d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11l-5 5Zm-6 4q-.825 0-1.413-.588T4 18v-3h2v3h12v-3h2v3q0 .825-.588 1.413T18 20H6Z"
           />
         </svg>
         <svg
@@ -76,4 +85,4 @@ const FileDetailsUploaded = ({ file }) => {
   );
 };
 
-export default FileDetailsUploaded;
+export default FileDetailsSummary;

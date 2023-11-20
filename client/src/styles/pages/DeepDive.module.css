@@ -57,8 +57,17 @@
 .dragging {
   background-color: #f3c2b0;
 }
+h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
 p {
   white-space: pre-line;
+}
+.labelColumn,
+.otherColumns {
+  font-size: 14px;
+  font-weight: 500;
 }
 .labelColumn {
   width: 16%;
